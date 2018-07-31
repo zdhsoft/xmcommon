@@ -1,0 +1,15 @@
+{
+  "name": "xmcommon",
+  "version": "0.0.2",
+  "description": "javascript common lib for es6",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "common",
+    "lib"
+  ],
+  "author": "zdhsoft",
+  "license": "ISC"
+}
