@@ -1,1 +1,1 @@
-console.log('hello common lib');
+exports = module.exports = require('./lib');

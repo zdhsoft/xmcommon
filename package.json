@@ -1,15 +1,31 @@
 {
   "name": "xmcommon",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "javascript common lib for es6",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zdhsoft/xmcommon.git"
   },
   "keywords": [
     "common",
     "lib"
   ],
   "author": "zdhsoft",
-  "license": "ISC"
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/zdhsoft/xmcommon/blob/master/LICENSE"
+    }
+  ],
+  "dependencies": {
+    "lodash": "^4.17.10"
+  },
+  "bugs": {
+    "url": "https://github.com/zdhsoft/xmcommon/issues"
+  },
+  "homepage": "https://github.com/zdhsoft/xmcommon#readme"
 }
