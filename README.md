@@ -1,6 +1,9 @@
 # xmcommon
 一个js 通用库
 
+github: https://github.com/zdhsoft/xmcommon
+npm: https://www.npmjs.com/package/xmcommon
+
 ## 安装
 npm install xmcommon
 
