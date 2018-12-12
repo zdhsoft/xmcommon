@@ -16,5 +16,11 @@ function testwritedir(paramPath) {
 	log.info("v=" + v + ",v1=" + v1);
 }
 
-testLog();
-testwritedir();
+let a = `abc
+      bcd
+		aaaaa`;
+
+console.log(a);
+
+//testLog();
+//testwritedir();
