@@ -8,6 +8,10 @@ npm: https://www.npmjs.com/package/xmcommon
 npm install xmcommon
 
 # 版本变更说明
+## 0.08
+- 2018-12-21
+- \+ datetimeUtils 补全上次未能提交的函数
+
 ## 0.07
 - 2018-12-12
 - \+ datetimeUtils 增加了ToLocalTime,ToUTCTime,getTodayZeroTime,isSameDay等函数

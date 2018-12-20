@@ -14,3 +14,6 @@ console.log("dateStringByMillis:", datetimeUtils.dateStringByMillis(datetimeUtil
 console.log(datenow, datenowutc, datenow - datenowutc);
 console.log(datesecondnow, datesecondutcnow, datesecondnow - datesecondutcnow);
 console.log(datetimeUtils.dateStringByUTC(datetimeUtils.getTodayZeroTime(datenowutc)));
+
+let a = new Date();
+console.log(a.getTime(), Date.now());
