@@ -8,6 +8,12 @@ npm: https://www.npmjs.com/package/xmcommon
 npm install xmcommon
 
 # 版本变更说明
+## 0.09
+- 2019-02-12
+- \+ datetimeUtils 增加diffLocalDays，CalcLocalDaysByUTC，CalcLocalDaysByDate等函数
+- \+ datetimeUtils 修改getNow()的描述错误
+- \+ datetimeUtils 增加getLocalNow()和getLocalNowSecond()
+
 ## 0.08
 - 2018-12-21
 - \+ datetimeUtils 补全上次未能提交的函数
