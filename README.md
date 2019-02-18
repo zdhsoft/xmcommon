@@ -8,21 +8,32 @@ npm: https://www.npmjs.com/package/xmcommon
 npm install xmcommon
 
 # 版本变更说明
-## 0.09
+
+## 0.0.12
+- 2019-02-18
+- \+ 修改readme.md说明
+
+## 0.0.10
+
+
+- 2019-02-18
+- \+ 增加index.d.ts，使用的时候，可以在vscode有代码提示说明了
+
+## 0.0.9
 - 2019-02-10
 - \+ datetimeUtils 增加diffLocalDays，CalcLocalDaysByUTC，CalcLocalDaysByDate等函数
 - \+ datetimeUtils 修改getNow()的描述错误
 - \+ datetimeUtils 增加getLocalNow()和getLocalNowSecond()
 
-## 0.08
+## 0.0.8
 - 2018-12-21
 - \+ datetimeUtils 补全上次未能提交的函数
 
-## 0.07
+## 0.0.7
 - 2018-12-12
 - \+ datetimeUtils 增加了ToLocalTime,ToUTCTime,getTodayZeroTime,isSameDay等函数
 
-## 0.06
+## 0.0.6
 - 2018-11-01
 - \+ 增加了bitUtil对整数位处理函数，可以用于标志位处理
 - \+ 增加utils中的ToInteger, ToFloat, JsonParse和mkdirsSync等几个函数
