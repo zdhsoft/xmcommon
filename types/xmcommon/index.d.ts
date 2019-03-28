@@ -241,9 +241,12 @@ declare module "xmcommon" {
 		 * @static
 		 * @async
 		 * @memberOf utils
-		 * @param {function} paramFunc 要调用的函数
-		 * @param {...args} args 要调用的参数
-		 * @return {...args} 返回回调函数的传入参数列表
+		 * @param paramFunc 要调用的函数
+		 * @param args 要调用的参数
+		 * @return 返回回调函数的参数列表
+		 * @example
+		 * function test(paramCallback:function, arg1:any, arg2:any); //第一个参数是回调函数
+		 * await utils.WaitFunction(test, arg1, arg2);
 		 */
 		static WaitFunction(paramFunc:Function, ...args:any[]):any[];
 
@@ -257,9 +260,13 @@ declare module "xmcommon" {
 		 * @static
 		 * @async
 		 * @memberOf utils
-		 * @param {function} paramFunc 要调用的函数
-		 * @param {...args} args 要传给函数的参数数组
-		 */
+		 * @param  paramFunc 要调用的函数
+		 * @param  args 要传给函数的参数数组
+		 * @return 返回回调函数的参数列表
+		 * @example
+		 * function test(arg1:any, arg2:any, paramCallback:function); //回调函数在最后面
+		 * await utils.WaitFunctionEx(test, arg1, arg2);
+		 * 		 */
 		static WaitFunctionEx(paramFunc:Function, ...args:any[]):any[];
 
 		/**
@@ -267,24 +274,34 @@ declare module "xmcommon" {
 		 * @static
 		 * @async
 		 * @memberOf utils
-		 * @param {object} paramObject 要调用函数的对象实例
-		 * @param {String} paramFunc 要调用的函数名称
-		 * @param {...args} args 要调用的参数
-		 * @return {...args} 返回回调函数的传入参数列表
+		 * @param paramObject 要调用函数的对象实例
+		 * @param paramFunc 要调用的函数名称
+		 * @param args 要调用的参数
+		 * @return 返回回调函数的参数列表
+		 * @example
+		 * class CTest {
+		 * 	public function test(paramCallback:function, arg1:any, arg2:any);//第一个参数是回调函数
+		 * };
+		 * let t = new CTest();
+		 * await utils.WaitClassFunction(t, "test", arg1, arg2);
 		 */
 		static WaitClassFunction(paramObject:object, paramFunction:string, ...args:any[]):any[];
-
-
 		/**
-		 *  异步调用类成员函数,注意：要求第一个参数回调函数
+		 *  异步调用类成员函数,注意：要求最后一个参数回调函数
 		 * @static
 		 * @async
 		 * @memberOf utils
-		 * @param {object} paramObject 要调用函数的对象实例
-		 * @param {String} paramFunc 要调用的函数名称
-		 * @param {...args} args 要调用的参数
-		 * @return {...args} 返回回调函数的传入参数列表
-		 */
+		 * @param paramObject 要调用函数的对象实例
+		 * @param paramFunc 要调用的函数名称
+		 * @param args 要调用的参数
+		 * @return 返回回调函数的传入参数列表
+		 * @example
+		 * class CTest {
+		 * 	public function test(arg1:any, arg2:any， paramCallback:function); //回调函数在最后面
+		 * };
+		 * let t = new CTest();
+		 * await utils.WaitClassFunctionEx(t, "test", arg1, arg2);
+		*/
 		static WaitClassFunctionEx(paramObject:object, paramFunction:string, ...args:any[]):any[];
 
 		/**
@@ -310,25 +327,24 @@ declare module "xmcommon" {
 		 * 格式化显示容量
 		 *
 		 * @static
-		 * @param {Integer} v 要格式化的字节数
-		 * @return {String} 格式化的字符串
+		 * @param v 要格式化的字节数
+		 * @return 格式化的字符串
 		 * @memberof utils
 		 */
 		static formatMemory(v:number):string;
 
 		/**
 		 * 休眠指定的毫秒数
-		 * @param {Integer} paramT 要休眠的时长
-		 * @return {void} 无返回值
+		 * @param paramT 要休眠的时长
+		 * @return 无返回值
 		 */
 		static sleep(paramT:number):void;
-
 		/**
 		 * 将params的key和values分别变成两个数组
-		 * @param {object} params 参数表
-		 * @return {keyValuesReturn} 返回的结果
+		 * @param params 参数表
+		 * @return 返回的结果
 		 * */
-		static keyValues(params:object):keyValuesReturn;
+		static keyValues(params:{}):{keys:[string], values:[any]};
 
 		/**
 		 * 格式化数字显示方式
@@ -338,40 +354,47 @@ declare module "xmcommon" {
 		 * formatNumber(123,'000000');
 		 * @static
 		 * @memberOf utils
-		 * @param {Number} num 要格化的数字
-		 * @param {String} pattern 模式
-		 * @return {String} 格式化后的字符串
+		 * @param num 要格化的数字
+		 * @param pattern 模式
+		 * @return 格式化后的字符串
 		 */
 		static formatNumber(num:number, pattern:string):string;
 
 		/**
 		 * 将指定的内容，转换为整数，如果转换失败，则用缺省值
-		 * @param {String} paramSrcInteger 要被转换为整数的字符串
-		 * @param {Number} paramDefault 缺省值
-		 * @return {Number} 转换后的整数
+		 * @param paramSrcInteger 要被转换为整数的字符串
+		 * @param paramDefault 缺省值
+		 * @return 转换后的整数
 		 */
 		static ToInteger (paramSrcInteger:string, paramDefault:number):number;
 		/**
 		 * 将指定的内容，转换为数字，如果转换失败，则用缺省值
-		 * @param {string} paramSrcNumber 要被转换为数字的字符串
-		 * @param {number} paramDefault 缺省值
-		 * @return {number} 转换后的浮点数
+		 * @param paramSrcNumber 要被转换为数字的字符串
+		 * @param paramDefault 缺省值
+		 * @return 转换后的浮点数
 		 */
 		static ToFloat(paramSrcNumber:string, paramDefault:number):number;
 		/**
 		 * 将字符串转换为json，如果出错返回undefined
 		 * 这个主要的做是，对异常做了处理，减少其它地方对异常处理的问题。
-		 * @param {String} paramJsonString Json格式的字符串
-		 * @return {any} 转换后的对象
+		 * @param paramJsonString Json格式的字符串
+		 * @return 转换后的对象
 		 */
-		static JsonParse (paramJsonString:string):any;
+		static JsonParse (paramJsonString:string):{};
 		/**
 		 * 创建目录
-		 * @param {string} dirpath 要创建的目录,支持多层级创建
-		 * @param {number} mode 创建后，目录的权限，默认为0o777
-		 * @return {boolean} 返回创建结果
+		 * @param dirpath 要创建的目录,支持多层级创建
+		 * @param mode 创建后，目录的权限，默认为0o777
+		 * @return 返回创建结果
 		 */
 		static mkdirsSync(dirpath:string, mode:number):boolean;
+
+		/**
+		 * 解析参数列表
+		 * @param paramArgs 参数列表
+		 * @return _是未能识别的参数数组，args是识别后的参数对象
+		 */
+		static options(paramArgs:[string]):{_:[any], args:{} };
 	}
 
 

@@ -1,13 +1,40 @@
 # xmcommon
 一个js 通用库
 
-github: https://github.com/zdhsoft/xmcommon
-npm: https://www.npmjs.com/package/xmcommon
+- github: https://github.com/zdhsoft/xmcommon
+- npm: https://www.npmjs.com/package/xmcommon
 
 ## 安装
 npm install xmcommon
 
 # 版本变更说明
+
+## 0.0.13
+- 2019-03-28
+- \* 优化index.d.ts部分注释
+- \+ utils增加options对参数解析的方法  用于node启动后，传入参数的接收处理
+```js
+let {utils} = require("../lib/utils");
+let v = ["../tt", "--env", "aaaaa", "--version", "1.0.0", "aaaaa", "--flag", "true", "-aaaaa"];
+let k = utils.options(v);
+console.log(JSON.stringify(k, null, 2));
+//对于参数接收用  let k = utils.options(process.argv);
+```
+运行结果
+```json
+{
+  "_": [
+    "../tt",
+    "aaaaa",
+    "-aaaaa"
+  ],
+  "args": {
+    "env": "aaaaa",
+    "version": "1.0.0",
+    "flag": "true"
+  }
+}
+```
 
 ## 0.0.12
 - 2019-02-18

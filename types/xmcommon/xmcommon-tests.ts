@@ -6,5 +6,6 @@ import {utils, MemorySize, getLogger, SimpleCode}  from "xmcommon"
 
 let r = utils.keyValues({});
 let s:SimpleCode = new SimpleCode();
+let k = r.keys[0];
 
 let v = getLogger(__filename);
