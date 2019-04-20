@@ -75,27 +75,6 @@ declare module "xmcommon" {
 	}
 
 	/**
-	 * checkObjectProperty的返回结构
-	 */
-	interface checkObjectPropertyReturn {
-		/** 返回的错误码 */
-		code:number,
-		/** 多余的属性 */
-		extra:string[],
-		/** 缺少的属性 */
-		lack:string[]
-	}
-	/**
-	 * keyValuesReturn的返回结构
-	 */
-	interface keyValuesReturn {
-		/** keys列表 */
-		keys:string[];
-		/** 值列表 */
-		values:any[]
-	}
-
-	/**
 	 * 常用的工具函数类
 	 */
 	class utils {
@@ -111,42 +90,41 @@ declare module "xmcommon" {
 		 * 取调用堆栈
 		 * @static
 		 * @memberOf utils
-		 * @return {[NodeJS.CallSite]} 调用堆栈列表
+		 * @return 调用堆栈列表
 		 */
-		static GetStack(): any;
+		static GetStack(): NodeJS.CallSite [];
 
 		/**
 		 * 取当前调用所在的文件名
 		 * @static
 		 * @memberOf utils
-		 * @param {[NodeJS.CallSite]} stack 调用堆栈列表
+		 * @param  stack 调用堆栈列表
 		 * @return {string} 返回的文件名
 		 */
-		static GetFileNameByStack(stack:any):any;
+		static GetFileNameByStack(stack: NodeJS.CallSite[]):any;
 
 		/**
 		 * 将src的属性复制到dest,只要用for in能够访问到的，都需要复制
-		 * @param {Object} dest     接收属的目标
-		 * @param {Object} src      定义属性的目标
-		 * @return {void} 无返回
+		 * @param dest     接收属的目标
+		 * @param  src      定义属性的目标
 		 */
-		static dataAssign(dest:object, src:object):void;
+		static dataAssign(dest: any, src: any):void;
 
 		/**
 		 * 取当前调用所在的行号
 		 * @static
 		 * @memberOf utils
-		 * @param {[NodeJS.CallSite]} stack 调用堆栈列表
-		 * @return {number} 返回的行号
+		 * @param stack 调用堆栈列表
+		 * @return 返回的行号
 		 */
-		static GetLineNumberByStack(stack:any):number;
+		static GetLineNumberByStack(stack: NodeJS.CallSite[]):number;
 		/**
 		 * 取当前调用堆栈信息
 		 * @static
 		 * @memberOf utils
-		 * @return {NodeJS.CallSite} 当前的栈信息
+		 * @return 当前的栈信息
 		 */
-		static GetStackInfo() : any;
+		static GetStackInfo() : NodeJS.CallSite;
 		/**
 		 * 检查对象的属性，是否符号要求
 		 * + extra表示是多余的属性
@@ -158,56 +136,57 @@ declare module "xmcommon" {
 		 * - code = 1 表示缺少必要的属性
 		 * @static
 		 * @memberOf utils
-		 * @param {Object} paramDestObject 被检查的属性
-		 * @param {Object} paramSimpleObject 参考属性
-		 * @return {checkObjectPropertyReturn} 返回结果
+		 * @param paramDestObject 被检查的属性
+		 * @param paramSimpleObject 参考属性
+		 * @return 返回结果
 		 */
-		static checkObjectProperty(paramDestObject:object, paramSimpleObject:object): checkObjectPropertyReturn;
+        static checkObjectProperty(paramDestObject:any, paramSimpleObject:any): 
+            { code: number, extra:string[], lack:string[] };
 
 
 		/**
 		 * 判断指定的参数，是否是字符串类型
 		 * @static
 		 * @memberOf utils
-		 * @param {any} paramV 被检查的对象
-		 * @return {boolean} 是字符串对象，则返回true,否则返回false
+		 * @param paramV 被检查的对象
+		 * @return 是字符串对象，则返回true,否则返回false
 		 */
 		static isString(paramV:any):boolean;
 		/**
 		 * 判断指定的参数，是否是null或undefined
 		 * @static
 		 * @memberOf utils
-		 * @param {any} paramV 被检查的对象
-		 * @return {boolean} 如果是，则返回true,否则返回false
+		 * @param paramV 被检查的对象
+		 * @return 如果是，则返回true,否则返回false
 		 */
 		static isNull(paramV:any):boolean;
 		/**
 		 * 判断指定的参数，是否是function
 		 * @static
 		 * @memberOf utils
-		 * @param {any} paramV 被检查的对象
-		 * @return {boolean} 如果是，则返回true,否则返回false
+		 * @param paramV 被检查的对象
+		 * @return 如果是，则返回true,否则返回false
 		 */
 		static isFunction(paramV:any):boolean;
 		/**
 		 * 检查指定的参数，是否是整数
 		 * @static
-		 * @param {any} paramV 被检查的对象
-		 * @return {boolean} 如果是，则返回true,否则返回false
+		 * @param paramV 被检查的对象
+		 * @return 如果是，则返回true,否则返回false
 		 */
 		static isInteger(paramV:any):boolean;
 		/**
 		 * 检查指定的参数，是否是数组
 		 * @static
-		 * @param {any} paramV 被检查的对象
-		 * @return {boolean} 如果是，则返回true,否则返回false
+		 * @param paramV 被检查的对象
+		 * @return 如果是，则返回true,否则返回false
 		 */
 		static isArray(paramV:any):boolean;
 		/**
 		 * 检查指定的参数，是否是number
 		 * @static
-		 * @param {*} paramV 被检查的对象
-		 * @return {boolean} 如果是，则返回true,否则返回false
+		 * @param paramV 被检查的对象
+		 * @return 如果是，则返回true,否则返回false
 		 */
 		static isNumber(paramV:any) :boolean;
 
@@ -215,24 +194,24 @@ declare module "xmcommon" {
 		 * 判断指定的参数，是否是Object
 		 * @static
 		 * @memberOf utils
-		 * @param {any} paramV 被检查的对象
-		 * @return {boolean} 如果是，则返回true,否则返回false
+		 * @param paramV 被检查的对象
+		 * @return 如果是，则返回true,否则返回false
 		 */
 		static isObject(paramV:any):boolean;
 		/**
 		 * 判断指定的参数，是否不是 null或undefined
 		 * @static
 		 * @memberOf utils
-		 * @param {any} paramV 被检查的对象
-		 * @return {boolean} 如果是，则返回true,否则返回false
+		 * @param paramV 被检查的对象
+		 * @return 如果是，则返回true,否则返回false
 		 */
 		static isNotNull(paramV:any):boolean;
 		/**
 		 * 检查指定的对象,是不是字符串并且不为空串
 		 * @static
 		 * @memberOf utils
-		 * @param  {any} paramV 被检查的对象
-		 * @return {boolean} 检查结果 true表示是,false表示不是
+		 * @param paramV 被检查的对象
+		 * @return 检查结果 true表示是,false表示不是
 		 */
 		static isNotNullOrEmptyString(paramV:any):boolean;
 
@@ -285,7 +264,7 @@ declare module "xmcommon" {
 		 * let t = new CTest();
 		 * await utils.WaitClassFunction(t, "test", arg1, arg2);
 		 */
-		static WaitClassFunction(paramObject:object, paramFunction:string, ...args:any[]):any[];
+		static WaitClassFunction(paramObject:any, paramFunction:string, ...args:any[]):any[];
 		/**
 		 *  异步调用类成员函数,注意：要求最后一个参数回调函数
 		 * @static
@@ -302,25 +281,25 @@ declare module "xmcommon" {
 		 * let t = new CTest();
 		 * await utils.WaitClassFunctionEx(t, "test", arg1, arg2);
 		*/
-		static WaitClassFunctionEx(paramObject:object, paramFunction:string, ...args:any[]):any[];
+		static WaitClassFunctionEx(paramObject:any, paramFunction:string, ...args:any[]):any[];
 
 		/**
 		 * 设置DateTimeOffset值
 		 * @static
 		 * @memberOf utils
-		 * @param {Integer} datetime_offset 要偏移的时间，单位毫秒数
-		 * @return {boolean} 返回true表示设置成功，false表示设置失败，指传入的参数不是有效的整数
+		 * @param datetime_offset 要偏移的时间，单位毫秒数
+		 * @return 返回true表示设置成功，false表示设置失败，指传入的参数不是有效的整数
 		 */
 		static SetDateTimeOffset(datetime_offset:number):boolean;
 		/**
 		 * 取当前时间，会加上datetime_offset的值
 		 * 使用这个方法，主要是为了方便调试一些调整日期时间的计算
-		 * @return {Number} 当前有偏移的时间
+		 * @return 当前有偏移的时间
 		 */
 		static GetDateTimeNow():number;
 		/**
 		 * 取当前时间
-		 * @return {Number} 当前时间
+		 * @return 当前时间
 		 */
 		static GetCurrNow():number;
 		/**
@@ -344,7 +323,7 @@ declare module "xmcommon" {
 		 * @param params 参数表
 		 * @return 返回的结果
 		 * */
-		static keyValues(params:{}):{keys:[string], values:[any]};
+		static keyValues(params:any):{keys:string [], values:any []};
 
 		/**
 		 * 格式化数字显示方式
@@ -394,7 +373,7 @@ declare module "xmcommon" {
 		 * @param paramArgs 参数列表
 		 * @return _是未能识别的参数数组，args是识别后的参数对象
 		 */
-		static options(paramArgs:[string]):{_:[any], args:{} };
+		static options(paramArgs:string[]):{_:any [], args:any };
 	}
 
 
@@ -414,24 +393,24 @@ declare module "xmcommon" {
 
 	/**
 	 * 生成日志前缀
-	 * @param {string} paramFilename 当前的文件名
-	 * @param {...any} args 其它前缀
+	 * @param  paramFilename 当前的文件名
+	 * @param  args 其它前缀
 	 * @return {[shortpath, ...args]} 返回结果
 	 */
 	function logPrefix(paramFilename:string, ...args:string[]):string[];
 	/**
 	 * 取指定tag的log
 	 * 如果没有这个tag的日志，则创建一个
-	 * @param {String} tag 取指定tag的log
-	 * @return {LogConsole} 返回log
+	 * @param tag 取指定tag的log
+	 * @return 返回log
 	 */
 	function getLogger(tag:string):LogConsole;
 
 	/**
 	 * 取指定tag的local log
 	 * 如果没有这个tag的日志，则创建一个
-	 * @param {String} tag 取指定tag的log
-	 * @return {LogConsole} 返回log
+	 * @param tag 取指定tag的log
+	 * @return 返回log
 	 */
 	function getLocalLogger(tag:string):LogConsole;
 
@@ -439,8 +418,8 @@ declare module "xmcommon" {
 	 * 重新设置getLogger
 	 * - 返回true表示设置成功
 	 * - 返回false表示paramGetLogger不是一个函数
-	 * @param {function} paramGetLogger 新的getLogger函数实现，替换getLogger
-	 * @return {boolean} 设置结果
+	 * @param paramGetLogger 新的getLogger函数实现，替换getLogger
+	 * @return 设置结果
 	 */
 	function setGetLogger(paramGetLogger:Function):boolean;
 
@@ -450,30 +429,30 @@ declare module "xmcommon" {
 	class codeUtils{
 		/**
 		 * 对字符串进行Base64编码
-		 * @param {String} paramStringValue 要编码的字符串
-		 * @return {String} base64编码后的字符串
+		 * @param paramStringValue 要编码的字符串
+		 * @return base64编码后的字符串
 		 */
 		static StringBase64Encode(paramStringValue:string):string;
 		/**
 		 * 将字符串编码后base64还原成字符串
-		 * @param {string} paramBase64Value 编码后的base64字符串
-		 * @param {string} encoding 字符串编码，主要有utf-8等
-		 * @return {String} 返回解码后的字符串
+		 * @param paramBase64Value 编码后的base64字符串
+		 * @param encoding 字符串编码，主要有utf-8等
+		 * @return 返回解码后的字符串
 		 */
 		static StringBase64Decode(paramBase64Value:string, encoding?:string):string;
 		/**
 		 * 生成字符串的sha256编码
-		 * @param {String} paramText 要生成sha256的字符串
-		 * @param {String} paramKey sha256需要的key
-		 * @return {String} 小写十六进制的sha256字符串
+		 * @param paramText 要生成sha256的字符串
+		 * @param paramKey sha256需要的key
+		 * @return 小写十六进制的sha256字符串
 		 */
 		static HMacSHA256FromString(paramText:string, paramKey:string):string;
 
 		/**
 		 * 生成字符串的Hsha256编码，注意这个不是hmac的，纯sha256编码
-		 * @param {String} paramText 要生成sha256的字符串
-		 * @param {string} paramEncode 指定输出的编码类型 hex or base64
-		 * @return {String} 小写十六进制或BASE64的sha256字符串，如果指定的编码无效，则返回null
+		 * @param paramText 要生成sha256的字符串
+		 * @param paramEncode 指定输出的编码类型 hex or base64
+		 * @return 小写十六进制或BASE64的sha256字符串，如果指定的编码无效，则返回null
 		 */
 		static SHA256FromString(paramText:string, paramEncode:string):string;
 
@@ -483,7 +462,22 @@ declare module "xmcommon" {
 		 * @param {string} paramEncode 生成md5后的编码 hex表示是小写16进制字符串 base64表示的base64编码的字符串
 		 * @return {string} 生成的md5
 		 */
-		static MD5FromString(paramString:string, paramEncode?:string):string;
+        static MD5FromString(paramString:string, paramEncode?:string):string;
+        
+        /**
+         * 根据变参，将变参数连接起来后，生成md5
+         * @param paramOptions encode表示编码方式，可以是是hex或base64，默认为hex, 
+         * capital:表示是否是大小，默认是小写, split表示参数连接成符串时间隔字符串
+         * @param  args 可变参数
+         * @example
+         * let options = {
+         *  encode:'hex',  //不存在，则默认为hex
+         *  capital:false, //不存在，则默认为false,当encode为'hex'时有效
+         *  split:''       //不存在，则默认为''
+         * };
+         * console.log(codeUtils.MD5FromArgs(options, 1,2,3,4,"test"));
+         */
+       static MD5FromArgs(paramOptions:any, ...args:any[]) : string;
 	}
 
 	/**
@@ -492,23 +486,23 @@ declare module "xmcommon" {
 	class bitUtils {
 		/**
 		 * 检查是否是有效的标志位
-		 * @param {Number} paramBitSite 指定的标志位
-		 * @return {boolean}
+		 * @param paramBitSite 指定的标志位
+		 * @return 检查结果
 		 */
 		static isValidBitSite(paramBitSite:number):boolean;
 		/**
 		 * 取指定标志位的标
-		 * @param {Number} paramFlag 存放标志的31位整数
-		 * @param {Number} paramBitSite 对应的标志位，在[0,30]之间
-		 * @return {Number} 返回0或1
+		 * @param paramFlag 存放标志的31位整数
+		 * @param paramBitSite 对应的标志位，在[0,30]之间
+		 * @return 返回0或1
 		 */
 		static GetFlag(paramFlag:number, paramBitSite:number):number;
 		/**
 		 * 设置标志位的值
-		 * @param {Number} paramFlag 存放标志的31位整数
-		 * @param {Number} paramBitSite 对应的标志位，在[0,30]之间
-		 * @param {Number} paramValue 要设置的值，只能是0或1
-		 * @return {Number} 修改标志的新值
+		 * @param paramFlag 存放标志的31位整数
+		 * @param paramBitSite 对应的标志位，在[0,30]之间
+		 * @param paramValue 要设置的值，只能是0或1
+		 * @return 修改标志的新值
 		 */
 		static SetFlag(paramFlag:number, paramBitSite:number, paramValue:number):number;
 	}
@@ -524,8 +518,8 @@ declare module "xmcommon" {
 		 * 是否为OK
 		 *
 		 * @static
-		 * @param {Integer} err 要判断的错误码
-		 * @return {boolean} 判断结果 true表示是OK,否则表示是false
+		 * @param err 要判断的错误码
+		 * @return 判断结果 true表示是OK,否则表示是false
 		 *
 		 * @memberof errorUtils
 		 */
@@ -534,8 +528,8 @@ declare module "xmcommon" {
 		 * 是否为true
 		 *
 		 * @static
-		 * @param {integer} err 要判断的错误码
-		 * @return {boolean} 判断结果 err===ERR_TRUE表示是true, 否则表示是false
+		 * @param err 要判断的错误码
+		 * @return 判断结果 err===ERR_TRUE表示是true, 否则表示是false
 		 *
 		 * @memberof errorUtils
 		 */
@@ -544,8 +538,8 @@ declare module "xmcommon" {
 		 * 是否为false
 		 *
 		 * @static
-		 * @param {integer} err 要判断的错误码
-		 * @return {boolean} 判断结果 err===ERR_FALSE表示是true, 否则表示false
+		 * @param err 要判断的错误码
+		 * @return 判断结果 err===ERR_FALSE表示是true, 否则表示false
 		 *
 		 * @memberof errorUtils
 		 */
@@ -554,8 +548,8 @@ declare module "xmcommon" {
 		 * 是否不是OK
 		 *
 		 * @static
-		 * @param {Integer} err 要判断的错误码
-		 * @return {boolean } 判断结果 true表示不是OK, false表示是OK
+		 * @param err 要判断的错误码
+		 * @return 判断结果 true表示不是OK, false表示是OK
 		 *
 		 * @memberof errorUtils
 		 */
@@ -564,8 +558,8 @@ declare module "xmcommon" {
 		 * 是否不是ERR_FAIL
 		 *
 		 * @static
-		 * @param {Integer} err 要判断的错误码
-		 * @return {boolean} 判断结果 true表示是error_code.ERR_FAIL, false表示不是error_code.ERR_FAIL
+		 * @param err 要判断的错误码
+		 * @return 判断结果 true表示是error_code.ERR_FAIL, false表示不是error_code.ERR_FAIL
 		 *
 		 * @memberof errorUtils
 		 */
@@ -581,108 +575,105 @@ declare module "xmcommon" {
 	class common_ret {
 		/**
 		 * 构造函数
-		 * @param {number} err=error_common.ERR_OK 错误码
-		 * @param {string} msg="" 错误信息
-		 * @param {Object} data=null 携带数据
+		 * @param err=error_common.ERR_OK 错误码
+		 * @param msg="" 错误信息
+		 * @param data=null 携带数据
 		 */
-		constructor(err?:number,msg?:string, data?:object);
+		constructor(err?:number,msg?:string, data?:any);
 		/**
 		 * 设置错误信息
-		 * @param {number} err 错误码,参考constant.js中error_common定义
-		 * @param {string} msg="" 错误信息
-		 * @param {Object} data=null 数据
-		 * @param {string} msgpre=null 错误信息前缀 相当于执于了一次addErrorPre
-		 * @return {common_ret} 返回当前this
+		 * @param err 错误码,参考constant.js中error_common定义
+		 * @param msg="" 错误信息
+		 * @param data=null 数据
+		 * @param msgpre=null 错误信息前缀 相当于执于了一次addErrorPre
+		 * @return 返回当前this
 		 */
-		setError(err:number, msg?:string, data?:object, msgpre?:string):common_ret;
+		setError(err:number, msg?:string, data?:any, msgpre?:string):common_ret;
 		/**
 		 * 取错信息
-		 * @return {string} 返回含有错误码的错误信息
+		 * @return 返回含有错误码的错误信息
 		 */
 		getErrorInfo():string;
 		/**
 		 * 设置错误信息
-		 * @param {String} msg 设备错误信息
-		 * @param {String} msgPre=null 错误信息前缀
-		 * @return {void}
+		 * @param msg 设备错误信息
+		 * @param msgPre=null 错误信息前缀
 		 */
 		setErrorMsg(msg?:string, msgPre?:string):void;
 		/**
 		 * 取错误信息
-		 * @return {string} 返回错误信息
+		 * @return 返回错误信息
 		 */
 		getErrorMsg():string;
 
 		/**
 		 * 取错误码
-		 * @return {integer} 返回错误码
+		 * @return 返回错误码
 		 */
 		getErrorCode():number;
 		/**
 		 *
-		 * @param {integer} err=error_code.ERR_OK 设置错误码
-		 * @return {void}
+		 * @param err=error_code.ERR_OK 设置错误码
 		 */
 		setErrorCode(err?:number):void;
 
 		/**
 		 * 取携带数据
-		 * @return {Object} 携带的数据
+		 * @return 携带的数据
 		 */
-		getData():object;
+		getData(): any;
 		/**
 		 * 设置携带的数据
-		 * @param {Object} data=null 数据
-		 * @return {void}
+		 * @param  data=null 数据
 		 */
-		setData(data?:object):void;
+		setData(data?:any):void;
 
 		/**
 		 * 设置错误信息为ERR_OK;
-		 * @return {common_ret} 返回this
+		 * @return 返回this
 		 */
 		setErrorCodeOK():common_ret;
 		/**
 		 * 设为失败
-		 * @return {common_ret} 返回this
+		 * @return 返回this
 		 */
 		setErrorCodeFail():common_ret;
 		/**
 		 * 设为OK
-		 * @param {Object} data=null 携带的数据
-		 * @return {common_ret} 返回this
+		 * @param data=null 携带的数据
+		 * @return 返回this
 		 */
-		setOK(data?:object):common_ret;
+		setOK(data?: any): common_ret;
 		/**
 		 * 设为ERR_TRUE
-		 * @return {common_ret} 返回this
+		 * @return 返回this
 		 */
-		setTrue():common_ret;
+		setTrue(): common_ret;
 		/**
 		 * 设为ERR_FALSE
-		 * @return {common_ret} 返回this
+		 * @return 返回this
 		 */
-		setFalse():common_ret
+		setFalse(): common_ret
 		/**
 		 * 增加错误信息前缀
-		 * @param {String} msgPre 前缀
-		 * @return {common_ret} 返回this
+		 * @param msgPre 前缀
+		 * @return 返回this
 		 */
-		addErrorPre(msgPre:string):common_ret;
+		addErrorPre(msgPre: string): common_ret;
 		/**
 		 * 将错误信息复制到msgHead
 		 * 这个是专门针对协议中的msgHead
-		 * @param {Object} head 用于保存的消息头
-		 * @return {common_ret} 返回this
+		 * @param head 用于保存的消息头
+		 * @return 返回this
 		 */
-		copyTo(head:object):common_ret;
+		copyTo(head:any): common_ret;
 		/**
 		 * 将错误信息从head复制过来
 		 * 这个是专门针对协议中的msgHead
-		 * @param {Object} head 消息头
-		 * @return {common_ret} 返回this
+		 * @param head 消息头
+		 * @return 返回this
 		 */
-		setErrorFromMsghead(head:object):common_ret;
+		setErrorFromMsghead(head: any): common_ret;
 		//一组属性
 		readonly isOK:boolean;
 		readonly isNotOK:boolean;
@@ -808,13 +799,13 @@ declare module "xmcommon" {
 		 * 格式为YYYY-MM-DD HH:mm:ss.ddd
 		 *
 		 * @static
-		 * @param {Number} paramUTC 要转的日期对象
-		 * @param {boolean} [millsFlag=true] 是否带毫秒数
-		 * @param {String} [daysplit='-'] 日期分隔符
-		 * @param {String} [timesplit=':'] 时间分隔符
-		 * @param {String} [millissplit='.'] 毫秒分隔符
-		 * @param {String} [datetimesplit=' '] 日期和时间的分隔符
-		 * @return {String} 转换后的字符串, 如果是无效时间戳，则返回null
+		 * @param paramUTC 要转的日期对象
+		 * @param millsFlag 是否带毫秒数
+		 * @param daysplit 日期分隔符
+		 * @param timesplit 时间分隔符
+		 * @param millissplit 毫秒分隔符
+		 * @param datetimesplit 日期和时间的分隔符
+		 * @return 转换后的字符串, 如果是无效时间戳，则返回null
 		 *
 		 * @memberOf datetimeUtils
 		 */
@@ -898,41 +889,67 @@ declare module "xmcommon" {
 	class CHttpCall {
 		/**
 		 * 初始化函数
-		 * @param {string} paramHost host的地址
-		 * @param {number} paramPort host的端口
-		 * @return {void}
+		 * @param paramHost host的地址
+		 * @param paramPort host的端口
 		 */
 		init(paramHost:string, paramPort:number):void
 		/**
 		 * json get方式请求数据
-		 * @param {(code:number, data:object)} cb 完成后的回调函数
-		 * @param {String} path api路径 包括/ 如/guestlogin
-		 * @param {Object} msg 要发送的消息
-		 * @param {boolean} httpsFlag 是否是用https
-		 * @return {number} 错误码
+		 * @param cb 完成后的回调函数
+		 * @param path api路径 包括/ 如/guestlogin
+		 * @param msg 要发送的消息
+		 * @param httpsFlag 是否是用https
+		 * @return 错误码
 		 */
-		jsonGet(cb:(code:number,data:object)=>void, path:string, msg:string, httpsFlag?:boolean):number;
+		jsonGet(cb:(code:number,data:any)=>void, path:string, msg:string, httpsFlag?:boolean):number;
 
-	/**
+	    /**
 		 * json post方式请求数据,传入的消息是字符串
-		 * @param {(code:number, data:object)} cb 完成后的回调函数
-		 * @param {String} path api路径 包括/ 如/guestlogin
-		 * @param {String} msg 要发送的消息
-		 * @param {Object} paramHeaders 自定义的http头
-		 * @param {boolean} paramHttpsFlag 是否使用 https
-		 * @return {number} 错误码
+		 * @param cb 完成后的回调函数
+		 * @param path api路径 包括/ 如/guestlogin
+		 * @param msg 要发送的消息
+		 * @param paramHeaders 自定义的http头
+		 * @param paramHttpsFlag 是否使用 https
+		 * @return 错误码
 		 */
-		jsonPostStringBody(cb:(code:number,data:object)=>void, path:string, msg:string, paramHeaders:object, paramHttpsFlag?:boolean):number;
+		jsonPostStringBody(cb:(code:number,data:any)=>void, path:string, msg:string, paramHeaders:any, paramHttpsFlag?:boolean):number;
 		/**
 		 * json post方式请求数据
-		 * @param {(code:number, data:object)} cb 完成后的回调函数
-		 * @param {String} path api路径 包括/ 如/guestlogin
-		 * @param {Object} msg 要发送的消息
-		 * @param {Object} paramHeaders 自定义的http头
-		 * @param {boolean} paramHttpsFlag 是否使用 https
-		 * @return {number} 错误码
+		 * @param cb 完成后的回调函数
+		 * @param path api路径 包括/ 如/guestlogin
+		 * @param msg 要发送的消息
+		 * @param paramHeaders 自定义的http头
+		 * @param paramHttpsFlag 是否使用 https
+		 * @return 错误码
 		 */
-		jsonPost(cb:(code:number,data:object)=>void, path:string, msg:object, paramHeaders:object, paramHttpsFlag?:boolean):number;
+        jsonPost(cb:(code:number,data:any)=>void, path:string, msg:any, paramHeaders:any, paramHttpsFlag?:boolean):number;
+        
+        /**
+         *同步的json post方式请求数据
+        * @async
+        * @param path api路径 包括/ 如/guestlogin 
+        * @param msg 要发送的消息 
+        * @param paramHeaders 自定义的http头
+        * @param paramHttpsFlag 是否使用 https
+        * @return 响应的错误和数据
+        * @example
+        * async function test() {
+        *  let h = new CHttpCall();
+        *  h.init('127.0.0.1', 80);
+        *  let r = await h.asyncJsonPost('/api/test', {name:'test'});
+        *  console.log(r);
+        * }
+        */
+        asyncJsonPost(path:string, msg:any, paramHeaders?:any, paramHttpsFlag?:boolean): {code:number, data:any};  
+        /**
+         * json get方式请求数据，要求返回的数据为JSON数据
+         * @async
+         * @param path api路径 包括/ 如/guestlogin 
+         * @param msg 要发送的消息 
+         * @param  httpsFlag 是否是用https
+         * @return {{code:number, data:object}} 响应数据
+         */    
+        asyncJsonGet(path:string, msg: any, httpsFlag?:boolean) :{code:number, data:any};          
 	}
 	/**
 	 * CHttpCall一个实例
@@ -949,40 +966,39 @@ declare module "xmcommon" {
 	class SimpleCode {
 		/**
 		 * 数据编码
-		 * @param {number} paramSeed 编码种子
-		 * @param {Buffer} paramData 要编码的数据
-		 * @return {{code:number, seed:number, data:Buffer}} 返回处理结果，code==0表示成功，其它值表示失败， seed表示编码的种子， data表示编码后的数据
+		 * @param paramSeed 编码种子
+		 * @param paramData 要编码的数据
+		 * @return 返回处理结果，code==0表示成功，其它值表示失败， seed表示编码的种子， data表示编码后的数据
 		 */
 		Encode(paramSeed:number, paramData:Buffer):{code:number,seed:number, data:Buffer};
 		/**
 		 * 数据解码
-		 * @param {number} paramSeed 初始种子
-		 * @param {Buffer} paramData 编码后的数据
-		 * @return {{code:number, seed:number, data:Buffer}} 返回处理结果，code==0表示成功，其它值表示失败， seed表示解码的种子， data表示解码后的数据
+		 * @param paramSeed 初始种子
+		 * @param paramData 编码后的数据
+		 * @return 返回处理结果，code==0表示成功，其它值表示失败， seed表示解码的种子， data表示解码后的数据
 		 */
 		Decode(paramSeed:number, paramData:Buffer):{code:number, seed:number, data:Buffer};
 		/**
 		 * 生数据编码包
-		 * @param {number} paramSeed 初始种子
-		 * @param {Buffer} paramData 要编码的数据
-		 * @return {{code:number, seed:number, data:Buffer}} 返回处理结果，code==0表示成功，其它值表示失败， seed表示编码的种子， data表示编码后的数据
+		 * @param paramSeed 初始种子
+		 * @param paramData 要编码的数据
+		 * @return 返回处理结果，code==0表示成功，其它值表示失败， seed表示编码的种子， data表示编码后的数据
 		 */
 		EncodePackage(paramSeed:number, paramData:Buffer):{code:number, seed:number, data:Buffer};
 		/**
 		 * 数据解码包
-		 * @param {Buffer} 经EncodePackage编码的数据
-		 * @return {{code:integer, seed:integer, data:Buffer}} 返回处理结果，code==0表示成功，其它值表示失败， seed表示解码的种子， data表示解码后的数据
+		 * @param 经EncodePackage编码的数据
+		 * @return 返回处理结果，code==0表示成功，其它值表示失败， seed表示解码的种子， data表示解码后的数据
 		 */
 		DecodePackage(paramData:Buffer):{code:number, seed:number, data:Buffer};
 	}
 	/**
 	 * watch指定的js文件，并加载回调
 	 * 这个主要是用于动态加载
-	 * @param {Function} paramCallback 文件有变化，加载后的回调函数
-	 * @param {string} paramPath 环境所在的路径
-	 * @param {string} paramFile 要watch的文件名
-	 * @param {boolean} paramChangeCallback 有变化才回调
-	 * @return {void}
+	 * @param paramCallback 文件有变化，加载后的回调函数
+	 * @param paramPath 环境所在的路径
+	 * @param paramFile 要watch的文件名
+	 * @param paramChangeCallback 有变化才回调
 	 */
 	function watchRequire(paramCallback:(data:any)=>void, paramPath:string, paramFile:string, paramChangeCallback?:boolean):void;
 

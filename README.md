@@ -7,7 +7,27 @@
 ## 安装
 npm install xmcommon
 
+# 主要模块说明
+- datetimeUtils 日期时间相关的处理工具函数
+- utils 一些常用的工具类函数
+- HttpCall 全局的CHttpCall对象
+- CHttpCall 提供api调用接口的http或https的函数调用类
+- watchRequire 监控文化变化的函数
+- SimpleCode 一种换位加编码的类
+- getLogger 取日志对象的函数
+- setGetLogger 设置getLogger函数的函数，用于替换现有的getLogger函数
+- codeUtils 一些编码相关的函数，有md5，sha254，base64等函数
+- error_common,error_utils 通用错误信息和错误相关函数
+- common_ret 通用返回的类
+- bitUtils 二进制标志的工具类
+
 # 版本变更说明
+
+## 0.0.14 
+- 2019-04-20
+- \* 优化index.d.ts部分注释, 将object变化any, 将[string]变化string[] 这样在typescript的可以正常使用
+- \+ codeUtils增加MD5FromArgs 
+- \+ CHttpCall 增加 asyncJsonPost 和 asyncJsonGet方法
 
 ## 0.0.13
 - 2019-03-28

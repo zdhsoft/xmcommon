@@ -16,11 +16,25 @@ function testwritedir(paramPath) {
 	log.info("v=" + v + ",v1=" + v1);
 }
 
-let a = `abc
-      bcd
-		aaaaa`;
+function testCode() {
+    let {codeUtils} = require('../index');
+    let a = [1,2,3,4];
+    let s = a.join(',');
+    let m1 = codeUtils.MD5FromString(s, 'base64');
+    let m2 = codeUtils.MD5FromArgs({encode:'base64', capital:true, split:','}, ...a);
+    console.log(m1,'\n', m2);
+}
 
-console.log(a);
+async function testHttpCall() {
+    let {CHttpCall} = require("../index");
+    let h = new CHttpCall();
+    h.init('127.0.0.1', 7369);
+    let r = await h.asyncJsonPost('/applist/appid', {});
+    console.log(JSON.stringify(r, null, 2));
+}
+
+//testHttpCall();
+testCode();
 
 //testLog();
 //testwritedir();
