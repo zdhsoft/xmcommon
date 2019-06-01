@@ -140,7 +140,7 @@ declare module "xmcommon" {
 		 * @param paramSimpleObject 参考属性
 		 * @return 返回结果
 		 */
-        static checkObjectProperty(paramDestObject:any, paramSimpleObject:any): 
+        static checkObjectProperty(paramDestObject:any, paramSimpleObject:any):
             { code: number, extra:string[], lack:string[] };
 
 
@@ -463,10 +463,10 @@ declare module "xmcommon" {
 		 * @return {string} 生成的md5
 		 */
         static MD5FromString(paramString:string, paramEncode?:string):string;
-        
+
         /**
          * 根据变参，将变参数连接起来后，生成md5
-         * @param paramOptions encode表示编码方式，可以是是hex或base64，默认为hex, 
+         * @param paramOptions encode表示编码方式，可以是是hex或base64，默认为hex,
          * capital:表示是否是大小，默认是小写, split表示参数连接成符串时间隔字符串
          * @param  args 可变参数
          * @example
@@ -923,12 +923,12 @@ declare module "xmcommon" {
 		 * @return 错误码
 		 */
         jsonPost(cb:(code:number,data:any)=>void, path:string, msg:any, paramHeaders:any, paramHttpsFlag?:boolean):number;
-        
+
         /**
          *同步的json post方式请求数据
         * @async
-        * @param path api路径 包括/ 如/guestlogin 
-        * @param msg 要发送的消息 
+        * @param path api路径 包括/ 如/guestlogin
+        * @param msg 要发送的消息
         * @param paramHeaders 自定义的http头
         * @param paramHttpsFlag 是否使用 https
         * @return 响应的错误和数据
@@ -940,16 +940,16 @@ declare module "xmcommon" {
         *  console.log(r);
         * }
         */
-        asyncJsonPost(path:string, msg:any, paramHeaders?:any, paramHttpsFlag?:boolean): {code:number, data:any};  
+        asyncJsonPost(path:string, msg:any, paramHeaders?:any, paramHttpsFlag?:boolean): {code:number, data:any};
         /**
          * json get方式请求数据，要求返回的数据为JSON数据
          * @async
-         * @param path api路径 包括/ 如/guestlogin 
-         * @param msg 要发送的消息 
+         * @param path api路径 包括/ 如/guestlogin
+         * @param msg 要发送的消息
          * @param  httpsFlag 是否是用https
          * @return {{code:number, data:object}} 响应数据
-         */    
-        asyncJsonGet(path:string, msg: any, httpsFlag?:boolean) :{code:number, data:any};          
+         */
+        asyncJsonGet(path:string, msg: any, httpsFlag?:boolean) :{code:number, data:any};
 	}
 	/**
 	 * CHttpCall一个实例
@@ -1002,4 +1002,127 @@ declare module "xmcommon" {
 	 */
 	function watchRequire(paramCallback:(data:any)=>void, paramPath:string, paramFile:string, paramChangeCallback?:boolean):void;
 
+
+	/**
+	 * 货币类
+	 * 一个专门用于中文货币运算的的类，解决货币运算过程中问题
+	 * @maxvalue 90071992547409.91
+	 * @minvalue -90071992547409.91
+	 * @example
+	 * let m = [];
+	 * let c = new CNYCurrency(-12345);
+	 * m.push(c);
+	 * m.push(c.add(109999));
+	 * m.push(c.sub(10));
+	 * m.push(c.div(0.01));
+	 * m.push(c.mul(10));
+	 * m.push(c.mul(0.01));
+	 *
+	 * let tt = new CNYCurrency(0);
+	 * tt.selfAdd(2805307.04);
+	 * tt.selfAdd(4323515.28);
+	 * tt.selfAdd(2805307.04);
+	 * tt.selfAdd(3281107.13);
+	 * m.push(tt);
+	 *
+	 * for(let mm of m) {
+	 *      console.log(mm.value, mm.intValue, mm.toString(), mm.format(true, true), mm.Chinese());
+	 * }
+	 *
+	 * //输出结果
+	 * //-12345 -1234500 -12345.00 ￥-1,2345.00 负壹万贰千叁佰肆拾伍元整
+	 * //97654 9765400 97654.00 ￥9,7654.00 玖万柒千陆佰伍拾肆元整
+	 * //-12355 -1235500 -12355.00 ￥-1,2355.00 负壹万贰千叁佰伍拾伍元整
+	 * //-1234500 -123450000 -1234500.00 ￥-123,4500.00 负壹佰贰拾叁万肆千伍佰元整
+	 * //-123450 -12345000 -123450.00 ￥-12,3450.00 负拾贰万叁千肆佰伍拾元整
+	 * //-123.45 -12345 -123.45 ￥-123.45 负壹佰贰拾叁元肆角伍分
+	 * //13215236.49 1321523649 13215236.49 ￥1321,5236.49 壹千叁佰贰拾壹万伍千贰佰叁拾陆元肆角玖分
+	 */
+	class CNYCurrency {
+        /**  */
+        /**
+         * 构造函数
+         * @param paramValue 初始值
+         */
+	    public constructor(paramValue: number | string | CNYCurrency);
+	    /** 货币值 */
+	    readonly value : number;
+	    /** 货币整数值，精确到分 */
+	    readonly intValue : number;
+	    /** 是否有错 */
+	    readonly isErr : boolean
+	    /** 错误信息 */
+	    readonly errMsg : string;
+	    /** 重置为0 */
+	    Reset() : void;
+	    /**
+	     * 加一个值
+	     * @param paramNumber 值
+	     * @return 返回计算后的Currency对象
+	     */
+	    add(paramNumber: number | string | CNYCurrency): CNYCurrency;
+	    /**
+	     * 自加一个值
+	     * @param paramNumber 值
+	     * @return 返回自己
+	     */
+	    selfAdd(paramNumber: number | string | CNYCurrency): CNYCurrency;
+	    /**
+	     * 减一个值
+	     * @param paramNumber 值
+	     * @return 返回计算后的Currency对象
+	     */
+	    sub(paramNumber: number | string | CNYCurrency): CNYCurrency;
+	    /**
+	     * 自减一个值
+	     * @param paramNumber 值
+	     * @return 返回计算后的Currency对象
+	     */
+	    selfSub(paramNumber: number | string | CNYCurrency): CNYCurrency;
+	    /**
+	     * 乘一个值
+	     * @param paramNumber 值
+	     * @return 返回计算后的Currency对象
+	     */
+	    mul(paramNumber: number | string | CNYCurrency): CNYCurrency;
+	    /**
+	     * 自乘一个值
+	     * @param paramNumber 值
+	     * @return 返回计算后的Currency对象
+	     */
+	    selfMul(paramNumber: number | string | CNYCurrency): CNYCurrency;
+	    /**
+	     * 除以一个值
+	     * @param paramNumber 值
+	     * @return 返回计算后的Currency对象
+	     */
+	    div(paramNumber: number | string | CNYCurrency): CNYCurrency;
+	    /**
+	     * 自除以一个值
+	     * @param paramNumber 值
+	     * @return 返回计算后的Currency对象
+	     */
+	    selfDiv(paramNumber: number | string | CNYCurrency): CNYCurrency;
+	    /**
+	     * 货币的整数部分
+	     * @return 返回整数
+	     */
+	    readonly yuan: number;
+	    /**
+	     * 货币的小数部分，单位为分
+	     */
+	    readonly cent: number;
+	    /**
+	     * 生成中文大写数字
+	     * @return 中文大写结果
+	     */
+	    Chinese(): string;
+	    /**
+	     * 格式化输出
+	     * @param paramUseSymbol 是否带有"￥"符号
+	     * @param paramCNYsplit 是否以中文四数字一组
+	     * @return 生成后的字符串
+	     */
+        format(paramUseSymbol: boolean, paramCNYsplit: boolean): string;
+	}
 }

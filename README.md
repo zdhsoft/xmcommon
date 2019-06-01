@@ -23,10 +23,14 @@ npm install xmcommon
 
 # 版本变更说明
 
-## 0.0.14 
+## 0.0.15
+- 2019-06-01
+- \+ 增加CNYCurrency 中文货币类
+
+## 0.0.14
 - 2019-04-20
 - \* 优化index.d.ts部分注释, 将object变化any, 将[string]变化string[] 这样在typescript的可以正常使用
-- \+ codeUtils增加MD5FromArgs 
+- \+ codeUtils增加MD5FromArgs
 - \+ CHttpCall 增加 asyncJsonPost 和 asyncJsonGet方法
 
 ## 0.0.13

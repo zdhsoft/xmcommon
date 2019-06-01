@@ -1,6 +1,6 @@
 {
   "name": "xmcommon",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "javascript common lib for es6",
   "main": "index.js",
   "types": "./types/xmcommon/index.d.ts",
