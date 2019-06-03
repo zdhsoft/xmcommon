@@ -1,13 +1,16 @@
 # xmcommon
+
 一个js 通用库
 
 - github: https://github.com/zdhsoft/xmcommon
 - npm: https://www.npmjs.com/package/xmcommon
 
 ## 安装
+
 npm install xmcommon
 
 # 主要模块说明
+
 - datetimeUtils 日期时间相关的处理工具函数
 - utils 一些常用的工具类函数
 - HttpCall 全局的CHttpCall对象
@@ -20,9 +23,42 @@ npm install xmcommon
 - error_common,error_utils 通用错误信息和错误相关函数
 - common_ret 通用返回的类
 - bitUtils 二进制标志的工具类
+- CNYCurrency 中文货币类
 
 # 版本变更说明
+## 0.0.16
+- 2019-06-03
+- \* 修复生成大写的bug，主要是百==>佰  千==>仟
+```js
+let m = [];
+let c = new CNYCurrency(-12345);
+m.push(c);
+m.push(c.add(109999));
+m.push(c.sub(10));
+m.push(c.div(0.01));
+m.push(c.mul(10));
+m.push(c.mul(0.01));
 
+let tt = new CNYCurrency(0);
+tt.selfAdd(2805307.04);
+tt.selfAdd(4323515.28);
+tt.selfAdd(2805307.04);
+tt.selfAdd(3281107.13);
+m.push(tt);
+
+for(let mm of m) {
+    console.log(mm.value, mm.intValue, mm.toString(), mm.format(true, true), mm.Chinese());
+}
+
+//输出结果
+//-12345 -1234500 -12345.00 ￥-1,2345.00 负壹万贰仟叁佰肆拾伍元整
+//97654 9765400 97654.00 ￥9,7654.00 玖万柒仟陆佰伍拾肆元整
+//-12355 -1235500 -12355.00 ￥-1,2355.00 负壹万贰仟叁佰伍拾伍元整
+//-1234500 -123450000 -1234500.00 ￥-123,4500.00 负壹佰贰拾叁万肆仟伍佰元整
+//-123450 -12345000 -123450.00 ￥-12,3450.00 负拾贰万叁仟肆佰伍拾元整
+//-123.45 -12345 -123.45 ￥-123.45 负壹佰贰拾叁元肆角伍分
+//13215236.49 1321523649 13215236.49 ￥1321,5236.49 壹仟叁佰贰拾壹万伍仟贰佰叁拾陆元肆角玖分
+```
 ## 0.0.15
 - 2019-06-01
 - \+ 增加CNYCurrency 中文货币类
