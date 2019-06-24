@@ -36,7 +36,7 @@ npm install xmcommon
 - 2019-06-24
 - \* 增加CNYCurrency构造函数默认值0, 如果传入null或undefined也视为0, 测试CNYCurrency 1-100000000之间的值
 - \+ CNYCurrency 增加assign赋值函数
-- \* 将utils.JsonParse的定义返回值由{}改为any
+- \* 将index.d.ts中的utils.JsonParse的定义返回值由{}改为any
 
 ## 0.0.16
 
