@@ -1,9 +1,13 @@
 # xmcommon
 
-一个js 通用库
+一个js 通用库, 将一些常用的函数之类的，移到这里方便使用
 
 - github: https://github.com/zdhsoft/xmcommon
 - npm: https://www.npmjs.com/package/xmcommon
+
+## 目录
+
+[TOC]
 
 ## 安装
 
@@ -26,9 +30,19 @@ npm install xmcommon
 - CNYCurrency 中文货币类
 
 # 版本变更说明
+
+## 0.0.17
+
+- 2019-06-24
+- \* 增加CNYCurrency构造函数默认值0, 如果传入null或undefined也视为0, 测试CNYCurrency 1-100000000之间的值
+- \+ CNYCurrency 增加assign赋值函数
+- \* 将utils.JsonParse的定义返回值由{}改为any
+
 ## 0.0.16
+
 - 2019-06-03
 - \* 修复生成大写的bug，主要是百==>佰  千==>仟
+
 ```js
 let m = [];
 let c = new CNYCurrency(-12345);
@@ -46,6 +60,7 @@ tt.selfAdd(2805307.04);
 tt.selfAdd(3281107.13);
 m.push(tt);
 
+
 for(let mm of m) {
     console.log(mm.value, mm.intValue, mm.toString(), mm.format(true, true), mm.Chinese());
 }
@@ -59,20 +74,25 @@ for(let mm of m) {
 //-123.45 -12345 -123.45 ￥-123.45 负壹佰贰拾叁元肆角伍分
 //13215236.49 1321523649 13215236.49 ￥1321,5236.49 壹仟叁佰贰拾壹万伍仟贰佰叁拾陆元肆角玖分
 ```
+
 ## 0.0.15
+
 - 2019-06-01
 - \+ 增加CNYCurrency 中文货币类
 
 ## 0.0.14
+
 - 2019-04-20
 - \* 优化index.d.ts部分注释, 将object变化any, 将[string]变化string[] 这样在typescript的可以正常使用
 - \+ codeUtils增加MD5FromArgs
 - \+ CHttpCall 增加 asyncJsonPost 和 asyncJsonGet方法
 
 ## 0.0.13
+
 - 2019-03-28
 - \* 优化index.d.ts部分注释
 - \+ utils增加options对参数解析的方法  用于node启动后，传入参数的接收处理
+
 ```js
 let {utils} = require("../lib/utils");
 let v = ["../tt", "--env", "aaaaa", "--version", "1.0.0", "aaaaa", "--flag", "true", "-aaaaa"];
@@ -80,7 +100,9 @@ let k = utils.options(v);
 console.log(JSON.stringify(k, null, 2));
 //对于参数接收用  let k = utils.options(process.argv);
 ```
+
 运行结果
+
 ```json
 {
   "_": [
@@ -97,40 +119,48 @@ console.log(JSON.stringify(k, null, 2));
 ```
 
 ## 0.0.12
+
 - 2019-02-18
 - \+ 修改readme.md说明
 
 ## 0.0.10
 
-
 - 2019-02-18
 - \+ 增加index.d.ts，使用的时候，可以在vscode有代码提示说明了
 
 ## 0.0.9
+
 - 2019-02-10
 - \+ datetimeUtils 增加diffLocalDays，CalcLocalDaysByUTC，CalcLocalDaysByDate等函数
 - \+ datetimeUtils 修改getNow()的描述错误
 - \+ datetimeUtils 增加getLocalNow()和getLocalNowSecond()
 
 ## 0.0.8
+
 - 2018-12-21
 - \+ datetimeUtils 补全上次未能提交的函数
 
 ## 0.0.7
+
 - 2018-12-12
 - \+ datetimeUtils 增加了ToLocalTime,ToUTCTime,getTodayZeroTime,isSameDay等函数
 
 ## 0.0.6
+
 - 2018-11-01
 - \+ 增加了bitUtil对整数位处理函数，可以用于标志位处理
 - \+ 增加utils中的ToInteger, ToFloat, JsonParse和mkdirsSync等几个函数
+
 ## 0.0.5
+
 - 2018-10-31
 - \* 更新依赖包 lodash 4.17.10 -->4.17.11
 
 ## 0.0.4
+
 - 2018-10-31
 - \+ 增加日志前缀缩短处理
+
 ```js
 //文件:example/test.js
 let comm = require("xmcommon");
@@ -138,6 +168,9 @@ let log = comm.getLogger(__filename);
 log.info("hello world");
 //[example\test 2018-10-31 19:29:09.802  INFO] hello world
 ```
+
 ---
+
 ## 0.0.3
+
 - 初始版本

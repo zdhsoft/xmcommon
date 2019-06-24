@@ -17,6 +17,26 @@ tt.selfAdd(2805307.04);
 tt.selfAdd(3281107.13);
 m.push(tt);
 
+let ccc = new CNYCurrency();
+let y = new CNYCurrency(null);
+
+m.push(ccc);
+
 for(let mm of m) {
     console.log(mm.value, mm.intValue, mm.toString(), mm.format(true, true), mm.Chinese());
 }
+
+for(let i = 0; i < 100000000; i++) {
+    ccc.intValue = i;
+    let y = ccc.yuan;
+    let c = ccc.cent;
+    let s = y.toString() + '.' + c.toString().padStart(2, '0');
+    if (i % 1000 === 0) {
+        console.log(i);
+    }
+    if(s !== ccc.toString()) {
+        console.log(console.log(ccc.toString(), s, ccc.yuan, ccc.cent));
+    }
+
+}
+console.log('finish');

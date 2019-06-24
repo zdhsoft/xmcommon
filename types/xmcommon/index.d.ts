@@ -359,7 +359,7 @@ declare module "xmcommon" {
 		 * @param paramJsonString Json格式的字符串
 		 * @return 转换后的对象
 		 */
-		static JsonParse (paramJsonString:string):{};
+		static JsonParse (paramJsonString:string): any;
 		/**
 		 * 创建目录
 		 * @param dirpath 要创建的目录,支持多层级创建
@@ -382,11 +382,11 @@ declare module "xmcommon" {
 	 */
 	interface LogConsole {
 		/** 名称或tag */
-		name: string;
+		readonly name: string;
 		trace(...paramLog:any[]):void;
 		debug(...paramLog:any[]):void;
-		info(...paramLog:any[]):void;
-		warn(...paramLog:any[]):void;
+		info (...paramLog:any[]):void;
+		warn (...paramLog:any[]):void;
 		error(...paramLog:any[]):void;
 		fatal(...paramLog:any[]):void;
 	}
@@ -1002,7 +1002,6 @@ declare module "xmcommon" {
 	 */
 	function watchRequire(paramCallback:(data:any)=>void, paramPath:string, paramFile:string, paramChangeCallback?:boolean):void;
 
-
 	/**
 	 * 货币类
 	 * 一个专门用于中文货币运算的的类，解决货币运算过程中问题
@@ -1038,91 +1037,97 @@ declare module "xmcommon" {
 	 * //-123.45 -12345 -123.45 ￥-123.45 负壹佰贰拾叁元肆角伍分
 	 * //13215236.49 1321523649 13215236.49 ￥1321,5236.49 壹千叁佰贰拾壹万伍千贰佰叁拾陆元肆角玖分
 	 */
-	class CNYCurrency {
+     class CNYCurrency {
         /**  */
         /**
          * 构造函数
          * @param paramValue 初始值
          */
-	    public constructor(paramValue: number | string | CNYCurrency);
+	    public constructor(paramValue: number | string | CNYCurrency | null | undefined);
 	    /** 货币值 */
-	    readonly value : number;
+	    public readonly value : number;
 	    /** 货币整数值，精确到分 */
-	    readonly intValue : number;
+	    public readonly intValue : number;
 	    /** 是否有错 */
-	    readonly isErr : boolean
+	    public readonly isErr : boolean
 	    /** 错误信息 */
-	    readonly errMsg : string;
+	    public readonly errMsg : string;
 	    /** 重置为0 */
-	    Reset() : void;
+        public Reset() : void;
+        /**
+         * 赋值
+         * @param paramValue 新值
+         * @return 返回当前对象
+         */
+        public assign(paramValue: number | string | CNYCurrency | null | undefined): CNYCurrency;
 	    /**
 	     * 加一个值
 	     * @param paramNumber 值
 	     * @return 返回计算后的Currency对象
 	     */
-	    add(paramNumber: number | string | CNYCurrency): CNYCurrency;
+	    public add(paramNumber: number | string | CNYCurrency | null | undefined): CNYCurrency;
 	    /**
 	     * 自加一个值
 	     * @param paramNumber 值
 	     * @return 返回自己
 	     */
-	    selfAdd(paramNumber: number | string | CNYCurrency): CNYCurrency;
+	    public selfAdd(paramNumber: number | string | CNYCurrency | null | undefined): CNYCurrency;
 	    /**
 	     * 减一个值
 	     * @param paramNumber 值
 	     * @return 返回计算后的Currency对象
 	     */
-	    sub(paramNumber: number | string | CNYCurrency): CNYCurrency;
+	    public sub(paramNumber: number | string | CNYCurrency | null | undefined): CNYCurrency;
 	    /**
 	     * 自减一个值
 	     * @param paramNumber 值
 	     * @return 返回计算后的Currency对象
 	     */
-	    selfSub(paramNumber: number | string | CNYCurrency): CNYCurrency;
+	    public selfSub(paramNumber: number | string | CNYCurrency | null | undefined): CNYCurrency;
 	    /**
 	     * 乘一个值
 	     * @param paramNumber 值
 	     * @return 返回计算后的Currency对象
 	     */
-	    mul(paramNumber: number | string | CNYCurrency): CNYCurrency;
+	    public mul(paramNumber: number | string | CNYCurrency | null | undefined): CNYCurrency;
 	    /**
 	     * 自乘一个值
 	     * @param paramNumber 值
 	     * @return 返回计算后的Currency对象
 	     */
-	    selfMul(paramNumber: number | string | CNYCurrency): CNYCurrency;
+	    public selfMul(paramNumber: number | string | CNYCurrency | null | undefined): CNYCurrency;
 	    /**
 	     * 除以一个值
 	     * @param paramNumber 值
 	     * @return 返回计算后的Currency对象
 	     */
-	    div(paramNumber: number | string | CNYCurrency): CNYCurrency;
+	    public div(paramNumber: number | string | CNYCurrency | null | undefined): CNYCurrency;
 	    /**
 	     * 自除以一个值
 	     * @param paramNumber 值
 	     * @return 返回计算后的Currency对象
 	     */
-	    selfDiv(paramNumber: number | string | CNYCurrency): CNYCurrency;
+	    public selfDiv(paramNumber: number | string | CNYCurrency | null | undefined): CNYCurrency;
 	    /**
 	     * 货币的整数部分
 	     * @return 返回整数
 	     */
-	    readonly yuan: number;
+	    public readonly yuan: number;
 	    /**
 	     * 货币的小数部分，单位为分
 	     */
-	    readonly cent: number;
+	    public readonly cent: number;
 	    /**
 	     * 生成中文大写数字
 	     * @return 中文大写结果
 	     */
-	    Chinese(): string;
+	    public Chinese(): string;
 	    /**
 	     * 格式化输出
 	     * @param paramUseSymbol 是否带有"￥"符号
 	     * @param paramCNYsplit 是否以中文四数字一组
 	     * @return 生成后的字符串
 	     */
-        format(paramUseSymbol: boolean, paramCNYsplit: boolean): string;
+        public format(paramUseSymbol: boolean, paramCNYsplit: boolean): string;
 	}
 }
