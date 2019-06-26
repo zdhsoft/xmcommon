@@ -1002,6 +1002,15 @@ declare module "xmcommon" {
 	 */
 	function watchRequire(paramCallback:(data:any)=>void, paramPath:string, paramFile:string, paramChangeCallback?:boolean):void;
 
+    /** 生成中文大写选项 */
+    interface IChineseOption {
+        /** 人民币前缀 */
+       prefix?  : string;
+       /** 负数前缀 */
+       negative?: string;
+       /** 后缀：整 */
+       zheng?   : string;
+    }
 	/**
 	 * 货币类
 	 * 一个专门用于中文货币运算的的类，解决货币运算过程中问题
@@ -1037,6 +1046,8 @@ declare module "xmcommon" {
 	 * //-123.45 -12345 -123.45 ￥-123.45 负壹佰贰拾叁元肆角伍分
 	 * //13215236.49 1321523649 13215236.49 ￥1321,5236.49 壹千叁佰贰拾壹万伍千贰佰叁拾陆元肆角玖分
 	 */
+
+
      class CNYCurrency {
         /**  */
         /**
@@ -1125,10 +1136,13 @@ declare module "xmcommon" {
          * 生成中文大写数字
          * - 引用来源：https://www.jb51.net/article/89661.htm
          * - 增加在元后，角为0的情况增加0，如0.01为零元零角
-         * @param {string} paramNegative 如果是负数时，前面的前缀
-         * @return {string} 中文大写结果
+         * - 选项prefix:表示自定义人民币前缀，没有默认为“人民币”
+         * - 选项negative:表示自定义负数前缀，没有默认为“负”
+         * - 选项zheng：表示自定义整后缀，没有默认为“整”，有些情况可能需要“正”, 使用的时候请注意选项
+         * @param paramOpts 如果是负数时，前面的前缀
+         * @return 中文大写结果
          */
-	    public Chinese(): string;
+	    public Chinese(paramOpts?:IChineseOption): string;
 	    /**
 	     * 格式化输出
 	     * @param paramUseSymbol 是否带有"￥"符号
