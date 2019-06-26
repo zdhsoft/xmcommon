@@ -1,6 +1,6 @@
 {
     "name": "xmcommon",
-    "version": "0.0.17",
+    "version": "0.0.18",
     "description": "javascript common lib for es6",
     "main": "index.js",
     "types": "./types/xmcommon/index.d.ts",
@@ -24,7 +24,7 @@
         }
     ],
     "dependencies": {
-        "@types/node": "^10.14.4",
+        "@types/node": "^10.14.10",
         "lodash": "^4.17.11"
     },
     "bugs": {

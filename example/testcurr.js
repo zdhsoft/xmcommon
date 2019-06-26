@@ -16,27 +16,22 @@ tt.selfAdd(4323515.28);
 tt.selfAdd(2805307.04);
 tt.selfAdd(3281107.13);
 m.push(tt);
+m.push(tt.div(100));
+
 
 let ccc = new CNYCurrency();
-let y = new CNYCurrency(null);
-
 m.push(ccc);
-
+m.push(new CNYCurrency(123456789.00));
+m.push(new CNYCurrency(12000.12));
+m.push(new CNYCurrency(10000020.10));
+m.push(new CNYCurrency(10020.01));
+m.push(new CNYCurrency(12000.01));
+m.push(new CNYCurrency(1409.50));
+m.push(new CNYCurrency(19.50));
+m.push(new CNYCurrency(6007.14));
+m.push(new CNYCurrency(16409.02));
+m.push(new CNYCurrency(325.04));
 for(let mm of m) {
-    console.log(mm.value, mm.intValue, mm.toString(), mm.format(true, true), mm.Chinese());
+    let c2 = mm.Chinese();
+    console.log(mm.isErr,mm.value, mm.format(true, true), c2, mm.errMsg);
 }
-
-for(let i = 0; i < 100000000; i++) {
-    ccc.intValue = i;
-    let y = ccc.yuan;
-    let c = ccc.cent;
-    let s = y.toString() + '.' + c.toString().padStart(2, '0');
-    if (i % 1000 === 0) {
-        console.log(i);
-    }
-    if(s !== ccc.toString()) {
-        console.log(console.log(ccc.toString(), s, ccc.yuan, ccc.cent));
-    }
-
-}
-console.log('finish');

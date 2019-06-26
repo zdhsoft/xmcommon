@@ -1089,25 +1089,29 @@ declare module "xmcommon" {
 	     * @param paramNumber 值
 	     * @return 返回计算后的Currency对象
 	     */
-	    public mul(paramNumber: number | string | CNYCurrency | null | undefined): CNYCurrency;
-	    /**
-	     * 自乘一个值
-	     * @param paramNumber 值
-	     * @return 返回计算后的Currency对象
-	     */
-	    public selfMul(paramNumber: number | string | CNYCurrency | null | undefined): CNYCurrency;
+	    public mul(paramNumber: number | string): CNYCurrency;
+        /**
+         * 自乘一个值
+         * @param paramNumber 值
+         * @return {boolean} 计算结果
+         *  - true 表示计算成功
+         *  - false 表示计算失败
+         */
+	    public selfMul(paramNumber: number | string): boolean;
 	    /**
 	     * 除以一个值
 	     * @param paramNumber 值
 	     * @return 返回计算后的Currency对象
 	     */
-	    public div(paramNumber: number | string | CNYCurrency | null | undefined): CNYCurrency;
-	    /**
-	     * 自除以一个值
-	     * @param paramNumber 值
-	     * @return 返回计算后的Currency对象
-	     */
-	    public selfDiv(paramNumber: number | string | CNYCurrency | null | undefined): CNYCurrency;
+	    public div(paramNumber: number | string): CNYCurrency;
+        /**
+         * 自除以一个值
+         * @param {number | string} paramNumber 值
+         * @return {boolean} 计算结果
+         *  - true 表示计算成功
+         *  - false 表示计算失败
+         */
+	    public selfDiv(paramNumber: number | string): CNYCurrency;
 	    /**
 	     * 货币的整数部分
 	     * @return 返回整数
@@ -1117,10 +1121,13 @@ declare module "xmcommon" {
 	     * 货币的小数部分，单位为分
 	     */
 	    public readonly cent: number;
-	    /**
-	     * 生成中文大写数字
-	     * @return 中文大写结果
-	     */
+        /**
+         * 生成中文大写数字
+         * - 引用来源：https://www.jb51.net/article/89661.htm
+         * - 增加在元后，角为0的情况增加0，如0.01为零元零角
+         * @param {string} paramNegative 如果是负数时，前面的前缀
+         * @return {string} 中文大写结果
+         */
 	    public Chinese(): string;
 	    /**
 	     * 格式化输出
