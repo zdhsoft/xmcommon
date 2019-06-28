@@ -858,14 +858,21 @@ declare module "xmcommon" {
 		 */
 		static isSameDay(paramUTC1:number, paramUTC2:number):boolean;
 
-		/**
-		 * 取本地时间相关的天数
-		 * @param {number} paramUTC1 毫秒数
-		 * @param {number} paramUTC2 毫秒数
-		 * @return {number} 相关的开数，同一天，返回0
-		 */
-		static diffLocalDays(paramUTC1:number, paramUTC2:number):number;
+        /**
+         * 用时间戳的时间比较本地时间相关的天数差
+         * @param paramUTC1 时间戳1，毫秒数
+         * @param paramUTC2 时间戳2，毫秒数
+         * @return 相差的天数，同一天，返回0
+         */
+		static diffLocalDays(paramUTC1:number, paramUTC2:number): number;
 
+        /**
+         * 比较两个日期本地时间的天数差
+         * @param paramDate1 日期1
+         * @param paramDate2 日期2
+         * @return 相差的天数，同一天，返回0
+         */
+	    static diffLocalDaysByDate(paramDate1: Date, paramDate2: Date): number;
 		/**
 		 * 计算，元年到指定时间戳的本地天数
 		 * @param {number} paramUTC
@@ -1054,7 +1061,9 @@ declare module "xmcommon" {
          * 构造函数
          * @param paramValue 初始值
          */
-	    public constructor(paramValue: number | string | CNYCurrency | null | undefined);
+        public constructor(paramValue: number | string | CNYCurrency | null | undefined);
+        /** 判断指定的对象，是不是指定的CNYCurrency对象 */
+        public static isCurrency(paramV: any): boolean;
 	    /** 货币值 */
 	    public readonly value : number;
 	    /** 货币整数值，精确到分 */

@@ -31,6 +31,13 @@ npm install xmcommon
 
 # 版本变更说明
 
+## 0.0.21
+
+- 2019-06-28
+- \* fixbug: 不能正确识别增加CNYCurrency类型的对象
+- \+ 增加CNYCurrency.isCurrency函数，判断是否是CNYCurrency类型
+- \+ datetimeUtils增加比较日期的时间差函数
+
 ## 0.0.20
 
 - 2019-06-26

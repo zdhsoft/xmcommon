@@ -1,5 +1,6 @@
 
 let {CNYCurrency} = require('../lib/cnycurrency');
+let {datetimeUtils} = require('../lib/datetimeUtils');
 
 let m = [];
 let c = new CNYCurrency(-12345);
@@ -51,6 +52,27 @@ fff(67004.00);
 fff(200080.07);
 fff(0.2);
 fff(0.15);
+fff(5252501.90);
+m = [];
+let d = new Date('2019-6-28');
+let d2 = new Date('2020-6-16');
+let v = datetimeUtils.diffLocalDaysByDate(d2, d);
+let o = 5504180.56;
+let vv = 0.0465 * v / 360;
+
+console.log('天数:' + v, '最终费率：' + vv);
+
+let diff = o * vv;
+fff(diff);
+fff(o - diff);
+console.log(o - diff);
+console.log((o - diff).toFixed(2));
+
+let cccc = new CNYCurrency(5504180.56);
+let cdiff = cccc.mul(vv);
+cccc.selfSub(cdiff.value);
+m.push(cccc);
+m.push(cdiff);
 
 
 for(let mm of m) {
