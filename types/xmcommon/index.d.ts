@@ -1061,7 +1061,7 @@ declare module "xmcommon" {
          * 构造函数
          * @param paramValue 初始值
          */
-        public constructor(paramValue: number | string | CNYCurrency | null | undefined);
+        public constructor(paramValue?: number | string | CNYCurrency | null | undefined);
         /** 判断指定的对象，是不是指定的CNYCurrency对象 */
         public static isCurrency(paramV: any): boolean;
 	    /** 货币值 */
@@ -1079,7 +1079,7 @@ declare module "xmcommon" {
          * @param paramValue 新值
          * @return 返回当前对象
          */
-        public assign(paramValue: number | string | CNYCurrency | null | undefined): CNYCurrency;
+        public assign(paramValue?: number | string | CNYCurrency | null | undefined): CNYCurrency;
 	    /**
 	     * 加一个值
 	     * @param paramNumber 值
@@ -1158,6 +1158,6 @@ declare module "xmcommon" {
 	     * @param paramCNYsplit 是否以中文四数字一组
 	     * @return 生成后的字符串
 	     */
-        public format(paramUseSymbol: boolean, paramCNYsplit: boolean): string;
+        public format(paramUseSymbol?: boolean, paramCNYsplit?: boolean): string;
 	}
 }

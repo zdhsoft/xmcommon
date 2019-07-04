@@ -1,4 +1,4 @@
-import {utils, MemorySize, getLogger, SimpleCode}  from "xmcommon"
+import {utils, MemorySize, getLogger, SimpleCode, CNYCurrency}  from "xmcommon"
 // import * as base64js from "base64-js";
 // base64js.byteLength(""); // $ExpectType number
 // base64js.toByteArray(""); // $ExpectType Uint8Array
@@ -9,3 +9,6 @@ let s:SimpleCode = new SimpleCode();
 let k = r.keys[0];
 
 let v = getLogger(__filename);
+
+
+let vv = new CNYCurrency();
