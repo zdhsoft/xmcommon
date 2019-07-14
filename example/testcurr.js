@@ -1,7 +1,7 @@
 
-let {CNYCurrency} = require('../lib/cnycurrency');
-let {datetimeUtils} = require('../lib/datetimeUtils');
-
+let { CNYCurrency } = require('../lib/cnycurrency');
+let { datetimeUtils } = require('../lib/datetimeUtils');
+let { utils } = require('../lib/utils');
 let m = [];
 let c = new CNYCurrency(-12345);
 m.push(c);
@@ -73,6 +73,18 @@ let cdiff = cccc.mul(vv);
 cccc.selfSub(cdiff.value);
 m.push(cccc);
 m.push(cdiff);
+
+let rr = utils.mkdirsSyncEx('./hello/test');
+let rs = utils.mkdirsSyncEx('d:/temp/hello/test');
+
+console.log('rr:' + JSON.stringify(rr));
+console.log('rs:' + JSON.stringify(rs));
+console.log('aaa:' + utils.formatPercentage(0.123));
+console.log('aaa:' + utils.formatPercentage(null));
+
+let testaaa = new CNYCurrency(100);
+testaaa.selfMul(0.102);
+m.push(testaaa);
 
 
 for(let mm of m) {

@@ -359,14 +359,36 @@ declare module "xmcommon" {
 		 * @param paramJsonString Json格式的字符串
 		 * @return 转换后的对象
 		 */
-		static JsonParse (paramJsonString:string): any;
+        static JsonParse (paramJsonString:string): any;
+
 		/**
 		 * 创建目录
-		 * @param dirpath 要创建的目录,支持多层级创建
-		 * @param mode 创建后，目录的权限，默认为0o777
+		 * @param paramPath 要创建的目录,支持多层级创建
+		 * @param paramMode 创建后，目录的权限，默认为0o777
 		 * @return 返回创建结果
 		 */
-		static mkdirsSync(dirpath:string, mode:number):boolean;
+        static mkdirsSync(paramPath:string, paramMode?: number): boolean;
+
+		/**
+		 * 创建目录
+         * - 这个函数与mkdirsSync区别是，这个函数会返回失败的错误信息
+		 * @param paramPath 要创建的目录,支持多层级创建
+		 * @param paramMode 创建后，目录的权限，默认为0o777
+		 * @return 返回创建结果
+         *  - ret = true 表示创建成功
+         *  - ret = false 表示创建失败 ，msg为错误信息
+		 */
+        static mkdirsSyncEx(paramPath: string, paramMode?: number): { ret: boolean, msg: string};
+
+        /**
+         * 将数字转换为百分比的字符串
+         * - 精确到0.01%
+         * @param paramValue 要格式化的值
+         * @param paramDefault 无效值后，返回的字符串
+         * @return 格式化的百分比字符串
+         *  - 对于paramValue为null或undefined
+         */
+        static formatPercentage(paramValue: number, paramDefault?: string): string;
 
 		/**
 		 * 解析参数列表

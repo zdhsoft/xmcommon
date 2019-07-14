@@ -31,6 +31,13 @@ npm install xmcommon
 
 # 版本变更说明
 
+## 0.1.0
+
+- 2019-07-14
+- \* fixbug 修复utils.mkdirSync在linux下，使用绝对路径会失败的bug
+- \+ 增加utils.mkdirSyncEx，用于返回具体的错误信息
+- \+ 增加utils.formatPercentage，用于生成百分比字符串
+
 ## 0.0.22
 
 - 2019-07-04
