@@ -31,6 +31,12 @@ npm install xmcommon
 
 # 版本变更说明
 
+## 0.1.1
+
+- 2019-07-14
+- 收到github提示，说依赖的lodash有问题，所以这里升级一下 lodash , 还是高级别的
+- We found a potential security vulnerability in one of your dependencies.
+
 ## 0.1.0
 
 - 2019-07-14
