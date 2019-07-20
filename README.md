@@ -31,6 +31,12 @@ npm install xmcommon
 
 # 版本变更说明
 
+## 0.1.2
+
+- 2019-07-20
+- \* 优化utils.formatPercentage生成成
+- \+ 增加utils.roundPercentage，将百分比的值精度控制到 0.0001%
+
 ## 0.1.1
 
 - 2019-07-14
