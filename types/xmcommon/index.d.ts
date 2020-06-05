@@ -395,7 +395,25 @@ declare module "xmcommon" {
 		 * @param paramArgs 参数列表
 		 * @return _是未能识别的参数数组，args是识别后的参数对象
 		 */
-		static options(paramArgs:string[]):{_:any [], args:any };
+        static options(paramArgs:string[]):{_:any [], args:any };
+        /**
+         * 随机一个整数
+         * @return number
+         */
+        static randomInteger(): number;
+        /**
+         * 随机一个范围的整数
+         * @param {number} paramMaxInteger 大于1的整数
+         * @return number
+         */
+        public static randomScope(paramMaxInteger: number): number;
+        /**
+         * 随机一个指定最大值和最小值范围的整数
+         * @param {number} paramMin 大于等于0的整数
+         * @param {number} paramMax 大于1的整数
+         * @return number
+         */
+        public static randomBetween(paramMin: number, paramMax: number): number;
 	}
 
 

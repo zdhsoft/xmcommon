@@ -31,6 +31,13 @@ npm install xmcommon
 
 # 版本变更说明
 
+## 0.1.3
+- 2020-06-05
+- \+ 增加utils.randomInteger,随机整数
+- \+ 增加utils.randomScope,随机范围整数
+- \+ 增加utils.randomBetween,随机整数，批定开始和结束值
+- \* 更新依赖包的版本
+
 ## 0.1.2
 
 - 2019-07-20

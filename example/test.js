@@ -33,8 +33,28 @@ async function testHttpCall() {
     console.log(JSON.stringify(r, null, 2));
 }
 
+function testRandom() {
+    let {utils} = require('../index');
+    for(let i = 0; i < 100; i++) {
+        console.log('randomInteger:' + utils.randomInteger());
+    }
+
+    console.log('----------------------------------------');
+    for(let i = 0; i < 100; i++) {
+        console.log('randomScope(200):' + utils.randomScope(200));
+    }
+
+    console.log('----------------------------------------');
+    for(let i = 0; i < 100; i++) {
+        console.log('randomBetween(1,30):' + utils.randomBetween(1,30));
+    }
+
+}
+
+testRandom();
+
 //testHttpCall();
-testCode();
+// testCode();
 
 //testLog();
 //testwritedir();
