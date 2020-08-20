@@ -1039,25 +1039,26 @@ declare module "xmcommon" {
 		 */
 		DecodePackage(paramData:Buffer):{code:number, seed:number, data:Buffer};
 	}
-	/**
-	 * watch指定的js文件，并加载回调
-	 * 这个主要是用于动态加载
+    /**
+     * watch指定的js文件，并加载回调
+     * 这个主要是用于动态加载
      * @notice 最终于文件名是由path+file组成，对于path不能使用相对路径
-	 * @param paramCallback 文件有变化，加载后的回调函数
-	 * @param paramPath 环境所在的路径 这里一定要填写绝对路径，否则会侦听不了文件的变化
-	 * @param paramFile 要watch的文件名
-	 * @param paramChangeCallback 有变化才回调 默认值为true
-	 */
+     * @param {function} paramCallback 文件有变化，加载后的回调函数
+     * @param {string} paramPath 环境所在的路径 这里一定要填写绝对路径，否则会侦听不了文件的变化
+     * @param {string} paramFile 要watch的文件名
+     * @param {boolean} paramChangeCallback 有变化才回调
+     * @return {void}
+     */
 	function watchRequire(paramCallback:(data:any)=>void, paramPath:string, paramFile:string, paramChangeCallback?:boolean):void;
 
     /** 生成中文大写选项 */
     interface IChineseOption {
         /** 人民币前缀 */
-       prefix?  : string;
+        prefix?  : string;
        /** 负数前缀 */
-       negative?: string;
+        negative?: string;
        /** 后缀：整 */
-       zheng?   : string;
+        zheng?   : string;
     }
 	/**
 	 * 货币类
