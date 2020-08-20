@@ -31,6 +31,11 @@ npm install xmcommon
 
 # 版本变更说明
 
+## 0.1.4
+- 2020-08-20
+- \+ 增加watchRequire注意事项说明
+- \* 更新lodash的库
+
 ## 0.1.3
 - 2020-06-05
 - \+ 增加utils.randomInteger,随机整数
