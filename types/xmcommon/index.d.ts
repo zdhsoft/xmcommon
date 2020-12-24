@@ -369,7 +369,17 @@ declare module "xmcommon" {
          *  - false 表示不存在
          */
         static fileExists(paramPath: string): boolean;
-
+        /**
+         * 原路径移动到新路径
+         * - 注：在windows下面，C盘或非同盘符的文件是改不了名的
+         * @param {String} paramOldFilename
+         * @param {String} paramNewFilename
+         * @return {{ret: boolean, errInfo: string}} 移动结果
+         *  - ret = true 表示移动成功
+         *  - ret = false 表示移动失败
+         *  - errInfo 出错信息
+         */
+        static renameFile(paramOldFilename: string, paramNewFilename: string): Promise<{ret: boolean, errInfo: string}>;
 		/**
 		 * 创建目录
 		 * @param paramPath 要创建的目录,支持多层级创建
