@@ -361,6 +361,15 @@ declare module "xmcommon" {
 		 */
         static JsonParse (paramJsonString:string): any;
 
+        /**
+         * 检查指定的文件或目录是否存在
+         * @param paramPath 指定的文件的目录全路径
+         * @return 检查结果
+         *  - true 表示存在
+         *  - false 表示不存在
+         */
+        static fileExists(paramPath: string): boolean;
+
 		/**
 		 * 创建目录
 		 * @param paramPath 要创建的目录,支持多层级创建

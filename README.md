@@ -31,6 +31,11 @@ npm install xmcommon
 
 # 版本变更说明
 
+## 0.1.5
+- 2020-12-24
+- \+ 增加fileExists判断文件或目录是否存在
+- \* 修复makedirs存在的bug
+
 ## 0.1.4
 - 2020-08-20
 - \+ 增加watchRequire注意事项说明
