@@ -35,6 +35,7 @@ npm install xmcommon
 - 2020-12-24
 - \+ 增加fileExists判断文件或目录是否存在
 - \* 修复makedirs存在的bug
+- \+ 增加renameFile方法
 
 ## 0.1.4
 - 2020-08-20
