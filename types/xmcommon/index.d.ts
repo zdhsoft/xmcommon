@@ -625,6 +625,17 @@ declare module "xmcommon" {
 		 */
 		static isFail(err:number):boolean;
 	}
+    //通用的数据返回接口
+    interface ICommonRet {
+        /** 判断是否成功 true表示成功，false表示失败 */
+        isOK : boolean
+        /** 错误码 */
+        err  : number;
+        /** 错误信息 */
+        msg ?: string;
+        /** 携带数据 */
+        data?: any;
+    }
 
 	//通用的数据返回
 	/**
@@ -733,13 +744,21 @@ declare module "xmcommon" {
 		 * @param head 消息头
 		 * @return 返回this
 		 */
+
+
 		setErrorFromMsghead(head: any): common_ret;
+        /**
+         * 重载toJSON，返回ICommonRet对象
+         */
+        toJSON():ICommonRet;
 		//一组属性
 		readonly isOK:boolean;
 		readonly isNotOK:boolean;
 		readonly isFail:boolean;
 		readonly isTrue:boolean;
 		readonly isFalse:boolean;
+
+
 	}
 
 

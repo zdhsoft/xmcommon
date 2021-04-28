@@ -31,6 +31,11 @@ npm install xmcommon
 
 # 版本变更说明
 
+## 0.1.8
+- 2021-04-28
+- \- 标注httpcall为@deprecated  计划在未来的版中，准备删除这个
+- \* 为common_ret增加toString等方法内容。
+
 ## 0.1.5 - 0.1.7
 - 2020-12-24
 - \+ 增加fileExists判断文件或目录是否存在
