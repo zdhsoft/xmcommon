@@ -30,6 +30,7 @@ declare module "xmcommon" {
 
 	/**
 	 * HttpCall的错误码定义
+     * @deprecated
 	 */
 	interface HttpCallError{
 		/** 成功:0 */
