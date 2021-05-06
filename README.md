@@ -2,6 +2,8 @@
 
 一个js 通用库, 将一些常用的函数之类的，移到这里方便使用
 
+- 准备用typescript重写这个库，并计划正式发布它的1.0版本。
+
 - github: https://github.com/zdhsoft/xmcommon
 - npm: https://www.npmjs.com/package/xmcommon
 
