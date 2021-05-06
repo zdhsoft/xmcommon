@@ -1,6 +1,6 @@
 {
     "name": "xmcommon",
-    "version": "0.1.8",
+    "version": "1.0.0",
     "description": "javascript common lib for es6",
     "main": "index.js",
     "types": "./types/xmcommon/index.d.ts",
@@ -24,13 +24,13 @@
         }
     ],
     "dependencies": {
-        "lodash": "^4.17.20"
+        "lodash": "^4.17.21"
     },
     "bugs": {
         "url": "https://github.com/zdhsoft/xmcommon/issues"
     },
     "homepage": "https://github.com/zdhsoft/xmcommon#readme",
     "devDependencies": {
-        "@types/node": "^10.17.24"
+        "@types/node": "^10.17.59"
     }
 }
