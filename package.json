@@ -1,9 +1,8 @@
 {
     "name": "xmcommon",
     "version": "1.0.0",
-    "description": "javascript common lib for es6",
-    "main": "index.js",
-    "types": "./types/xmcommon/index.d.ts",
+    "description": "javascript common lib for es6 by typescript",
+    "main": "dist/index.js",
     "scripts": {
         "testcurr": "node ./example/testcurr.js",
         "test": "node ./example/test.js"
@@ -32,5 +31,9 @@
     "homepage": "https://github.com/zdhsoft/xmcommon#readme",
     "devDependencies": {
         "@types/node": "^10.17.59"
+    },
+    "engines": {
+        "node": ">=10.6.0",
+        "npm": ">=6.0.0"
     }
 }
