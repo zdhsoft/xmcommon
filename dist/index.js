@@ -5,4 +5,3 @@ let s = utils_1.utils.GetStack();
 for (let ss of s) {
     console.log('-->', ss.getFileName(), ss.getFunction(), ss.getLineNumber());
 }
-console.log('===<');

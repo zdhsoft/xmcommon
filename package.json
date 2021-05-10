@@ -6,7 +6,8 @@
     "scripts": {
         "testcurr": "node ./example/testcurr.js",
         "test": "node ./example/test.js",
-        "build": "tsc"
+        "build": "tsc",
+        "compile": "tsc"
     },
     "repository": {
         "type": "git",
@@ -31,6 +32,7 @@
     },
     "homepage": "https://github.com/zdhsoft/xmcommon#readme",
     "devDependencies": {
+        "@types/lodash": "^4.14.168",
         "@types/node": "^10.17.59"
     },
     "engines": {
