@@ -5,7 +5,8 @@
     "main": "dist/index.js",
     "scripts": {
         "testcurr": "node ./example/testcurr.js",
-        "test": "node ./example/test.js"
+        "test": "node ./example/test.js",
+        "build": "tsc"
     },
     "repository": {
         "type": "git",
