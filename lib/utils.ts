@@ -10,7 +10,7 @@ let DateTimeOffset = 0;
  * 检查对象属性结果，枚举
  */
 export enum EnumCheckObjectCode {
-    /** code = 0 表示完全符合，否则存在问题*/
+    /** code = 0 表示完全符合，否则存在问题 */
     TotallySuitable     = 0,
     /** code = -1 表示paramDestObject不是object对象 */
     DestIsNotObject     = -1,
@@ -35,13 +35,14 @@ export interface ICheckObjectResult {
  * 常用工具类
  * - 这里会提供一组类静态成员的方法
  */
+// tslint:disable-next-line: class-name
 export class utils {
     /**
      * 取当交utils的版本号
      * @deprecated 无实际使用意义
      * @return 当前utils版本号字符串
      */
-    public static version(): String {
+    public static version(): string {
         return 'utils 2.0';
     }
 	/**
@@ -52,13 +53,13 @@ export class utils {
 	 */
     public static GetStack(): NodeJS.CallSite[] {
 		const orig = Error.prepareStackTrace;
-		Error.prepareStackTrace = function (__, stack) {
-			return stack;
+		Error.prepareStackTrace =  (__, paramStack) => {
+			return paramStack;
 		};
 		const err = new Error();
 		Error.captureStackTrace(err);
 		const stack = err.stack as any as NodeJS.CallSite[];
-		Error.prepareStackTrace = orig;  //恢复
+		Error.prepareStackTrace = orig;  // 恢复
 		return stack;
 	}
 
@@ -69,14 +70,13 @@ export class utils {
 	 * @param paramStack 调用堆栈列表
 	 * @return 返回的文件名
 	 */
-    public static GetFileNameByStack(paramStack: NodeJS.CallSite[]): String | null {
+    public static GetFileNameByStack(paramStack: NodeJS.CallSite[]): string | null {
         if (Array.isArray(paramStack) && paramStack.length > 1) {
             return paramStack[1].getFileName();
         }
         else {
             return null;
         }
-
 	}
 	/**
 	 * 取当前调用所在的行号
@@ -95,12 +95,12 @@ export class utils {
 	}
 
     /**
-	 * 取当前调用所在的列
-	 * @static
-	 * @memberOf utils
-	 * @param paramStack 调用堆栈列表
-	 * @return 返回的列
-	 */
+     * 取当前调用所在的列
+     * @static
+     * @memberOf utils
+     * @param paramStack 调用堆栈列表
+     * @return 返回的列
+     */
     public static GetColumnNumberByStack(paramStack: NodeJS.CallSite[]): number | null {
         if (Array.isArray(paramStack) && paramStack.length > 1) {
             return paramStack[1].getColumnNumber();
@@ -192,8 +192,8 @@ export class utils {
 
     /**
      * 判断指定的参数，是否是字符串类型
-	 * @static
-	 * @memberOf utils
+     * @static
+     * @memberOf utils
      * @param paramV 被检查的对象
      * @return 是字符串对象，则返回true,否则返回false
      */
@@ -202,8 +202,8 @@ export class utils {
     }
     /**
      * 判断指定的参数，是否是null或undefined
-	 * @static
-	 * @memberOf utils
+     * @static
+     * @memberOf utils
      * @param paramV 被检查的对象
      * @return 如果是，则返回true,否则返回false
      */
@@ -232,11 +232,11 @@ export class utils {
 	}
 
     /**
-	 * 检查指定的参数，是否是整数
-	 * @static
-	 * @param paramV 被检查的对象
-	 * @return 如果是，则返回true,否则返回false
-	 */
+     * 检查指定的参数，是否是整数
+     * @static
+     * @param paramV 被检查的对象
+     * @return 如果是，则返回true,否则返回false
+     */
     public static isSafeInteger(paramV: unknown): boolean {
         return Number.isSafeInteger(paramV);
     }
@@ -272,8 +272,8 @@ export class utils {
 	}
     /**
      * 判断指定的参数，是否不是 null或undefined
-	 * @static
-	 * @memberOf utils
+     * @static
+     * @memberOf utils
      * @param paramV 被检查的对象
      * @return 如果是，则返回true,否则返回false
      */
@@ -282,12 +282,12 @@ export class utils {
     }
 
     /**
-	 * 检查指定的对象,是不是字符串并且不为空串
-	 * @static
-	 * @memberOf utils
-	 * @param paramV 被检查的对象
-	 * @return 检查结果 true表示是,false表示不是
-	 */
+     * 检查指定的对象,是不是字符串并且不为空串
+     * @static
+     * @memberOf utils
+     * @param paramV 被检查的对象
+     * @return 检查结果 true表示是,false表示不是
+     */
     public static isNotNullOrEmptyString(paramV: unknown) {
 		let r = this.isString(paramV);
 		if (r) {
@@ -305,6 +305,7 @@ export class utils {
      * @param args 要调用的参数
      * @return 返回回调函数的处理结果列表
      */
+    // tslint:disable-next-line: ban-types
     public static async WaitFunction(paramFunc: Function, ...args: any[]): Promise<any[]> {
         return new Promise((resolve) => {
             paramFunc((...result: any[]) => {
@@ -324,6 +325,7 @@ export class utils {
      * @param args 要传给函数的参数数组
      * @return 返回回调函数的处理结果列表
      */
+    // tslint:disable-next-line: ban-types
     public static async WaitFunctionEx(paramFunc: Function, ...args: any[]): Promise<any[]> {
         return new Promise((resolve) => {
             paramFunc(...args, (...result: any[]) => {
@@ -410,34 +412,36 @@ export class utils {
      * 格式化显示容量
      *
      * @static
-     * @param paramBytes 要格式化的字节数
+     * @param bytes 要格式化的字节数
      * @return  格式化的字符串
      * @memberof utils
      */
     public static formatMemory(paramBytes: number): string {
-        if (this.isNull(paramBytes)) {
-            paramBytes = 0;
+        let bytes = paramBytes;
+        if (this.isNull(bytes)) {
+            // tslint:disable-next-line: no-parameter-reassignment
+            bytes = 0;
         }
-        if (paramBytes < MemorySize.K) {
-            return paramBytes.toString(10);
+        if (bytes < MemorySize.K) {
+            return bytes.toString(10);
         }
-        else if (paramBytes < MemorySize.M) {   //1M
-            return (paramBytes / MemorySize.K).toFixed(2) + "KB";
+        else if (bytes < MemorySize.M) {   // 1KB
+            return (bytes / MemorySize.K).toFixed(2) + "KB";
         }
-        else if (paramBytes < MemorySize.G) //1M
+        else if (bytes < MemorySize.G) // 1M
         {
-            return (paramBytes / MemorySize.M).toFixed(2) + "MB";
+            return (bytes / MemorySize.M).toFixed(2) + "MB";
         }
-        else if (paramBytes < MemorySize.T) //1T
+        else if (bytes < MemorySize.T) // 1T
         {
-            return (paramBytes / MemorySize.G).toFixed(2) + "GB";
+            return (bytes / MemorySize.G).toFixed(2) + "GB";
         }
-        else if (paramBytes < MemorySize.P) //1T
+        else if (bytes < MemorySize.P) // 1T
         {
-            return (paramBytes / MemorySize.T).toFixed(2) + "TB";
+            return (bytes / MemorySize.T).toFixed(2) + "TB";
         }
         else {
-            return (paramBytes / MemorySize.P).toFixed(2) + "PB";  //1G
+            return (bytes / MemorySize.P).toFixed(2) + "PB";  // 1P
         }
     }
     /**
@@ -455,7 +459,7 @@ export class utils {
      * - 现在可以用javascript自带的Object.keys和Object.values替代，不需要该函数了
      * @param paramObject 参数表
      * @return 返回的结果
-     * */
+     */
     public static keyValues(paramObject: any): { keys: string[], values: any[] } {
         const r = {
             keys  : [] as string[],
@@ -561,7 +565,7 @@ export class utils {
      * @param paramDefault 缺省值 = 0
      * @return 转换后的浮点数
      */
-    static ToFloat(paramSrcNumber: string, paramDefault = 0): number {
+    public static ToFloat(paramSrcNumber: string, paramDefault = 0): number {
         let n = Number.parseFloat(paramSrcNumber);
         if (Number.isNaN(n)) {
             n = paramDefault;
@@ -647,7 +651,7 @@ export class utils {
         try {
             if (!fs.existsSync(paramPath)) {
                 let pathTemp: string;
-                paramPath.split(/[\/\\]/).forEach((dirName) => { //这里指用/ 或\ 都可以分隔目录  如  linux的/usr/local/services   和windows的 d:\temp\aaaa
+                paramPath.split(/[\/\\]/).forEach((dirName) => { // 这里指用/ 或\ 都可以分隔目录  如  linux的/usr/local/services   和windows的 d:\temp\aaaa
                     if (pathTemp) {
                         pathTemp = path.join(pathTemp, dirName);
                     } else {
@@ -718,7 +722,7 @@ export class utils {
      * - 一般指通过程序启动，传入的参数
      * - 对于参数中 -或--开始的，视为参数名，后面紧跟的是参数值
      *
-     * @param paramArgs 参数列表
+     * @param args 参数列表
      *
      * @return
      * - _ 是未能识别的参数数组，
@@ -731,48 +735,49 @@ export class utils {
          * @param paramArg 要解析的参数
          * @return 处理结果
          */
-        function GetArgsName(paramArg: string): {isArg:boolean, argName:string, argOri:string} {
-            let ret = { isArg: false, argName: '', argOri: paramArg };
+        function GetArgsName(paramArg: string): { isArg: boolean, argName: string, argOri: string } {
+            let localRet = { isArg: false, argName: '', argOri: paramArg };
 
             let strName = null;
-            if (paramArg.substring(0, 2) === '--') {  //如果是前缀--
+            if (paramArg.substring(0, 2) === '--') {  // 如果是前缀--
                 strName = paramArg.substring(2).trim();
             }
-            else if (paramArg.substring(0, 1) === '-') { //如果是前缀-
+            else if (paramArg.substring(0, 1) === '-') { // 如果是前缀-
                 strName = paramArg.substring(1).trim();
             }
             else {
-                return ret;
+                return localRet;
             }
             if (strName.length === 0) {
-                return ret;
+                return localRet;
             }
-            ret.isArg = true;
-            ret.argName = strName;
-            return ret;
+            localRet.isArg   = true;
+            localRet.argName = strName;
+            return localRet;
         }
 
         let ret = { _: [] as string[], args: {} as any };
 
-        paramArgs = paramArgs || [];
-        if (!Array.isArray(paramArgs)) {
-            paramArgs = [paramArgs];
+        let args = paramArgs || [];
+        if (!Array.isArray(args)) {
+            args = [args];
         }
 
         let argPre = {
-            is     : false,   //是否存在前缀
-            argName: '',      //前缀的名称
-            argOri : '',      //原始参数
+            is     : false,   // 是否存在前缀
+            argName: '',      // 前缀的名称
+            argOri : '',      // 原始参数
         };
 
-        for (let i = 0; i < paramArgs.length; i++) {
-            let arg = paramArgs[i];
-            let isString = utils.isString(arg);  //判断是否是字符串
+        // tslint:disable-next-line: prefer-for-of
+        for (let i = 0; i < args.length; i++) {
+            let arg = args[i];
+            let isString = utils.isString(arg);  // 判断是否是字符串
             if (isString) {
                 arg = arg.trim();
             }
 
-            if (argPre.is) {  //如果存在前缀
+            if (argPre.is) {  // 如果存在前缀
                 ret.args[argPre.argName] = arg;
 
                 argPre.is      = false;
@@ -796,7 +801,7 @@ export class utils {
             }
         }
 
-        if (argPre.is) { //如果存在前缀，但是，没有值，则加到_中
+        if (argPre.is) { // 如果存在前缀，但是，没有值，则加到_中
             ret._.push(argPre.argOri);
         }
         return ret;

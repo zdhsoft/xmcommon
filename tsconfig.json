@@ -1,7 +1,17 @@
 {
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
-
+    "plugins": [
+        {
+            // https://github.com/zdhsoft/typescript-tslint-plugin  这块的帮助，请这个说明
+            "name": "typescript-tslint-plugin" ,
+            "alwaysShowRuleFailuresAsWarnings": false,
+            "ignoreDefinitionFiles": true,
+            // "configFile": "../tslint.json",
+            "suppressWhileTypeErrorsPresent": false,
+            "packageManager":"cnpm"
+        }
+    ],
     /* Basic Options */
     // "incremental": true,                         /* Enable incremental compilation */
     "target": "ES2017",                                /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', or 'ESNEXT'. */

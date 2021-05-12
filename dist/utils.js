@@ -15,7 +15,7 @@ let DateTimeOffset = 0;
  */
 var EnumCheckObjectCode;
 (function (EnumCheckObjectCode) {
-    /** code = 0 表示完全符合，否则存在问题*/
+    /** code = 0 表示完全符合，否则存在问题 */
     EnumCheckObjectCode[EnumCheckObjectCode["TotallySuitable"] = 0] = "TotallySuitable";
     /** code = -1 表示paramDestObject不是object对象 */
     EnumCheckObjectCode[EnumCheckObjectCode["DestIsNotObject"] = -1] = "DestIsNotObject";
@@ -28,6 +28,7 @@ var EnumCheckObjectCode;
  * 常用工具类
  * - 这里会提供一组类静态成员的方法
  */
+// tslint:disable-next-line: class-name
 class utils {
     /**
      * 取当交utils的版本号
@@ -45,13 +46,13 @@ class utils {
      */
     static GetStack() {
         const orig = Error.prepareStackTrace;
-        Error.prepareStackTrace = function (__, stack) {
-            return stack;
+        Error.prepareStackTrace = (__, paramStack) => {
+            return paramStack;
         };
         const err = new Error();
         Error.captureStackTrace(err);
         const stack = err.stack;
-        Error.prepareStackTrace = orig; //恢复
+        Error.prepareStackTrace = orig; // 恢复
         return stack;
     }
     /**
@@ -280,6 +281,7 @@ class utils {
      * @param args 要调用的参数
      * @return 返回回调函数的处理结果列表
      */
+    // tslint:disable-next-line: ban-types
     static async WaitFunction(paramFunc, ...args) {
         return new Promise((resolve) => {
             paramFunc((...result) => {
@@ -298,6 +300,7 @@ class utils {
      * @param args 要传给函数的参数数组
      * @return 返回回调函数的处理结果列表
      */
+    // tslint:disable-next-line: ban-types
     static async WaitFunctionEx(paramFunc, ...args) {
         return new Promise((resolve) => {
             paramFunc(...args, (...result) => {
@@ -379,34 +382,36 @@ class utils {
      * 格式化显示容量
      *
      * @static
-     * @param paramBytes 要格式化的字节数
+     * @param bytes 要格式化的字节数
      * @return  格式化的字符串
      * @memberof utils
      */
     static formatMemory(paramBytes) {
-        if (this.isNull(paramBytes)) {
-            paramBytes = 0;
+        let bytes = paramBytes;
+        if (this.isNull(bytes)) {
+            // tslint:disable-next-line: no-parameter-reassignment
+            bytes = 0;
         }
-        if (paramBytes < constant_1.MemorySize.K) {
-            return paramBytes.toString(10);
+        if (bytes < constant_1.MemorySize.K) {
+            return bytes.toString(10);
         }
-        else if (paramBytes < constant_1.MemorySize.M) { //1M
-            return (paramBytes / constant_1.MemorySize.K).toFixed(2) + "KB";
+        else if (bytes < constant_1.MemorySize.M) { // 1KB
+            return (bytes / constant_1.MemorySize.K).toFixed(2) + "KB";
         }
-        else if (paramBytes < constant_1.MemorySize.G) //1M
+        else if (bytes < constant_1.MemorySize.G) // 1M
          {
-            return (paramBytes / constant_1.MemorySize.M).toFixed(2) + "MB";
+            return (bytes / constant_1.MemorySize.M).toFixed(2) + "MB";
         }
-        else if (paramBytes < constant_1.MemorySize.T) //1T
+        else if (bytes < constant_1.MemorySize.T) // 1T
          {
-            return (paramBytes / constant_1.MemorySize.G).toFixed(2) + "GB";
+            return (bytes / constant_1.MemorySize.G).toFixed(2) + "GB";
         }
-        else if (paramBytes < constant_1.MemorySize.P) //1T
+        else if (bytes < constant_1.MemorySize.P) // 1T
          {
-            return (paramBytes / constant_1.MemorySize.T).toFixed(2) + "TB";
+            return (bytes / constant_1.MemorySize.T).toFixed(2) + "TB";
         }
         else {
-            return (paramBytes / constant_1.MemorySize.P).toFixed(2) + "PB"; //1G
+            return (bytes / constant_1.MemorySize.P).toFixed(2) + "PB"; // 1P
         }
     }
     /**
@@ -423,7 +428,7 @@ class utils {
      * - 现在可以用javascript自带的Object.keys和Object.values替代，不需要该函数了
      * @param paramObject 参数表
      * @return 返回的结果
-     * */
+     */
     static keyValues(paramObject) {
         const r = {
             keys: [],
@@ -688,7 +693,7 @@ class utils {
      * - 一般指通过程序启动，传入的参数
      * - 对于参数中 -或--开始的，视为参数名，后面紧跟的是参数值
      *
-     * @param paramArgs 参数列表
+     * @param args 参数列表
      *
      * @return
      * - _ 是未能识别的参数数组，
@@ -702,41 +707,42 @@ class utils {
          * @return 处理结果
          */
         function GetArgsName(paramArg) {
-            let ret = { isArg: false, argName: '', argOri: paramArg };
+            let localRet = { isArg: false, argName: '', argOri: paramArg };
             let strName = null;
-            if (paramArg.substring(0, 2) === '--') { //如果是前缀--
+            if (paramArg.substring(0, 2) === '--') { // 如果是前缀--
                 strName = paramArg.substring(2).trim();
             }
-            else if (paramArg.substring(0, 1) === '-') { //如果是前缀-
+            else if (paramArg.substring(0, 1) === '-') { // 如果是前缀-
                 strName = paramArg.substring(1).trim();
             }
             else {
-                return ret;
+                return localRet;
             }
             if (strName.length === 0) {
-                return ret;
+                return localRet;
             }
-            ret.isArg = true;
-            ret.argName = strName;
-            return ret;
+            localRet.isArg = true;
+            localRet.argName = strName;
+            return localRet;
         }
         let ret = { _: [], args: {} };
-        paramArgs = paramArgs || [];
-        if (!Array.isArray(paramArgs)) {
-            paramArgs = [paramArgs];
+        let args = paramArgs || [];
+        if (!Array.isArray(args)) {
+            args = [args];
         }
         let argPre = {
             is: false,
             argName: '',
-            argOri: '', //原始参数
+            argOri: '', // 原始参数
         };
-        for (let i = 0; i < paramArgs.length; i++) {
-            let arg = paramArgs[i];
-            let isString = utils.isString(arg); //判断是否是字符串
+        // tslint:disable-next-line: prefer-for-of
+        for (let i = 0; i < args.length; i++) {
+            let arg = args[i];
+            let isString = utils.isString(arg); // 判断是否是字符串
             if (isString) {
                 arg = arg.trim();
             }
-            if (argPre.is) { //如果存在前缀
+            if (argPre.is) { // 如果存在前缀
                 ret.args[argPre.argName] = arg;
                 argPre.is = false;
                 argPre.argName = '';
@@ -758,7 +764,7 @@ class utils {
                 ret._.push(arg);
             }
         }
-        if (argPre.is) { //如果存在前缀，但是，没有值，则加到_中
+        if (argPre.is) { // 如果存在前缀，但是，没有值，则加到_中
             ret._.push(argPre.argOri);
         }
         return ret;

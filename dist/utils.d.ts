@@ -3,7 +3,7 @@
  * 检查对象属性结果，枚举
  */
 export declare enum EnumCheckObjectCode {
-    /** code = 0 表示完全符合，否则存在问题*/
+    /** code = 0 表示完全符合，否则存在问题 */
     TotallySuitable = 0,
     /** code = -1 表示paramDestObject不是object对象 */
     DestIsNotObject = -1,
@@ -33,7 +33,7 @@ export declare class utils {
      * @deprecated 无实际使用意义
      * @return 当前utils版本号字符串
      */
-    static version(): String;
+    static version(): string;
     /**
      * 取调用堆栈
      * @static
@@ -48,7 +48,7 @@ export declare class utils {
      * @param paramStack 调用堆栈列表
      * @return 返回的文件名
      */
-    static GetFileNameByStack(paramStack: NodeJS.CallSite[]): String | null;
+    static GetFileNameByStack(paramStack: NodeJS.CallSite[]): string | null;
     /**
      * 取当前调用所在的行号
      * @static
@@ -240,7 +240,7 @@ export declare class utils {
      * 格式化显示容量
      *
      * @static
-     * @param paramBytes 要格式化的字节数
+     * @param bytes 要格式化的字节数
      * @return  格式化的字符串
      * @memberof utils
      */
@@ -257,7 +257,7 @@ export declare class utils {
      * - 现在可以用javascript自带的Object.keys和Object.values替代，不需要该函数了
      * @param paramObject 参数表
      * @return 返回的结果
-     * */
+     */
     static keyValues(paramObject: any): {
         keys: string[];
         values: any[];
@@ -362,7 +362,7 @@ export declare class utils {
      * - 一般指通过程序启动，传入的参数
      * - 对于参数中 -或--开始的，视为参数名，后面紧跟的是参数值
      *
-     * @param paramArgs 参数列表
+     * @param args 参数列表
      *
      * @return
      * - _ 是未能识别的参数数组，
