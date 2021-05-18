@@ -1,9 +1,14 @@
+import { codeUtils, IMD5Options } from './codeutils';
 import { bitUtils } from './bitUtils';
 import { utils } from './utils';
 import { CNYCurrency } from './cnycurrency';
-
+import { error_common, MemorySize } from './constant';
 export {
     utils,
     bitUtils,
-    CNYCurrency
+    CNYCurrency,
+    error_common,
+    MemorySize,
+    codeUtils,
+    IMD5Options,
 }
