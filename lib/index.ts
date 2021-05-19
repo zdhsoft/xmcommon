@@ -6,6 +6,7 @@ import { bitUtils } from './bitUtils';
 import { utils } from './utils';
 import { CNYCurrency } from './cnycurrency';
 import { error_common, MemorySize, DatetimeConstant } from './constant';
+import { watchRequire } from './watchrequire';
 export {
     utils,
     bitUtils,
@@ -17,5 +18,6 @@ export {
     datetimeUtils,
     DatetimeConstant,
     error_utils,
-    common_ret, ICommonRetData, ICommonMsgHead
+    common_ret, ICommonRetData, ICommonMsgHead,
+    watchRequire
 }

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.common_ret = exports.error_utils = exports.DatetimeConstant = exports.datetimeUtils = exports.codeUtils = exports.MemorySize = exports.error_common = exports.CNYCurrency = exports.bitUtils = exports.utils = void 0;
+exports.watchRequire = exports.common_ret = exports.error_utils = exports.DatetimeConstant = exports.datetimeUtils = exports.codeUtils = exports.MemorySize = exports.error_common = exports.CNYCurrency = exports.bitUtils = exports.utils = void 0;
 const common_ret_1 = require("./common_ret");
 Object.defineProperty(exports, "common_ret", { enumerable: true, get: function () { return common_ret_1.common_ret; } });
 const common_error_1 = require("./common_error");
@@ -19,3 +19,5 @@ const constant_1 = require("./constant");
 Object.defineProperty(exports, "error_common", { enumerable: true, get: function () { return constant_1.error_common; } });
 Object.defineProperty(exports, "MemorySize", { enumerable: true, get: function () { return constant_1.MemorySize; } });
 Object.defineProperty(exports, "DatetimeConstant", { enumerable: true, get: function () { return constant_1.DatetimeConstant; } });
+const watchrequire_1 = require("./watchrequire");
+Object.defineProperty(exports, "watchRequire", { enumerable: true, get: function () { return watchrequire_1.watchRequire; } });
