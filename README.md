@@ -3,6 +3,7 @@
 一个js 通用库, 将一些常用的函数之类的，移到这里方便使用
 
 - 准备用typescript重写这个库，并计划正式发布它的1.0版本。
+- 第一个改写版0.9提交，一下就准备单元测试与兼容性测试
 
 - github: https://github.com/zdhsoft/xmcommon
 - npm: https://www.npmjs.com/package/xmcommon
@@ -19,8 +20,6 @@ npm install xmcommon
 
 - datetimeUtils 日期时间相关的处理工具函数
 - utils 一些常用的工具类函数
-- ~~HttpCall 全局的CHttpCall对象~~
-- ~~CHttpCall 提供api调用接口的http或https的函数调用类~~
 - watchRequire 监控文化变化的函数
 - SimpleCode 一种换位加编码的类
 - getLogger 取日志对象的函数
@@ -32,6 +31,10 @@ npm install xmcommon
 - CNYCurrency 中文货币类
 
 # 版本变更说明
+
+## 0.9.0
+- 2021-05-19
+- * 将通用库使用typescript改写
 
 ## 0.1.9
 - 2021-05-08
