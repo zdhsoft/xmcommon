@@ -1,11 +1,9 @@
 {
     "name": "xmcommon",
-    "version": "1.0.0",
+    "version": "0.9.0",
     "description": "javascript common lib for es6 by typescript",
     "main": "dist/index.js",
     "scripts": {
-        "testcurr": "node ./example/testcurr.js",
-        "test": "node ./example/test.js",
         "build": "tsc",
         "compile": "tsc"
     },

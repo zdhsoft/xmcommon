@@ -1,3 +1,5 @@
+import { common_ret, ICommonRetData, ICommonMsgHead } from './common_ret';
+import { error_utils } from './common_error';
 import { datetimeUtils } from './datetimeUtils';
 import { codeUtils, IMD5Options } from './codeutils';
 import { bitUtils } from './bitUtils';
@@ -13,5 +15,7 @@ export {
     codeUtils,
     IMD5Options,
     datetimeUtils,
-    DatetimeConstant
+    DatetimeConstant,
+    error_utils,
+    common_ret, ICommonRetData, ICommonMsgHead
 }
