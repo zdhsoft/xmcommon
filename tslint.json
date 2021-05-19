@@ -1,0 +1,57 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "jsRules": {},
+    "rules": {
+        "no-namespace": false,
+        "ordered-imports": false,
+        "member-ordering": false,
+        "object-literal-sort-keys": false,
+        "trailing-comma": false,
+        "no-var-requires": false,
+        "no-empty": false,
+        "interface-over-type-literal": false,
+        "object-literal-shorthand": false,
+        "no-empty-interface": false,
+        "no-unused-variable": true,
+        "interface-name": false,
+        "eofline": false,
+        "variable-name":false,
+        "max-classes-per-file":false,
+        "quotemark": false,
+        "callable-types":true,
+        "no-console":true,
+        "prefer-const":false,
+        "no-string-literal":false,
+        "forin": false,
+        "radix": false,
+        "curly": [true, "ignore-same-line"],
+        "no-arg": true,
+        "no-parameter-reassignment": true,
+        "member-access": [true, "check-accessor", "check-constructor", "check-parameter-property"],
+        "adjacent-overload-signatures": true,
+        "label-position": false,
+        "no-conditional-assignment": true,
+        "no-construct": true,
+        "no-duplicate-super": true,
+        "no-duplicate-switch-case": true,
+        "no-duplicate-variable": [true, "check-parameters"],
+        "no-implicit-dependencies": [true, "dev"],
+        "max-line-length": [
+            true,
+            {
+                "limit": 160,
+                "ignore-pattern": "^import |^export {(.*?)}",
+                "check-strings": false,
+                "check-regex": true
+            }
+        ],
+        "typedef-whitespace":[
+            true,
+            {"parameter": "nospace" }
+        ]
+    },
+    "rulesDirectory": []
+}
