@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.codeUtils = exports.MemorySize = exports.error_common = exports.CNYCurrency = exports.bitUtils = exports.utils = void 0;
+exports.DatetimeConstant = exports.datetimeUtils = exports.codeUtils = exports.MemorySize = exports.error_common = exports.CNYCurrency = exports.bitUtils = exports.utils = void 0;
+const datetimeUtils_1 = require("./datetimeUtils");
+Object.defineProperty(exports, "datetimeUtils", { enumerable: true, get: function () { return datetimeUtils_1.datetimeUtils; } });
 const codeutils_1 = require("./codeutils");
 Object.defineProperty(exports, "codeUtils", { enumerable: true, get: function () { return codeutils_1.codeUtils; } });
 const bitUtils_1 = require("./bitUtils");
@@ -12,3 +14,4 @@ Object.defineProperty(exports, "CNYCurrency", { enumerable: true, get: function 
 const constant_1 = require("./constant");
 Object.defineProperty(exports, "error_common", { enumerable: true, get: function () { return constant_1.error_common; } });
 Object.defineProperty(exports, "MemorySize", { enumerable: true, get: function () { return constant_1.MemorySize; } });
+Object.defineProperty(exports, "DatetimeConstant", { enumerable: true, get: function () { return constant_1.DatetimeConstant; } });

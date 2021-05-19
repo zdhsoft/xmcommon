@@ -1,7 +1,7 @@
 "use strict";
 // 这里定义一些必要的常量
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.error_common = exports.MemorySize = void 0;
+exports.DatetimeConstant = exports.error_common = exports.MemorySize = void 0;
 /** 内存的容量常量定义 */
 var MemorySize;
 (function (MemorySize) {
@@ -28,3 +28,22 @@ var error_common;
     /** 表示返回false */
     error_common[error_common["ERR_FALSE"] = -3] = "ERR_FALSE";
 })(error_common = exports.error_common || (exports.error_common = {}));
+/**
+ * 日期时间的常量
+ */
+var DatetimeConstant;
+(function (DatetimeConstant) {
+    /** 最小的UTC时间 */
+    DatetimeConstant[DatetimeConstant["MIN_UTC"] = 1] = "MIN_UTC";
+    /** 最大的UTC时间 */
+    DatetimeConstant[DatetimeConstant["MAX_UTC"] = 253370736000000] = "MAX_UTC";
+    /** 无效的UTC时间 */
+    DatetimeConstant[DatetimeConstant["INVALID_UTC"] = 0] = "INVALID_UTC";
+    /** 每天最大的毫少数 */
+    DatetimeConstant[DatetimeConstant["MILLIS_PRE_DAY"] = 86400000] = "MILLIS_PRE_DAY";
+    /** 每分钟的秒数 */
+    DatetimeConstant[DatetimeConstant["SECOND_PRE_MINUTE"] = 60] = "SECOND_PRE_MINUTE";
+    /** 每秒的毫秒数 */
+    DatetimeConstant[DatetimeConstant["MILLIS_PRE_SECOND"] = 1000] = "MILLIS_PRE_SECOND";
+})(DatetimeConstant = exports.DatetimeConstant || (exports.DatetimeConstant = {}));
+;

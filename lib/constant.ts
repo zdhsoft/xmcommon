@@ -25,3 +25,22 @@ export enum error_common {
     /** 表示返回false */
     ERR_FALSE = -3,
 }
+
+
+/**
+ * 日期时间的常量
+ */
+export enum DatetimeConstant  {
+	/** 最小的UTC时间 */
+	MIN_UTC    = 1,
+	/** 最大的UTC时间 */
+	MAX_UTC    = 253370736000000,
+	/** 无效的UTC时间 */
+	INVALID_UTC= 0,
+	/** 每天最大的毫少数 */
+	MILLIS_PRE_DAY      = 86400000,
+    /** 每分钟的秒数 */
+    SECOND_PRE_MINUTE   = 60,
+    /** 每秒的毫秒数 */
+    MILLIS_PRE_SECOND   = 1000,
+};
