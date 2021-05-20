@@ -8,8 +8,6 @@
         "build": "tsc",
         "compile": "tsc",
         "test": "mocha"
-
-
     },
     "repository": {
         "type": "git",
@@ -36,7 +34,6 @@
     "devDependencies": {
         "@types/lodash": "^4.14.168",
         "@types/node": "^10.17.59",
-        "mocha": "^8.4.0",
         "typescript-tslint-plugin": "^1.0.1"
     },
     "engines": {
