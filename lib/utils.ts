@@ -828,7 +828,7 @@ export class utils {
      * @param paramMax 大于1的整数 注： 这里不会检查这个参数的有效性
      * @return number
      */
-    static randomBetween(paramMin: number, paramMax: number) {
+    public static randomBetween(paramMin: number, paramMax: number) {
         return this.randomInteger() % (paramMax - paramMin + 1) + paramMin;
     }
 
