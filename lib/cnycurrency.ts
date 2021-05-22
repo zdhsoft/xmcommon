@@ -24,7 +24,7 @@ let cnIntLast = '元';
 
 /**
  * 将值转换为数字，
- * - 仅限cnycurrency这个文件专用，外部请不要使用
+ * - 仅限 cnycurrency.ts 这个文件专用，外部请不要使用
  * @param {number | string} paramValue 值
  * @return {{result: boolean, value: number}} 转换后的值
  *  - result === true 表示转换有效
@@ -86,7 +86,7 @@ function Parse(paramValue: number | string) {
 }
 
 /** 大写的Chinese函数参数选项 */
-export interface IChinseFormatOptions {
+export interface IChineseFormatOptions {
     /** 指定输出大写的前缀，默认为：人民币 */
     prefix   ?: string;
     /** 是否负数字符：如负 */
@@ -385,7 +385,7 @@ export class CNYCurrency {
      * @param {{prefix?: string, negative?:string, zheng?: string}} paramOpts 如果是负数时，前面的前缀
      * @return {string} 中文大写结果
      */
-    public Chinese(paramOpts: IChinseFormatOptions = {}) {
+    public Chinese(paramOpts: IChineseFormatOptions = {}) {
         let stPrefix   = '人民币';
         let stNegative = '负';
         let stZheng    = '整';

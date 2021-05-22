@@ -361,7 +361,7 @@ export class utils {
      * @static
      * @memberOf utils
      * @param paramObject 要调用函数的对象实例
-     * @param paramFunc 要调用的函数名称
+     * @param paramFunctionName 要调用的函数名称
      * @param args 要调用的参数
      * @return 返回回调函数的传入参数列表
      */
@@ -412,9 +412,8 @@ export class utils {
      * 格式化显示容量
      *
      * @static
-     * @param bytes 要格式化的字节数
+     * @param paramBytes 要格式化的字节数
      * @return  格式化的字符串
-     * @memberof utils
      */
     public static formatMemory(paramBytes: number): string {
         let bytes = paramBytes;
@@ -489,14 +488,14 @@ export class utils {
      */
     public static formatNumber(paramNumber: number, paramPattern: string): string {
 
-        const strarr = paramNumber  ? paramNumber.toString().split('.') : ['0'];
-        const fmtarr = paramPattern ? paramPattern.split('.') : [''];
+        const strArr = paramNumber  ? paramNumber.toString().split('.') : ['0'];
+        const fmtArr = paramPattern ? paramPattern.split('.') : [''];
 
-        let str   = strarr[0];
-        let fmt   = fmtarr[0];
+        let str   = strArr[0];
+        let fmt   = fmtArr[0];
 
         // 用于返回的字符串
-        let retstr = '';
+        let retString = '';
         let i      = str.length - 1;
         let comma  = false;
 
@@ -504,14 +503,14 @@ export class utils {
         for (let f = fmt.length - 1; f >= 0; f--) {
             switch (fmt.substr(f, 1)) {
                 case '#':
-                    if (i >= 0) retstr = str.substr(i--, 1) + retstr;
+                    if (i >= 0) retString = str.substr(i--, 1) + retString;
                     break;
                 case '0':
-                    if (i >= 0) retstr = str.substr(i--, 1) + retstr; else retstr = '0' + retstr;
+                    if (i >= 0) retString = str.substr(i--, 1) + retString; else retString = '0' + retString;
                     break;
                 case ',':
                     comma = true;
-                    retstr = ',' + retstr;
+                    retString = ',' + retString;
                     break;
                 default:
                     break;
@@ -521,30 +520,30 @@ export class utils {
             if (comma) {
                 let l = str.length;
                 for (; i >= 0; i--) {
-                    retstr = str.substr(i, 1) + retstr;
-                    if (i > 0 && (l - i) % 3 === 0) retstr = ',' + retstr;
+                    retString = str.substr(i, 1) + retString;
+                    if (i > 0 && (l - i) % 3 === 0) retString = ',' + retString;
                 }
-            } else retstr = str.substr(0, i + 1) + retstr;
+            } else retString = str.substr(0, i + 1) + retString;
         }
 
-        retstr = retstr + '.';
+        retString = retString + '.';
 
-        str = strarr.length > 1 ? strarr[1] : '';
-        fmt = fmtarr.length > 1 ? fmtarr[1] : '';
+        str = strArr.length > 1 ? strArr[1] : '';
+        fmt = fmtArr.length > 1 ? fmtArr[1] : '';
         i = 0;
         for (let f = 0; f < fmt.length; f++) {
             switch (fmt.substr(f, 1)) {
                 case '#':
-                    if (i < str.length) retstr += str.substr(i++, 1);
+                    if (i < str.length) retString += str.substr(i++, 1);
                     break;
                 case '0':
-                    if (i < str.length) retstr += str.substr(i++, 1); else retstr += '0';
+                    if (i < str.length) retString += str.substr(i++, 1); else retString += '0';
                     break;
                 default:
                     break;
             }
         }
-        return retstr.replace(/^,+/, '').replace(/\.$/, '');
+        return retString.replace(/^,+/, '').replace(/\.$/, '');
     }
     /**
      * 将指定的内容，转换为整数，如果转换失败，则用缺省值
@@ -580,8 +579,7 @@ export class utils {
      */
     public static JsonParse(paramJsonString: string): object | undefined {
         try {
-            let r = JSON.parse(paramJsonString);
-            return r;
+            return JSON.parse(paramJsonString);
         } catch (e) {
             //
         }
@@ -651,7 +649,7 @@ export class utils {
         try {
             if (!fs.existsSync(paramPath)) {
                 let pathTemp: string;
-                paramPath.split(/[\/\\]/).forEach((dirName) => { // 这里指用/ 或\ 都可以分隔目录  如  linux的/usr/local/services   和windows的 d:\temp\aaaa
+                paramPath.split(/[\/\\]/).forEach((dirName) => {  // 这里指用/ 或\ 都可以分隔目录  如  linux的/usr/local/services   和windows的 d:\temp\aaaa
                     if (pathTemp) {
                         pathTemp = path.join(pathTemp, dirName);
                     } else {
@@ -708,9 +706,8 @@ export class utils {
     /**
      * 将数字转换为百分比的字符串
      * - 精确到0.01%
-     * @param {number | string} paramValue 要格式化的值
-     * @param {string} paramDefault 无效值后，返回的字符串
-     * @return {string} 格式化的百分比字符串
+     * @param paramValue 要格式化的值
+     * @return 格式化的百分比字符串
      *  - 对于paramValue为null或undefined
      */
     public static formatPercentage(paramValue: number | string) {
@@ -722,7 +719,7 @@ export class utils {
      * - 一般指通过程序启动，传入的参数
      * - 对于参数中 -或--开始的，视为参数名，后面紧跟的是参数值
      *
-     * @param args 参数列表
+     * @param paramArgs 参数列表
      *
      * @return
      * - _ 是未能识别的参数数组，
@@ -794,7 +791,6 @@ export class utils {
                 argPre.is      = true;
                 argPre.argName = p.argName;
                 argPre.argOri  = p.argOri;
-                continue;
             }
             else {
                 ret._.push(arg);
