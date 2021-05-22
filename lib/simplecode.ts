@@ -155,7 +155,7 @@ export class SimpleCode {
     }
     /**
      * 数据解码包
-     * @param 经EncodePackage编码的数据
+     * @param paramData 经EncodePackage编码的数据
      * @return 返回处理结果，code==0表示成功，其它值表示失败， seed表示解码的种子， data表示解码后的数据
      */
     public DecodePackage(paramData: Buffer): ISimpleCodeSeed {
