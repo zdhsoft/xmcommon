@@ -5,6 +5,8 @@
 - 准备用typescript重写这个库，并计划正式发布它的1.0版本。
 - 第一个改写版0.9提交，一下就准备单元测试与兼容性测试
 
+## 当前的版本，是正在开发的中的版本，未完成测试，请不要使用。
+
 - github: https://github.com/zdhsoft/xmcommon
 - npm: https://www.npmjs.com/package/xmcommon
 
