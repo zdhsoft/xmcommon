@@ -1,5 +1,5 @@
 /** 大写的Chinese函数参数选项 */
-export interface IChinseFormatOptions {
+export interface IChineseFormatOptions {
     /** 指定输出大写的前缀，默认为：人民币 */
     prefix?: string;
     /** 是否负数字符：如负 */
@@ -144,7 +144,7 @@ export declare class CNYCurrency {
      * @param {{prefix?: string, negative?:string, zheng?: string}} paramOpts 如果是负数时，前面的前缀
      * @return {string} 中文大写结果
      */
-    Chinese(paramOpts?: IChinseFormatOptions): string;
+    Chinese(paramOpts?: IChineseFormatOptions): string;
     /**
      * 格式化输出
      * @param {boolean} paramUseSymbol 是否带有"￥"符号

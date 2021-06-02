@@ -261,12 +261,11 @@ class utils {
     /**
      * 检查指定的对象,是不是字符串并且不为空串
      * @static
-     * @memberOf utils
      * @param paramV 被检查的对象
      * @return 检查结果 true表示是,false表示不是
      */
     static isNotNullOrEmptyString(paramV) {
-        let r = this.isString(paramV);
+        let r = lodash_1.default.isString(paramV);
         if (r) {
             return paramV.length > 0;
         }
@@ -276,7 +275,6 @@ class utils {
      * 异步调用函数,注意：要求第一个参数回调函数
      * - 传入的函数要求是这样的  function (callback, arg1, arg2, ...), 第一个入参是回调函数;
      * @static
-     * @memberOf utils
      * @param paramFunc 要调用的函数
      * @param args 要调用的参数
      * @return 返回回调函数的处理结果列表
@@ -333,7 +331,7 @@ class utils {
      * @static
      * @memberOf utils
      * @param paramObject 要调用函数的对象实例
-     * @param paramFunc 要调用的函数名称
+     * @param paramFunctionName 要调用的函数名称
      * @param args 要调用的参数
      * @return 返回回调函数的传入参数列表
      */
@@ -382,9 +380,8 @@ class utils {
      * 格式化显示容量
      *
      * @static
-     * @param bytes 要格式化的字节数
+     * @param paramBytes 要格式化的字节数
      * @return  格式化的字符串
-     * @memberof utils
      */
     static formatMemory(paramBytes) {
         let bytes = paramBytes;
@@ -454,29 +451,29 @@ class utils {
      * @return 格式化后的字符串
      */
     static formatNumber(paramNumber, paramPattern) {
-        const strarr = paramNumber ? paramNumber.toString().split('.') : ['0'];
-        const fmtarr = paramPattern ? paramPattern.split('.') : [''];
-        let str = strarr[0];
-        let fmt = fmtarr[0];
+        const strArr = paramNumber ? paramNumber.toString().split('.') : ['0'];
+        const fmtArr = paramPattern ? paramPattern.split('.') : [''];
+        let str = strArr[0];
+        let fmt = fmtArr[0];
         // 用于返回的字符串
-        let retstr = '';
+        let retString = '';
         let i = str.length - 1;
         let comma = false;
         for (let f = fmt.length - 1; f >= 0; f--) {
             switch (fmt.substr(f, 1)) {
                 case '#':
                     if (i >= 0)
-                        retstr = str.substr(i--, 1) + retstr;
+                        retString = str.substr(i--, 1) + retString;
                     break;
                 case '0':
                     if (i >= 0)
-                        retstr = str.substr(i--, 1) + retstr;
+                        retString = str.substr(i--, 1) + retString;
                     else
-                        retstr = '0' + retstr;
+                        retString = '0' + retString;
                     break;
                 case ',':
                     comma = true;
-                    retstr = ',' + retstr;
+                    retString = ',' + retString;
                     break;
                 default:
                     break;
@@ -486,35 +483,35 @@ class utils {
             if (comma) {
                 let l = str.length;
                 for (; i >= 0; i--) {
-                    retstr = str.substr(i, 1) + retstr;
+                    retString = str.substr(i, 1) + retString;
                     if (i > 0 && (l - i) % 3 === 0)
-                        retstr = ',' + retstr;
+                        retString = ',' + retString;
                 }
             }
             else
-                retstr = str.substr(0, i + 1) + retstr;
+                retString = str.substr(0, i + 1) + retString;
         }
-        retstr = retstr + '.';
-        str = strarr.length > 1 ? strarr[1] : '';
-        fmt = fmtarr.length > 1 ? fmtarr[1] : '';
+        retString = retString + '.';
+        str = strArr.length > 1 ? strArr[1] : '';
+        fmt = fmtArr.length > 1 ? fmtArr[1] : '';
         i = 0;
         for (let f = 0; f < fmt.length; f++) {
             switch (fmt.substr(f, 1)) {
                 case '#':
                     if (i < str.length)
-                        retstr += str.substr(i++, 1);
+                        retString += str.substr(i++, 1);
                     break;
                 case '0':
                     if (i < str.length)
-                        retstr += str.substr(i++, 1);
+                        retString += str.substr(i++, 1);
                     else
-                        retstr += '0';
+                        retString += '0';
                     break;
                 default:
                     break;
             }
         }
-        return retstr.replace(/^,+/, '').replace(/\.$/, '');
+        return retString.replace(/^,+/, '').replace(/\.$/, '');
     }
     /**
      * 将指定的内容，转换为整数，如果转换失败，则用缺省值
@@ -551,8 +548,7 @@ class utils {
      */
     static JsonParse(paramJsonString) {
         try {
-            let r = JSON.parse(paramJsonString);
-            return r;
+            return JSON.parse(paramJsonString);
         }
         catch (e) {
             //
@@ -680,9 +676,8 @@ class utils {
     /**
      * 将数字转换为百分比的字符串
      * - 精确到0.01%
-     * @param {number | string} paramValue 要格式化的值
-     * @param {string} paramDefault 无效值后，返回的字符串
-     * @return {string} 格式化的百分比字符串
+     * @param paramValue 要格式化的值
+     * @return 格式化的百分比字符串
      *  - 对于paramValue为null或undefined
      */
     static formatPercentage(paramValue) {
@@ -693,7 +688,7 @@ class utils {
      * - 一般指通过程序启动，传入的参数
      * - 对于参数中 -或--开始的，视为参数名，后面紧跟的是参数值
      *
-     * @param args 参数列表
+     * @param paramArgs 参数列表
      *
      * @return
      * - _ 是未能识别的参数数组，
@@ -758,7 +753,6 @@ class utils {
                 argPre.is = true;
                 argPre.argName = p.argName;
                 argPre.argOri = p.argOri;
-                continue;
             }
             else {
                 ret._.push(arg);

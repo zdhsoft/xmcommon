@@ -34,7 +34,7 @@ export declare class codeUtils {
      */
     static HMacSHA256FromString(paramText: string, paramKey: string): string;
     /**
-     * 生成字符串的Hsha256编码，注意这个不是hmac的，纯sha256编码
+     * 生成字符串的sha256编码，注意这个不是hmac的，纯sha256编码
      * @param paramText 要生成sha256的字符串
      * @param paramEncode 指定输出的编码类型 hex or base64
      * @return 小写十六进制或BASE64的sha256字符串，如果指定的编码无效，则返回null

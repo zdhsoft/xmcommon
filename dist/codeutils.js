@@ -49,20 +49,18 @@ class codeUtils {
      */
     static HMacSHA256FromString(paramText, paramKey) {
         const hash = crypto_1.default.createHmac(EnumCryptoAlgorithm.sha256, paramKey);
-        let r = hash.update(paramText)
+        return hash.update(paramText)
             .digest(EncodingHex);
-        return r;
     }
     /**
-     * 生成字符串的Hsha256编码，注意这个不是hmac的，纯sha256编码
+     * 生成字符串的sha256编码，注意这个不是hmac的，纯sha256编码
      * @param paramText 要生成sha256的字符串
      * @param paramEncode 指定输出的编码类型 hex or base64
      * @return 小写十六进制或BASE64的sha256字符串，如果指定的编码无效，则返回null
      */
     static SHA256FromString(paramText, paramEncode = EncodingHex) {
         const hash = crypto_1.default.createHash(EnumCryptoAlgorithm.sha256);
-        let r = hash.update(paramText).digest(paramEncode);
-        return r;
+        return hash.update(paramText).digest(paramEncode);
     }
     /**
      * 生成字符串的MD5

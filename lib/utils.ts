@@ -284,12 +284,11 @@ export class utils {
     /**
      * 检查指定的对象,是不是字符串并且不为空串
      * @static
-     * @memberOf utils
      * @param paramV 被检查的对象
      * @return 检查结果 true表示是,false表示不是
      */
-    public static isNotNullOrEmptyString(paramV: unknown) {
-		let r = this.isString(paramV);
+    public static isNotNullOrEmptyString(paramV: unknown): boolean {
+		let r = _.isString(paramV);
 		if (r) {
 			return (paramV as string).length > 0;
 		}
@@ -300,7 +299,6 @@ export class utils {
      * 异步调用函数,注意：要求第一个参数回调函数
      * - 传入的函数要求是这样的  function (callback, arg1, arg2, ...), 第一个入参是回调函数;
      * @static
-     * @memberOf utils
      * @param paramFunc 要调用的函数
      * @param args 要调用的参数
      * @return 返回回调函数的处理结果列表

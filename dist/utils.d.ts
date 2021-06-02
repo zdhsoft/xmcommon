@@ -163,7 +163,6 @@ export declare class utils {
     /**
      * 检查指定的对象,是不是字符串并且不为空串
      * @static
-     * @memberOf utils
      * @param paramV 被检查的对象
      * @return 检查结果 true表示是,false表示不是
      */
@@ -172,7 +171,6 @@ export declare class utils {
      * 异步调用函数,注意：要求第一个参数回调函数
      * - 传入的函数要求是这样的  function (callback, arg1, arg2, ...), 第一个入参是回调函数;
      * @static
-     * @memberOf utils
      * @param paramFunc 要调用的函数
      * @param args 要调用的参数
      * @return 返回回调函数的处理结果列表
@@ -209,7 +207,7 @@ export declare class utils {
      * @static
      * @memberOf utils
      * @param paramObject 要调用函数的对象实例
-     * @param paramFunc 要调用的函数名称
+     * @param paramFunctionName 要调用的函数名称
      * @param args 要调用的参数
      * @return 返回回调函数的传入参数列表
      */
@@ -240,9 +238,8 @@ export declare class utils {
      * 格式化显示容量
      *
      * @static
-     * @param bytes 要格式化的字节数
+     * @param paramBytes 要格式化的字节数
      * @return  格式化的字符串
-     * @memberof utils
      */
     static formatMemory(paramBytes: number): string;
     /**
@@ -351,9 +348,8 @@ export declare class utils {
     /**
      * 将数字转换为百分比的字符串
      * - 精确到0.01%
-     * @param {number | string} paramValue 要格式化的值
-     * @param {string} paramDefault 无效值后，返回的字符串
-     * @return {string} 格式化的百分比字符串
+     * @param paramValue 要格式化的值
+     * @return 格式化的百分比字符串
      *  - 对于paramValue为null或undefined
      */
     static formatPercentage(paramValue: number | string): string;
@@ -362,7 +358,7 @@ export declare class utils {
      * - 一般指通过程序启动，传入的参数
      * - 对于参数中 -或--开始的，视为参数名，后面紧跟的是参数值
      *
-     * @param args 参数列表
+     * @param paramArgs 参数列表
      *
      * @return
      * - _ 是未能识别的参数数组，

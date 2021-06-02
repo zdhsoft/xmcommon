@@ -42,7 +42,6 @@ describe('utils', () => {
         let f1 = ()=> {};
 
         function f2() {
-
         }
         it('function:f1', ()=>{
             assert.equal(utils.isFunction(f1), true);
@@ -150,45 +149,60 @@ describe('utils', () => {
         });
     });
 
+    describe('utils.isNotNullOrEmptyString', ()=> {
+        it('value: null', ()=> {
+            assert.equal(utils.isNotNullOrEmptyString(null), false);
+        });
+        it('value: undefined', ()=> {
+            assert.equal(utils.isNotNullOrEmptyString(undefined), false);
+        });
+        it('string: ""', ()=> {
+            assert.equal(utils.isNotNullOrEmptyString(""), false);
+        });
+        it('string: "I am string!"', ()=> {
+            assert.equal(utils.isNotNullOrEmptyString("I am string!"), true);
+        });
+
+    });
 
     describe('utils.isInteger', ()=> {
         it('number: 1.1', ()=> {
             assert.equal(utils.isInteger(1.1), false);
-        })
+        });
 
         it(`number: ${Number.MAX_SAFE_INTEGER + 1}`, ()=> {
             assert.equal(utils.isInteger(Number.MAX_SAFE_INTEGER + 1), true);
-        })
+        });
 
         it(`number: ${-Number.MAX_SAFE_INTEGER - 1}`, ()=> {
             assert.equal(utils.isInteger(Number.MAX_SAFE_INTEGER - 1), true);
-        })
+        });
 
 
         it(`number:0`, ()=> {
             assert.equal(utils.isInteger(0), true);
-        })
+        });
 
 
         it(`number: -1`, ()=> {
             assert.equal(utils.isInteger(-1), true);
-        })
+        });
         it(`number: 1`, ()=> {
             assert.equal(utils.isInteger(1), true);
-        })
+        });
         it(`string: "00001"`, ()=> {
             assert.equal(utils.isInteger("00001"), false);
-        })
+        });
 
         it(`string: "this is string!"`, ()=> {
             assert.equal(utils.isInteger("00001"), false);
-        })
+        });
 
         it(`boolean: true`, ()=> {
             assert.equal(utils.isInteger(true), false);
-        })
+        });
         it(`boolean: false`, ()=> {
             assert.equal(utils.isInteger(false), false);
-        })
+        });
     });
 });

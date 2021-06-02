@@ -12,8 +12,6 @@ export declare class error_utils {
      * @static
      * @param paramErr 要判断的错误码
      * @return 判断结果 true表示是OK,否则表示是false
-     *
-     * @memberof errorUtils
      */
     static isOK(paramErr: number): boolean;
     /**
@@ -22,8 +20,6 @@ export declare class error_utils {
      * @static
      * @param paramErr: number 要判断的错误码
      * @return 判断结果 err===ERR_TRUE表示是true, 否则表示是false
-     *
-     * @memberof errorUtils
      */
     static isTrue(paramErr: number): boolean;
     /**
@@ -31,9 +27,6 @@ export declare class error_utils {
      *
      * @static
      * @param paramErr 要判断的错误码
-     * @return 判断结果 err===ERR_FALSE表示是true, 否则表示false
-     *
-     * @memberof errorUtils
      */
     static isFalse(paramErr: number): boolean;
     /**
@@ -42,8 +35,6 @@ export declare class error_utils {
      * @static
      * @param paramErr 要判断的错误码
      * @return判断结果 true表示不是OK, false表示是OK
-     *
-     * @memberof errorUtils
      */
     static isNotOK(paramErr: number): boolean;
     /**
@@ -52,8 +43,6 @@ export declare class error_utils {
      * @static
      * @param paramErr 要判断的错误码
      * @return 判断结果 true表示是error_code.ERR_FAIL, false表示不是error_code.ERR_FAIL
-     *
-     * @memberof errorUtils
      */
     static isFail(paramErr: number): boolean;
 }

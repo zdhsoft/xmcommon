@@ -37,7 +37,7 @@ class SimpleCode {
      * @return 返回处理结果，code==0表示成功，其它值表示失败， seed表示编码的种子， data表示编码后的数据
      */
     Encode(paramSeed, paramData) {
-        let r = this.__checkParam(paramSeed, paramData, 0);
+        let r = SimpleCode.__checkParam(paramSeed, paramData, 0);
         if (r !== 0) {
             return { code: r };
         }
@@ -64,7 +64,7 @@ class SimpleCode {
      * @param paramMinLength 数据最小长度
      * @return 检查结果
      */
-    __checkParam(paramSeed, paramData, paramMinLength = 0) {
+    static __checkParam(paramSeed, paramData, paramMinLength = 0) {
         if (!Number.isInteger(paramSeed)) { // 如果不是整数
             return EnumSimpleCodeError.SEED_NOT_INTEGER;
         }
@@ -94,7 +94,7 @@ class SimpleCode {
      * @return 返回处理结果，code==0表示成功，其它值表示失败， seed表示解码的种子， data表示解码后的数据
      */
     Decode(paramSeed, paramData) {
-        let r = this.__checkParam(paramSeed, paramData, 0);
+        let r = SimpleCode.__checkParam(paramSeed, paramData, 0);
         if (r !== 0) {
             return { code: r };
         }
@@ -119,7 +119,7 @@ class SimpleCode {
      * @return 返回处理结果，code==0表示成功，其它值表示失败， seed表示编码的种子， data表示编码后的数据
      */
     EncodePackage(paramSeed, paramData) {
-        let r = this.__checkParam(paramSeed, paramData, 0);
+        let r = SimpleCode.__checkParam(paramSeed, paramData, 0);
         if (r !== 0) {
             return { code: r };
         }
@@ -137,11 +137,11 @@ class SimpleCode {
     }
     /**
      * 数据解码包
-     * @param 经EncodePackage编码的数据
+     * @param paramData 经EncodePackage编码的数据
      * @return 返回处理结果，code==0表示成功，其它值表示失败， seed表示解码的种子， data表示解码后的数据
      */
     DecodePackage(paramData) {
-        let r = this.__checkParam(0, paramData, 1);
+        let r = SimpleCode.__checkParam(0, paramData, 1);
         if (r !== 0) {
             return { code: r };
         }

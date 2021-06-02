@@ -54,7 +54,7 @@ export declare class SimpleCode {
      * @param paramMinLength 数据最小长度
      * @return 检查结果
      */
-    private __checkParam;
+    private static __checkParam;
     /**
      * 生成随机数
      * @return 生成的随机整数
@@ -76,7 +76,7 @@ export declare class SimpleCode {
     EncodePackage(paramSeed: number, paramData: Buffer): ISimpleCodeSeed;
     /**
      * 数据解码包
-     * @param 经EncodePackage编码的数据
+     * @param paramData 经EncodePackage编码的数据
      * @return 返回处理结果，code==0表示成功，其它值表示失败， seed表示解码的种子， data表示解码后的数据
      */
     DecodePackage(paramData: Buffer): ISimpleCodeSeed;

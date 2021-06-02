@@ -25,7 +25,7 @@ let cnDecUnits = ['角', '分', '毫', '厘'];
 let cnIntLast = '元';
 /**
  * 将值转换为数字，
- * - 仅限cnycurrency这个文件专用，外部请不要使用
+ * - 仅限 cnycurrency.ts 这个文件专用，外部请不要使用
  * @param {number | string} paramValue 值
  * @return {{result: boolean, value: number}} 转换后的值
  *  - result === true 表示转换有效

@@ -50,7 +50,7 @@ class bitUtils {
     /**
      * 取指定标志位的标
      * @param paramFlag 存放标志的31位整数
-     * @param aramBitSite 对应的标志位，在[0,30]之间
+     * @param paramBitSite 对应的标志位，在[0,30]之间
      * @return 返回0或1
      */
     static GetFlag(paramFlag, paramBitSite) {
