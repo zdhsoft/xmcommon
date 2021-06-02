@@ -114,6 +114,43 @@ describe('utils', () => {
         });
     });
 
+    describe('utils.isNotNull', ()=> {
+        it('value: null', ()=> {
+            assert.equal(utils.isNotNull(null), false);
+        });
+        it('value: undefined', ()=> {
+            assert.equal(utils.isNotNull(undefined), false);
+        });
+        it('number: 0', ()=> {
+            assert.equal(utils.isNotNull(0), true);
+        });
+        it('number: 1', ()=> {
+            assert.equal(utils.isNotNull(1), true);
+        });
+        it('string: ""', ()=> {
+            assert.equal(utils.isNotNull(""), true);
+        });
+        it('string: "I am string!"', ()=> {
+            assert.equal(utils.isNotNull("I am string"), true);
+        });
+        it('boolean: true', ()=> {
+            assert.equal(utils.isNotNull(true), true);
+        });
+        it('boolean: false', ()=> {
+            assert.equal(utils.isNotNull(false), true);
+        });
+        it('object: {}', ()=> {
+            assert.equal(utils.isNotNull({}), true);
+        });
+        it('array: {a:"test"}', ()=> {
+            assert.equal(utils.isNotNull({a:"test"}), true);
+        });
+        it('array: []', ()=> {
+            assert.equal(utils.isNotNull([]), true);
+        });
+    });
+
+
     describe('utils.isInteger', ()=> {
         it('number: 1.1', ()=> {
             assert.equal(utils.isInteger(1.1), false);
