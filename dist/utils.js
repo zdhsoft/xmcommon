@@ -377,6 +377,12 @@ class utils {
         return Date.now();
     }
     /**
+     * 取当前时间的偏移时间
+     */
+    static GetDateTimeOffset() {
+        return DateTimeOffset;
+    }
+    /**
      * 格式化显示容量
      *
      * @static

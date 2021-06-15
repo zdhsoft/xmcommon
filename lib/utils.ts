@@ -407,6 +407,13 @@ export class utils {
     }
 
     /**
+     * 取当前时间的偏移时间
+     */
+    public static GetDateTimeOffset(): number {
+        return DateTimeOffset;
+    }
+
+    /**
      * 格式化显示容量
      *
      * @static
@@ -415,10 +422,22 @@ export class utils {
      */
     public static formatMemory(paramBytes: number): string {
         let bytes = paramBytes;
-        if (this.isNull(bytes)) {
-            // tslint:disable-next-line: no-parameter-reassignment
-            bytes = 0;
+
+        // 检查当前传入的值，是不是整数
+        if (!this.isInteger(bytes)) {
+            // 如果不是整数，则做相应的处理
+            if (this.isString(bytes)) {
+                // 如果是字符串，则尝试将字符串转换成整数
+                bytes = this.ToInteger(bytes as unknown as string, 0);
+            } else if (this.isNumber(bytes)) {
+                // 如果是number，则四舍五入，转换为整数
+                bytes = Math.round(bytes);
+            } else {
+                // 其它值，则视为0
+                bytes = 0;
+            }
         }
+
         if (bytes < MemorySize.K) {
             return bytes.toString(10);
         }

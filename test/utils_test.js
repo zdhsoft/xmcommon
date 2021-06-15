@@ -205,4 +205,41 @@ describe('utils', () => {
             assert.equal(utils.isInteger(false), false);
         });
     });
+
+    describe('utils.DateTimeOffset', ()=>{
+        let  dt = 20000;
+        it (`GetDateTimeOffset by init:  === 0`, ()=>{
+            assert.equal(utils.GetDateTimeOffset(), 0);
+        });
+
+
+        it (`SetDateTimeOffset by string: "input string"`, ()=>{
+            assert.equal(utils.SetDateTimeOffset("input string"), false);
+        });
+        it (`SetDateTimeOffset by boolean: true`, ()=>{
+            assert.equal(utils.SetDateTimeOffset(true), false);
+        });
+        it (`SetDateTimeOffset by float: 1.1`, ()=>{
+            assert.equal(utils.SetDateTimeOffset(1.1), false);
+        });
+        it (`SetDateTimeOffset by int: ${dt}`, ()=>{
+            assert.equal(utils.SetDateTimeOffset(dt), true);
+        });
+        it (`GetDateTimeOffset by ${dt}`, ()=>{
+            assert.equal(utils.GetDateTimeOffset(), dt);
+        });
+
+        it (`GetCurrNow by Curr DateTime`, ()=> {
+            let currNow = utils.GetCurrNow();
+            let stNow = Date.now();
+            assert.equal(currNow, stNow);
+        });
+
+        it (`GetDateTimeNow by offset DateTime`, ()=> {
+            let currNow = utils.GetDateTimeNow();
+            let stNow = Date.now() + dt;
+            assert.equal(currNow, stNow);
+        });
+
+    });
 });

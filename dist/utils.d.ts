@@ -235,6 +235,10 @@ export declare class utils {
      */
     static GetCurrNow(): number;
     /**
+     * 取当前时间的偏移时间
+     */
+    static GetDateTimeOffset(): number;
+    /**
      * 格式化显示容量
      *
      * @static
