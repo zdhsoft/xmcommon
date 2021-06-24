@@ -391,9 +391,21 @@ class utils {
      */
     static formatMemory(paramBytes) {
         let bytes = paramBytes;
-        if (this.isNull(bytes)) {
-            // tslint:disable-next-line: no-parameter-reassignment
-            bytes = 0;
+        // 检查当前传入的值，是不是整数
+        if (!this.isInteger(bytes)) {
+            // 如果不是整数，则做相应的处理
+            if (this.isString(bytes)) {
+                // 如果是字符串，则尝试将字符串转换成整数
+                bytes = this.ToInteger(bytes, 0);
+            }
+            else if (this.isNumber(bytes)) {
+                // 如果是number，则四舍五入，转换为整数
+                bytes = Math.round(bytes);
+            }
+            else {
+                // 其它值，则视为0
+                bytes = 0;
+            }
         }
         if (bytes < constant_1.MemorySize.K) {
             return bytes.toString(10);

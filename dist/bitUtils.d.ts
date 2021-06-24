@@ -1,3 +1,12 @@
+/** 关于位的常量 */
+export declare enum EnumBitConst {
+    /**  最大标志位  如果超过30位，就会出现负数，所以在这里只到30位 */
+    MAX_BIT_SITE = 30,
+    /** 最小标志位 */
+    MIN_BIT_SITE = 0,
+    /** 最大bit的位数 */
+    MAX_BIT_COUNT = 31
+}
 /**
  * 位操作工具
  */

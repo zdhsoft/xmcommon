@@ -3,7 +3,7 @@ import { common_ret, ICommonRetData, ICommonMsgHead } from './common_ret';
 import { error_utils } from './common_error';
 import { datetimeUtils } from './datetimeUtils';
 import { codeUtils, IMD5Options } from './codeutils';
-import { bitUtils } from './bitUtils';
+import { bitUtils, EnumBitConst } from './bitUtils';
 import { utils } from './utils';
 import { CNYCurrency } from './cnycurrency';
 import { error_common, MemorySize, DatetimeConstant } from './constant';
@@ -12,6 +12,7 @@ import { getLogger, ILog, logPrefix, setGetLogger } from './log';
 export {
     utils,
     bitUtils,
+    EnumBitConst,
     CNYCurrency,
     error_common,
     MemorySize,

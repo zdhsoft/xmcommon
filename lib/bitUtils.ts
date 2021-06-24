@@ -1,5 +1,12 @@
-const MAX_BIT_SITE = 30;  	// 最大标志位  如果超过30位，就会出现负数，所以在这里只到30位
-const MIN_BIT_SITE = 0;		// 最小标志位
+/** 关于位的常量 */
+export enum EnumBitConst {
+    /**  最大标志位  如果超过30位，就会出现负数，所以在这里只到30位 */
+    MAX_BIT_SITE  = 30,
+    /** 最小标志位 */
+    MIN_BIT_SITE  = 0,
+    /** 最大bit的位数 */
+    MAX_BIT_COUNT = 31,
+}
 
 /**
  * 0-30位的整数
@@ -32,6 +39,7 @@ const BIT_VALUE_EX = [
  */
 // tslint:disable-next-line: class-name
 export class bitUtils {
+
     /**
      * 检查是否是有效的标志位
      * @param paramBitSite 指定的标志位
@@ -43,7 +51,7 @@ export class bitUtils {
 		if (!Number.isSafeInteger(paramBitSite)) {
 			return false;
 		}
-		return paramBitSite >= MIN_BIT_SITE && paramBitSite <= MAX_BIT_SITE;
+		return paramBitSite >= EnumBitConst.MIN_BIT_SITE && paramBitSite <= EnumBitConst.MAX_BIT_SITE;
 	}
 	/**
 	 * 取指定标志位的标

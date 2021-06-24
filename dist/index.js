@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.logPrefix = exports.setGetLogger = exports.getLogger = exports.EnumSimpleCodeError = exports.SimpleCode = exports.watchRequire = exports.common_ret = exports.error_utils = exports.DatetimeConstant = exports.datetimeUtils = exports.codeUtils = exports.MemorySize = exports.error_common = exports.CNYCurrency = exports.bitUtils = exports.utils = void 0;
+exports.logPrefix = exports.setGetLogger = exports.getLogger = exports.EnumSimpleCodeError = exports.SimpleCode = exports.watchRequire = exports.common_ret = exports.error_utils = exports.DatetimeConstant = exports.datetimeUtils = exports.codeUtils = exports.MemorySize = exports.error_common = exports.CNYCurrency = exports.EnumBitConst = exports.bitUtils = exports.utils = void 0;
 const simplecode_1 = require("./simplecode");
 Object.defineProperty(exports, "SimpleCode", { enumerable: true, get: function () { return simplecode_1.SimpleCode; } });
 Object.defineProperty(exports, "EnumSimpleCodeError", { enumerable: true, get: function () { return simplecode_1.EnumSimpleCodeError; } });
@@ -14,6 +14,7 @@ const codeutils_1 = require("./codeutils");
 Object.defineProperty(exports, "codeUtils", { enumerable: true, get: function () { return codeutils_1.codeUtils; } });
 const bitUtils_1 = require("./bitUtils");
 Object.defineProperty(exports, "bitUtils", { enumerable: true, get: function () { return bitUtils_1.bitUtils; } });
+Object.defineProperty(exports, "EnumBitConst", { enumerable: true, get: function () { return bitUtils_1.EnumBitConst; } });
 const utils_1 = require("./utils");
 Object.defineProperty(exports, "utils", { enumerable: true, get: function () { return utils_1.utils; } });
 const cnycurrency_1 = require("./cnycurrency");

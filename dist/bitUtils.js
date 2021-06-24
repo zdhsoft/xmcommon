@@ -1,8 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.bitUtils = void 0;
-const MAX_BIT_SITE = 30; // 最大标志位  如果超过30位，就会出现负数，所以在这里只到30位
-const MIN_BIT_SITE = 0; // 最小标志位
+exports.bitUtils = exports.EnumBitConst = void 0;
+/** 关于位的常量 */
+var EnumBitConst;
+(function (EnumBitConst) {
+    /**  最大标志位  如果超过30位，就会出现负数，所以在这里只到30位 */
+    EnumBitConst[EnumBitConst["MAX_BIT_SITE"] = 30] = "MAX_BIT_SITE";
+    /** 最小标志位 */
+    EnumBitConst[EnumBitConst["MIN_BIT_SITE"] = 0] = "MIN_BIT_SITE";
+    /** 最大bit的位数 */
+    EnumBitConst[EnumBitConst["MAX_BIT_COUNT"] = 31] = "MAX_BIT_COUNT";
+})(EnumBitConst = exports.EnumBitConst || (exports.EnumBitConst = {}));
 /**
  * 0-30位的整数
  */
@@ -45,7 +53,7 @@ class bitUtils {
         if (!Number.isSafeInteger(paramBitSite)) {
             return false;
         }
-        return paramBitSite >= MIN_BIT_SITE && paramBitSite <= MAX_BIT_SITE;
+        return paramBitSite >= EnumBitConst.MIN_BIT_SITE && paramBitSite <= EnumBitConst.MAX_BIT_SITE;
     }
     /**
      * 取指定标志位的标
