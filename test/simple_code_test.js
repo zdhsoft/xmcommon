@@ -1,6 +1,11 @@
 let { SimpleCode } = require('../dist/index');
 let assert = require('assert').strict;
 describe('SimpleCode', () => {
+    let s = new SimpleCode();
+    let helloContent = 'hello中文';
+    let data = Buffer.from(helloContent, 'utf-8');
+
+    s.Encode()
     // describe('bitUtils.getFlag', ()=> {
     //     let vv = [];
 
