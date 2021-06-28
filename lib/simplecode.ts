@@ -128,7 +128,7 @@ export class SimpleCode {
         return { code: EnumSimpleCodeError.OK, seed: paramSeed, data: bRet };
     }
     /**
-     * 生数据编码包
+     * 生数据编码包 含有种子的编码的包
      * @param paramSeed 初始种子
      * @param paramData 要编码的数据
      * @return 返回处理结果，code==0表示成功，其它值表示失败， seed表示编码的种子， data表示编码后的数据
@@ -154,7 +154,7 @@ export class SimpleCode {
         return { code:EnumSimpleCodeError.OK, seed: paramSeed, data: bRet };
     }
     /**
-     * 数据解码包
+     * 数据解码包 含有种子的编码的包
      * @param paramData 经EncodePackage编码的数据
      * @return 返回处理结果，code==0表示成功，其它值表示失败， seed表示解码的种子， data表示解码后的数据
      */

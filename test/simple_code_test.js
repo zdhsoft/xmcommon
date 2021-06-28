@@ -1,11 +1,33 @@
 let { SimpleCode } = require('../dist/index');
 let assert = require('assert').strict;
 describe('SimpleCode', () => {
-    let s = new SimpleCode();
-    let helloContent = 'hello中文';
-    let data = Buffer.from(helloContent, 'utf-8');
 
-    s.Encode()
+    describe('SimpleCode.Encode && Decode', ()=>{
+        let s = new SimpleCode();
+        let helloContent = 'hello中文';
+        let data = Buffer.from(helloContent, 'utf-8');
+        const seed = 1;
+        let v = s.Encode(seed, data);
+        let k = s.Decode(seed, v.data);
+        let m = k.data.toString('utf-8');
+        it (`Encode("${helloContent}") === Decode`, ()=>{
+            assert.equal(m, helloContent);
+        });
+    });
+
+    describe('SimpleCode.EncodePackage && DecodePackage', ()=>{
+        let s = new SimpleCode();
+        let helloContent = 'hello中文Package';
+        let data = Buffer.from(helloContent, 'utf-8');
+        const seed = 1;
+        let v = s.EncodePackage(seed, data);
+        let k = s.DecodePackage(v.data);
+        let m = k.data.toString('utf-8');
+        it (`EncodePackage("${helloContent}") === DecodePackage`, ()=>{
+            assert.equal(m, helloContent);
+        });
+    });
+
     // describe('bitUtils.getFlag', ()=> {
     //     let vv = [];
 
