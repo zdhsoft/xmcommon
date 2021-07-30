@@ -472,21 +472,21 @@ export class utils {
 
     /**
      * 将paramObject的key和values分别变成两个数组
+     * - 注意：这里使用系统默认的方法，替代实现了
      * - 现在可以用javascript自带的Object.keys和Object.values替代，不需要该函数了
      * @param paramObject 参数表
      * @return 返回的结果
      */
     public static keyValues(paramObject: any): { keys: string[], values: any[] } {
         const r = {
-            keys  : [] as string[],
-            values: [] as any[]
+            keys  : Object.keys(paramObject),
+            values: Object.values(paramObject)
         };
+        // for (let k in paramObject) {
 
-        for (let k in paramObject) {
-
-            r.keys.push(k);
-            r.values.push(paramObject[k]);
-        }
+        //     r.keys.push(k);
+        //     r.values.push(paramObject[k]);
+        // }
         return r;
     }
 

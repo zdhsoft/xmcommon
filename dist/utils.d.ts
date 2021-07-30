@@ -255,6 +255,7 @@ export declare class utils {
     static sleep(paramT: number): Promise<void>;
     /**
      * 将paramObject的key和values分别变成两个数组
+     * - 注意：这里使用系统默认的方法，替代实现了
      * - 现在可以用javascript自带的Object.keys和Object.values替代，不需要该函数了
      * @param paramObject 参数表
      * @return 返回的结果

@@ -206,6 +206,48 @@ describe('utils', () => {
         });
     });
 
+    describe('utils.formatMemory', () => {
+        let s = [
+            {value: 9, result: '9'},
+            {value: 99, result: '99'},
+            {value: 999, result: '999'},
+            {value: 9999, result: '9.76KB'},
+            {value: 99999, result: '97.66KB'},
+            {value: 1024, result: '1.00KB'},
+            {value: 10240, result: '10.00KB'},
+            {value: 99999999, result: '95.37MB'},
+            {value: 999999999, result: '953.67MB'},
+            {value: 9999999999, result: '9.31GB'},
+            {value: 99999999999, result: '93.13GB'},
+            {value: 999999999999, result: '931.32GB'},
+            {value: 9999999999999, result: '9.09TB'},
+            {value: 99999999999999, result: '90.95TB'},
+            {value: 999999999999999, result: '909.49TB'},
+            {value: 9999999999999999, result: '8.88PB'},
+        ];
+        for(let item of s) {
+            it (`utils.formatMemory(${item.value}) === ${item.result}`, ()=>{
+                assert.equal(utils.formatMemory(item.value), item.result);
+            });
+        }
+    });
+
+    describe('utils.keyValues', ()=> {
+        let obj = {
+            a:100,
+            b:200,
+            c:300,
+            d:'aaa'
+        };
+        keys = Object.keys(obj);
+        values = Object.values(obj);
+        it (`utils.keyValues(${JSON.stringify(obj)})`, () => {
+            let r = utils.keyValues(obj);
+            assert.equal(r.keys.join(), keys.join());
+            assert.equal(r.values.join(), values.join());
+        });
+    });
+
     describe('utils.DateTimeOffset', ()=>{
         let  dt = 20000;
         it (`GetDateTimeOffset by init:  === 0`, ()=>{
