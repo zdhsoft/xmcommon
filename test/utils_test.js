@@ -247,7 +247,21 @@ describe('utils', () => {
             assert.equal(r.values.join(), values.join());
         });
     });
+    // public static randomBetween(paramMin: number, paramMax: number) {
+    //     return this.randomInteger() % (paramMax - paramMin + 1) + paramMin;
+    // }
 
+    describe('utils.randomBetween', ()=> {
+        let begin = 1;
+        let end = 10;
+        for(let i = 0; i < 20; i++) {
+            let v = utils.randomBetween(begin, end);
+            let result = v >= begin && v <= end;
+            it (`utils.randomBetween(${begin},${end}) = ${v}`, ()=>{
+                assert.equal(result, true);
+            });
+        }
+    });
     describe('utils.DateTimeOffset', ()=>{
         let  dt = 20000;
         it (`GetDateTimeOffset by init:  === 0`, ()=>{
