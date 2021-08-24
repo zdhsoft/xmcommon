@@ -27,6 +27,17 @@
     "dependencies": {
         "lodash": "^4.17.21"
     },
+    "lint-staged": {
+        "**/*.{tsx,ts}": [
+            "prettier-eslint --write",
+            "git add"
+        ]
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
     "bugs": {
         "url": "https://github.com/zdhsoft/xmcommon/issues"
     },
@@ -34,6 +45,11 @@
     "devDependencies": {
         "@types/lodash": "^4.14.168",
         "@types/node": "^10.17.59",
+        "@typescript-eslint/eslint-plugin": "^4.29.2",
+        "@typescript-eslint/parser": "^4.29.2",
+        "eslint": "^7.32.0",
+        "eslint-config-google": "^0.14.0",
+        "prettier-eslint": "^13.0.0",
         "typescript-tslint-plugin": "^1.0.1"
     },
     "engines": {
