@@ -1,9 +1,9 @@
 import path from 'path';
 import util from 'util';
-import { utils } from './utils';
-import { datetimeUtils } from './datetimeUtils';
+import {utils} from './utils';
+import {datetimeUtils} from './datetimeUtils';
 
-let workdir = process.cwd();
+const workdir = process.cwd();
 /**
  * 取文件名的短名称
  * 用于缩短日志文件名前缀的函数
@@ -12,26 +12,25 @@ let workdir = process.cwd();
  */
 function shortpath(paramFileName: string): string {
     let ff = paramFileName.replace(workdir, '');
-    let ext = path.extname(ff);
-    let pp  = path.dirname(ff);
-    let basename = path.basename(ff,ext);
+    const ext = path.extname(ff);
+    let pp = path.dirname(ff);
+    const basename = path.basename(ff, ext);
 
     let spltchar = '/';
-    if(pp.indexOf("\\") >= 0) {
-        spltchar = "\\";
+    if (pp.indexOf('\\') >= 0) {
+        spltchar = '\\';
     }
 
-    if(pp === '\\' || pp === '/') {
+    if (pp === '\\' || pp === '/') {
         pp = '';
     }
-    if(pp.length > 0) {
-        ff =  path.dirname(ff) + spltchar + basename;
-    }
-    else {
+    if (pp.length > 0) {
+        ff = path.dirname(ff) + spltchar + basename;
+    } else {
         ff = basename;
     }
 
-    let sss = ff.charAt(0);
+    const sss = ff.charAt(0);
     if (sss === '\\' || sss === '/') {
         ff = ff.slice(1);
     }
@@ -44,10 +43,9 @@ function shortpath(paramFileName: string): string {
  * @return 返回结果
  */
 export function logPrefix(paramFilename: string, ...args: any[]): [shortpath: string, ...args: any[]] {
-    if(paramFilename === null || paramFilename === undefined) {
+    if (paramFilename === null || paramFilename === undefined) {
         return [...args] as any;
-    }
-    else {
+    } else {
         return [shortpath(paramFilename), ...args];
     }
 }
@@ -64,7 +62,7 @@ export interface ILog {
 /**
  * 控制台日志类
  */
-export class LogConsole implements ILog{
+export class LogConsole implements ILog {
     private m_name: string = '';
     /**
      * 控制台日志构造函数
@@ -86,34 +84,33 @@ export class LogConsole implements ILog{
         return `[${categoryName} ${datetimeUtils.nowDateString()} ${level}] ${util.format('', ...data)}`;
     }
 
-	public trace(...paramLog: any[]): void {
+    public trace(...paramLog: any[]): void {
         // tslint:disable-next-line: no-console
-        console.log( this.buildLog(this.name, "TRACE", ...paramLog));
-	}
-	public debug(...paramLog: any[]) {
+        console.log( this.buildLog(this.name, 'TRACE', ...paramLog));
+    }
+    public debug(...paramLog: any[]) {
         // tslint:disable-next-line: no-console
-        console.log(this.buildLog(this.name, "DEBUG", ...paramLog));
-	}
-	public info(...paramLog: any[]) {
+        console.log(this.buildLog(this.name, 'DEBUG', ...paramLog));
+    }
+    public info(...paramLog: any[]) {
         // tslint:disable-next-line: no-console
-        console.log(this.buildLog(this.name, " INFO", ...paramLog));
-	}
-	public warn(...paramLog: any[]) {
+        console.log(this.buildLog(this.name, ' INFO', ...paramLog));
+    }
+    public warn(...paramLog: any[]) {
         // tslint:disable-next-line: no-console
-        console.log(this.buildLog(this.name, " WARN", ...paramLog));
-	}
-	public error(...paramLog: any[]) {
+        console.log(this.buildLog(this.name, ' WARN', ...paramLog));
+    }
+    public error(...paramLog: any[]) {
         // tslint:disable-next-line: no-console
-        console.log(this.buildLog(this.name, "ERROR", ...paramLog));
-	}
-	public fatal(...paramLog: any[]) {
+        console.log(this.buildLog(this.name, 'ERROR', ...paramLog));
+    }
+    public fatal(...paramLog: any[]) {
         // tslint:disable-next-line: no-console
-        console.log(this.buildLog(this.name, "FATEL", ...paramLog));
-	}
-
+        console.log(this.buildLog(this.name, 'FATEL', ...paramLog));
+    }
 }
 
-let log = new LogConsole("default");
+const log = new LogConsole('default');
 
 /**
  * 日志管理器
@@ -122,33 +119,32 @@ let log = new LogConsole("default");
  */
 export class LogManager {
     private m_MapLogger = new Map<string, ILog>();
-	public constructor() {
-	}
+    public constructor() {
+    }
     /**
      * 取指定tag的日志
      * @param paramTag 指定的tag
      */
-	public getLogger(paramTag: string): ILog {
-		if (utils.isString(paramTag) && paramTag.length > 0) {
+    public getLogger(paramTag: string): ILog {
+        if (utils.isString(paramTag) && paramTag.length > 0) {
             let l = this.m_MapLogger.get(paramTag);
 
-			if (utils.isNull(l)) {
+            if (utils.isNull(l)) {
                 l = new LogConsole(paramTag);
 
-				this.m_MapLogger.set(paramTag, l);
-			}
-			return l as ILog;
-		}
-		else {
-			return log;
-		}
-	}
+                this.m_MapLogger.set(paramTag, l);
+            }
+            return l as ILog;
+        } else {
+            return log;
+        }
+    }
 }
 
 /**
  * 日志管理器
  */
-let logManager = new LogManager();
+const logManager = new LogManager();
 
 export type TGetLoggerFun = (paramTag: string) => ILog;
 /**
@@ -158,7 +154,7 @@ export type TGetLoggerFun = (paramTag: string) => ILog;
  * @return 返回log
  */
 let __getLogger: TGetLoggerFun = (paramTag: string): ILog => {
-	let [prefix] = logPrefix(paramTag);
+    const [prefix] = logPrefix(paramTag);
     return logManager.getLogger(prefix);
 };
 /**
@@ -179,7 +175,7 @@ export function getLocalLogger(paramTag: string): ILog {
  * @return {boolean} 设置结果
  */
 export function setGetLogger(paramGetLogger: (paramTag: string) => ILog) {
-    if(utils.isFunction(paramGetLogger)) {
+    if (utils.isFunction(paramGetLogger)) {
         __getLogger = paramGetLogger;
         return true;
     }

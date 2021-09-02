@@ -1,5 +1,5 @@
 // 这里将提供日期相关的工具函数
-import { DatetimeConstant } from "./constant";
+import {DatetimeConstant} from './constant';
 
 const PadRadix = 10;
 /**
@@ -28,17 +28,17 @@ function pad3(n: number) {
     // else return r;
 }
 
-let TimeZoneMinute = new Date().getTimezoneOffset();  // 时区，单位，分
-let TimeZoneSecond = TimeZoneMinute * DatetimeConstant.SECOND_PRE_MINUTE;  // 时区，单位，秒
-let TimeZoneMillis = TimeZoneSecond * DatetimeConstant.MILLIS_PRE_SECOND;  // 时区，单位，毫秒数
+let TimeZoneMinute = new Date().getTimezoneOffset(); // 时区，单位，分
+let TimeZoneSecond = TimeZoneMinute * DatetimeConstant.SECOND_PRE_MINUTE; // 时区，单位，秒
+let TimeZoneMillis = TimeZoneSecond * DatetimeConstant.MILLIS_PRE_SECOND; // 时区，单位，毫秒数
 
 /**
  * 更新时区信息
  */
 function UpdateTimeZone() {
-    TimeZoneMinute = new Date().getTimezoneOffset();  // 时区，单位，分
-    TimeZoneSecond = TimeZoneMinute * DatetimeConstant.SECOND_PRE_MINUTE;  // 时区，单位，秒
-    TimeZoneMillis = TimeZoneSecond * DatetimeConstant.MILLIS_PRE_SECOND;  // 时区，单位，毫秒数
+    TimeZoneMinute = new Date().getTimezoneOffset(); // 时区，单位，分
+    TimeZoneSecond = TimeZoneMinute * DatetimeConstant.SECOND_PRE_MINUTE; // 时区，单位，秒
+    TimeZoneMillis = TimeZoneSecond * DatetimeConstant.MILLIS_PRE_SECOND; // 时区，单位，毫秒数
 }
 
 /**
@@ -62,14 +62,14 @@ export class datetimeUtils {
      */
     public static getNow(): number {
         return Date.now();
-	}
-	/**
+    }
+    /**
 	 * 取当前本地时间戳
 	 * @return 当前本地时间戳
 	 */
-	public static getLocalNow(): number {
-		return Date.now() - TimeZoneMillis;
-	}
+    public static getLocalNow(): number {
+        return Date.now() - TimeZoneMillis;
+    }
 
     /**
      * 取当前UTC时间戳,毫秒数
@@ -93,14 +93,14 @@ export class datetimeUtils {
      */
     public static getUTCNowSecond(): number {
         return Math.floor(Date.now() / DatetimeConstant.MILLIS_PRE_SECOND);
-	}
+    }
     /**
      * 取当前本地时间戳，秒数
      * @return 当前本地时间戳
      */
-	public static getLocalNowSecond(): number {
-		return this.getUTCNowSecond() - TimeZoneSecond;
-	}
+    public static getLocalNowSecond(): number {
+        return this.getUTCNowSecond() - TimeZoneSecond;
+    }
     /**
      * 取时区，单位分
      * @return 时区
@@ -145,14 +145,13 @@ export class datetimeUtils {
      * @memberOf datetimeUtils
      */
     public static dateString(paramDate: Date, paramMillisFlag = true, paramDaySplit = '-', paramTimeSplit = ':', paramMillisSplit = '.',
-            paramDatetimeSplit = ' '): string {
-        let d = paramDate;
-        let dateString = [d.getFullYear(), pad2(d.getMonth() + 1), pad2(d.getDate())].join(paramDaySplit);
-        let timeString = [pad2(d.getHours()), pad2(d.getMinutes()), pad2(d.getSeconds())].join(paramTimeSplit);
+        paramDatetimeSplit = ' '): string {
+        const d = paramDate;
+        const dateString = [d.getFullYear(), pad2(d.getMonth() + 1), pad2(d.getDate())].join(paramDaySplit);
+        const timeString = [pad2(d.getHours()), pad2(d.getMinutes()), pad2(d.getSeconds())].join(paramTimeSplit);
         if (paramMillisFlag) {
             return [dateString, paramDatetimeSplit, timeString, paramMillisSplit, pad3(d.getMilliseconds())].join('');
-        }
-        else {
+        } else {
             return [dateString, paramDatetimeSplit, timeString].join('');
         }
     }
@@ -167,9 +166,9 @@ export class datetimeUtils {
      * @memberof datetimeUtils
      */
     public static dateStringByFile(paramDate: Date, paramMillisFlag: boolean = true): string {
-        let d = paramDate;
-        let dateString = [d.getFullYear(), pad2(d.getMonth()+1), pad2(d.getDate()),'_',
-            pad2(d.getHours()), pad2(d.getMinutes()), pad2(d.getSeconds()), paramMillisFlag ? pad3(d.getMilliseconds()):''
+        const d = paramDate;
+        const dateString = [d.getFullYear(), pad2(d.getMonth()+1), pad2(d.getDate()), '_',
+            pad2(d.getHours()), pad2(d.getMinutes()), pad2(d.getSeconds()), paramMillisFlag ? pad3(d.getMilliseconds()):'',
         ].join('');
         return dateString;
     }
@@ -178,13 +177,13 @@ export class datetimeUtils {
      *
      * @static
      * @param paramMillisFlag true 是否带毫秒数
-     * @returns
+     * @return
      *
      * @memberOf datetimeUtils
      */
     public static nowDateString(paramMillisFlag = true): string {
         return this.dateString(new Date(), paramMillisFlag);
-	}
+    }
 
     /**
      * 判断是否是有效的时间戳
@@ -194,13 +193,12 @@ export class datetimeUtils {
      * - false 表示无效
      */
     public static isValidUTC(paramUTC: number): boolean {
-        if(Number.isSafeInteger(paramUTC) && paramUTC >= DatetimeConstant.MIN_UTC && paramUTC <= DatetimeConstant.MAX_UTC) {
+        if (Number.isSafeInteger(paramUTC) && paramUTC >= DatetimeConstant.MIN_UTC && paramUTC <= DatetimeConstant.MAX_UTC) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
-	}
+    }
     /**
      * 将指定日期的时间戳,转换为年月日-时分秒的字符串
      * 格式为YYYY-MM-DD HH:mm:ss.ddd
@@ -218,12 +216,11 @@ export class datetimeUtils {
      */
     public static dateStringByUTC(paramUTC: number, paramMillisFlag = true, paramDaySplit = '-', paramTimeSplit = ':',
         paramMillisSplt = '.', paramDatetimeSplit = ' '): string | null {
-
-        if(!this.isValidUTC(paramUTC)) {
+        if (!this.isValidUTC(paramUTC)) {
             return null;
         }
         return this.dateString(new Date(paramUTC), paramMillisFlag, paramDaySplit, paramTimeSplit, paramMillisSplt, paramDatetimeSplit);
-	}
+    }
     /**
      * 将指定日期的时间,转换为年月日-时分秒的字符串
      * 格式为YYYY-MM-DD HH:mm:ss.ddd
@@ -239,72 +236,71 @@ export class datetimeUtils {
      *
      * @memberOf datetimeUtils
      */
-	public static dateStringByMillis(paramLocalTime: number, paramMillisFlag = true, paramDaysSplit = '-', paramTimeSplit = ':',
+    public static dateStringByMillis(paramLocalTime: number, paramMillisFlag = true, paramDaysSplit = '-', paramTimeSplit = ':',
         paramMillisSplit = '.', paramDatetimeSplit = ' '): string | null {
-		return this.dateStringByUTC(this.ToUTCTime(paramLocalTime), paramMillisFlag, paramDaysSplit, paramTimeSplit, paramMillisSplit, paramDatetimeSplit);
-	}
+        return this.dateStringByUTC(this.ToUTCTime(paramLocalTime), paramMillisFlag, paramDaysSplit, paramTimeSplit, paramMillisSplit, paramDatetimeSplit);
+    }
     /**
      * 将yyyy-mm-dd hh:mm:ss的时间日期字符串，转换为utc时间戳，单位毫秒数
      * @param paramDateTimeString 要解析的时间字符串
      * @return 返回结果， 0 表示失败，无效时间
      */
     public static DateTimeStringToUTC(paramDateTimeString: string): number {
-        let d = new Date(paramDateTimeString);
-        let r = d.getTime();
-        if(!this.isValidUTC(r)) {
+        const d = new Date(paramDateTimeString);
+        const r = d.getTime();
+        if (!this.isValidUTC(r)) {
             return DatetimeConstant.INVALID_UTC;
-        }
-        else {
+        } else {
             return r;
         }
-	}
-	/**
+    }
+    /**
 	 * 将UTC时间转换为本地时间
 	 * @param paramUTC
 	 * @return {Number}
 	 */
-	public static ToLocalTime(paramUTC: number): number {
-		return paramUTC - TimeZoneMillis;
-	}
-	/**
+    public static ToLocalTime(paramUTC: number): number {
+        return paramUTC - TimeZoneMillis;
+    }
+    /**
 	 * 将本地时间转换为UTC时间
 	 * @param paramLocalTime
 	 * @return {Number}
 	 */
-	public static ToUTCTime(paramLocalTime: number): number {
-		return paramLocalTime + TimeZoneMillis;
-	}
-	/**
+    public static ToUTCTime(paramLocalTime: number): number {
+        return paramLocalTime + TimeZoneMillis;
+    }
+    /**
 	 * 取当天0点时间的UTC时间
 	 * @param paramUTC 当前的UTC时间，单位毫秒
 	 * @return
 	 */
-	public static getTodayZeroTime(paramUTC: number): number {
-		let localTime = this.ToLocalTime(paramUTC);
-		return this.ToUTCTime(localTime - localTime % DatetimeConstant.MILLIS_PRE_DAY);
-	}
-	/**
+    public static getTodayZeroTime(paramUTC: number): number {
+        const localTime = this.ToLocalTime(paramUTC);
+        return this.ToUTCTime(localTime - localTime % DatetimeConstant.MILLIS_PRE_DAY);
+    }
+    /**
 	 * 判断是不是同一天
 	 * @param paramUTC1
 	 * @param paramUTC2
 	 * @return {boolean}
 	 */
-	public static isSameDay(paramUTC1: number, paramUTC2: number) {
-		let t1 = this.getTodayZeroTime(paramUTC1);
-		let t2 = this.getTodayZeroTime(paramUTC2);
-		return t1 === t2;
-	}
+    public static isSameDay(paramUTC1: number, paramUTC2: number) {
+        const t1 = this.getTodayZeroTime(paramUTC1);
+        const t2 = this.getTodayZeroTime(paramUTC2);
+        return t1 === t2;
+    }
 
-	/**
+    /**
 	 * 比较本地时间相关的天数差
 	 * @param paramUTC1 毫秒数
 	 * @param paramUTC2 毫秒数
 	 * @return 相差的天数，同一天，返回0
 	 */
-	public static diffLocalDays(paramUTC1: number, paramUTC2: number): number {
-		let t1 = this.CalcLocalDaysByUTC(paramUTC1);
-		let t2 = this.CalcLocalDaysByUTC(paramUTC2);
-		return t1 - t2;
+    public static diffLocalDays(paramUTC1: number, paramUTC2: number): number {
+        const t1 = this.CalcLocalDaysByUTC(paramUTC1);
+        const t2 = this.CalcLocalDaysByUTC(paramUTC2);
+        return t1 - t2;
     }
 
     /**
@@ -314,28 +310,28 @@ export class datetimeUtils {
      * @param paramDate2 日期2
      * @return 相差的天数，同一天，返回0
      */
-	public static diffLocalDaysByDate(paramDate1: Date, paramDate2: Date): number {
-		let t1 = this.CalcLocalDaysByUTC(paramDate1.getTime());
-		let t2 = this.CalcLocalDaysByUTC(paramDate2.getTime());
-		return t1 - t2;
-	}
+    public static diffLocalDaysByDate(paramDate1: Date, paramDate2: Date): number {
+        const t1 = this.CalcLocalDaysByUTC(paramDate1.getTime());
+        const t2 = this.CalcLocalDaysByUTC(paramDate2.getTime());
+        return t1 - t2;
+    }
 
-	/**
+    /**
 	 * 计算，元年到指定时间戳的本地天数
 	 * @param paramUTC 指定日期的时间戳
 	 * @return 计算出来的本地天数
 	 */
-	public static CalcLocalDaysByUTC(paramUTC: number): number {
-		let localTime = this.ToLocalTime(paramUTC);
-		return (localTime - localTime % DatetimeConstant.MILLIS_PRE_DAY) / DatetimeConstant.MILLIS_PRE_DAY;
-	}
+    public static CalcLocalDaysByUTC(paramUTC: number): number {
+        const localTime = this.ToLocalTime(paramUTC);
+        return (localTime - localTime % DatetimeConstant.MILLIS_PRE_DAY) / DatetimeConstant.MILLIS_PRE_DAY;
+    }
 
-	/**
+    /**
 	 * 计算，元年到指定时间的本地天数
 	 * @param paramDate 指定的日期
 	 * @return 计算出来的本地天数
 	 */
-	public static CalcLocalDaysByDate(paramDate: Date): number {
-		return this.CalcLocalDaysByUTC(paramDate.getTime());
-	}
+    public static CalcLocalDaysByDate(paramDate: Date): number {
+        return this.CalcLocalDaysByUTC(paramDate.getTime());
+    }
 }

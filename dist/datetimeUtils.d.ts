@@ -93,7 +93,7 @@ export declare class datetimeUtils {
      *
      * @static
      * @param paramMillisFlag true 是否带毫秒数
-     * @returns
+     * @return
      *
      * @memberOf datetimeUtils
      */

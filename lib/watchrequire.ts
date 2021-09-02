@@ -1,7 +1,7 @@
 import fs from 'fs';
-import path  from 'path';
+import path from 'path';
 // 回调关系映射表
-let callbackmap: any = {};
+const callbackmap: any = {};
 
 type TCallBack = (paramData: any) => void;
 /**
@@ -14,14 +14,13 @@ type TCallBack = (paramData: any) => void;
  * @param paramChangeCallback 有变化才回调
  */
 export function watchRequire( paramCallback: (paramData: any) => void, paramPath: string, paramFile: string, paramChangeCallback: boolean = true): void {
-    let realPath = path.join(paramPath, paramFile);
+    const realPath = path.join(paramPath, paramFile);
 
     if (!callbackmap[realPath]) {
-        let cbList: TCallBack [] = [];
+        const cbList: TCallBack [] = [];
         callbackmap[realPath] = cbList;
 
-        fs.watchFile(realPath, (/*curr*/) => {
-
+        fs.watchFile(realPath, (/* curr*/) => {
             delete require.cache[realPath];
 
             const len = cbList.length - 1;
@@ -32,8 +31,8 @@ export function watchRequire( paramCallback: (paramData: any) => void, paramPath
         });
     }
 
-	callbackmap[realPath].push(paramCallback);
-    if(!paramChangeCallback) {
-        paramCallback(require(realPath));  // 只有变化
+    callbackmap[realPath].push(paramCallback);
+    if (!paramChangeCallback) {
+        paramCallback(require(realPath)); // 只有变化
     }
 }

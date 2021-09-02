@@ -1,4 +1,4 @@
-import { error_common } from './constant';
+import {error_common} from './constant';
 
 /**
  * 错误码判断的工具类

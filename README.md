@@ -4,6 +4,8 @@
 
 - 准备用typescript重写这个库，并计划正式发布它的1.0版本。
 - 第一个改写版0.9提交，一下就准备单元测试与兼容性测试
+- 警告：这个版本改动比较大，可能存在重大bug! 请使用0.1.9这个稳定版
+- Warning: This version has changed a lot, and there may be major bugs! Please use the stable version 0.1.9
 
 ## 当前的版本，是正在开发的中的版本，未完成测试，请不要使用。
 
@@ -35,8 +37,9 @@ npm install xmcommon
 # 版本变更说明
 
 ## 0.9.0
-- 2021-05-19
-- * 将通用库使用typescript改写
+- 2021-09-02
+- * 将通用库使用typescript改写，改写量比较大，还没有全面的测试，这个版本请慎用，请尽量用0.1.9这个版本。
+- * 增加一些单元测试例子
 
 ## 0.1.9
 - 2021-05-08

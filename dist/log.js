@@ -8,7 +8,7 @@ const path_1 = __importDefault(require("path"));
 const util_1 = __importDefault(require("util"));
 const utils_1 = require("./utils");
 const datetimeUtils_1 = require("./datetimeUtils");
-let workdir = process.cwd();
+const workdir = process.cwd();
 /**
  * 取文件名的短名称
  * 用于缩短日志文件名前缀的函数
@@ -17,12 +17,12 @@ let workdir = process.cwd();
  */
 function shortpath(paramFileName) {
     let ff = paramFileName.replace(workdir, '');
-    let ext = path_1.default.extname(ff);
+    const ext = path_1.default.extname(ff);
     let pp = path_1.default.dirname(ff);
-    let basename = path_1.default.basename(ff, ext);
+    const basename = path_1.default.basename(ff, ext);
     let spltchar = '/';
-    if (pp.indexOf("\\") >= 0) {
-        spltchar = "\\";
+    if (pp.indexOf('\\') >= 0) {
+        spltchar = '\\';
     }
     if (pp === '\\' || pp === '/') {
         pp = '';
@@ -33,7 +33,7 @@ function shortpath(paramFileName) {
     else {
         ff = basename;
     }
-    let sss = ff.charAt(0);
+    const sss = ff.charAt(0);
     if (sss === '\\' || sss === '/') {
         ff = ff.slice(1);
     }
@@ -77,31 +77,31 @@ class LogConsole {
     }
     trace(...paramLog) {
         // tslint:disable-next-line: no-console
-        console.log(this.buildLog(this.name, "TRACE", ...paramLog));
+        console.log(this.buildLog(this.name, 'TRACE', ...paramLog));
     }
     debug(...paramLog) {
         // tslint:disable-next-line: no-console
-        console.log(this.buildLog(this.name, "DEBUG", ...paramLog));
+        console.log(this.buildLog(this.name, 'DEBUG', ...paramLog));
     }
     info(...paramLog) {
         // tslint:disable-next-line: no-console
-        console.log(this.buildLog(this.name, " INFO", ...paramLog));
+        console.log(this.buildLog(this.name, ' INFO', ...paramLog));
     }
     warn(...paramLog) {
         // tslint:disable-next-line: no-console
-        console.log(this.buildLog(this.name, " WARN", ...paramLog));
+        console.log(this.buildLog(this.name, ' WARN', ...paramLog));
     }
     error(...paramLog) {
         // tslint:disable-next-line: no-console
-        console.log(this.buildLog(this.name, "ERROR", ...paramLog));
+        console.log(this.buildLog(this.name, 'ERROR', ...paramLog));
     }
     fatal(...paramLog) {
         // tslint:disable-next-line: no-console
-        console.log(this.buildLog(this.name, "FATEL", ...paramLog));
+        console.log(this.buildLog(this.name, 'FATEL', ...paramLog));
     }
 }
 exports.LogConsole = LogConsole;
-let log = new LogConsole("default");
+const log = new LogConsole('default');
 /**
  * 日志管理器
  *
@@ -133,7 +133,7 @@ exports.LogManager = LogManager;
 /**
  * 日志管理器
  */
-let logManager = new LogManager();
+const logManager = new LogManager();
 /**
  * 取指定tag的log
  * 如果没有这个tag的日志，则创建一个
@@ -141,7 +141,7 @@ let logManager = new LogManager();
  * @return 返回log
  */
 let __getLogger = (paramTag) => {
-    let [prefix] = logPrefix(paramTag);
+    const [prefix] = logPrefix(paramTag);
     return logManager.getLogger(prefix);
 };
 /**

@@ -1,7 +1,7 @@
 import _ from 'lodash';
-import fs  from 'fs';
+import fs from 'fs';
 import path from 'path';
-import { MemorySize } from './constant';
+import {MemorySize} from './constant';
 
 /** 日期偏移值，主要用于测试 */
 let DateTimeOffset = 0;
@@ -11,13 +11,13 @@ let DateTimeOffset = 0;
  */
 export enum EnumCheckObjectCode {
     /** code = 0 表示完全符合，否则存在问题 */
-    TotallySuitable     = 0,
+    TotallySuitable = 0,
     /** code = -1 表示paramDestObject不是object对象 */
-    DestIsNotObject     = -1,
+    DestIsNotObject = -1,
     /** code = -2 表示paramSimpleObject不是object对象 */
-    SampleIsNotObject   = -2,
+    SampleIsNotObject = -2,
     /** code = 1 表示缺少必要的属性 */
-    MissAttrib          = 1
+    MissAttrib = 1
 }
 /**
  * 检查对象属性结果
@@ -45,25 +45,25 @@ export class utils {
     public static version(): string {
         return 'utils 2.0';
     }
-	/**
+    /**
 	 * 取调用堆栈
 	 * @static
 	 * @memberOf utils
 	 * @return 调用堆栈列表
 	 */
     public static GetStack(): NodeJS.CallSite[] {
-		const orig = Error.prepareStackTrace;
-		Error.prepareStackTrace =  (__, paramStack) => {
-			return paramStack;
-		};
-		const err = new Error();
-		Error.captureStackTrace(err);
-		const stack = err.stack as any as NodeJS.CallSite[];
-		Error.prepareStackTrace = orig;  // 恢复
-		return stack;
-	}
+        const orig = Error.prepareStackTrace;
+        Error.prepareStackTrace = (__, paramStack) => {
+            return paramStack;
+        };
+        const err = new Error();
+        Error.captureStackTrace(err);
+        const stack = err.stack as any as NodeJS.CallSite[];
+        Error.prepareStackTrace = orig; // 恢复
+        return stack;
+    }
 
-	/**
+    /**
 	 * 取当前调用所在的文件名
 	 * @static
 	 * @memberOf utils
@@ -73,12 +73,11 @@ export class utils {
     public static GetFileNameByStack(paramStack: NodeJS.CallSite[]): string | null {
         if (Array.isArray(paramStack) && paramStack.length > 1) {
             return paramStack[1].getFileName();
-        }
-        else {
+        } else {
             return null;
         }
-	}
-	/**
+    }
+    /**
 	 * 取当前调用所在的行号
 	 * @static
 	 * @memberOf utils
@@ -88,11 +87,10 @@ export class utils {
     public static GetLineNumberByStack(paramStack: NodeJS.CallSite[]): number | null {
         if (Array.isArray(paramStack) && paramStack.length > 1) {
             return paramStack[1].getLineNumber();
-        }
-        else {
+        } else {
             return null;
         }
-	}
+    }
 
     /**
      * 取当前调用所在的列
@@ -104,40 +102,38 @@ export class utils {
     public static GetColumnNumberByStack(paramStack: NodeJS.CallSite[]): number | null {
         if (Array.isArray(paramStack) && paramStack.length > 1) {
             return paramStack[1].getColumnNumber();
-        }
-        else {
+        } else {
             return null;
         }
     }
 
-	/**
+    /**
 	 * 取当前调用堆栈信息
 	 * @static
 	 * @memberOf utils
 	 * @return 当前的栈信息
 	 */
-	public static GetStackInfo(): NodeJS.CallSite | null {
-		let stackList = this.GetStack();
-		if(Array.isArray(stackList) && stackList.length >= 2) {
-			return stackList[1];
-		}
-		else {
-			return null;
-		}
-	}
+    public static GetStackInfo(): NodeJS.CallSite | null {
+        const stackList = this.GetStack();
+        if (Array.isArray(stackList) && stackList.length >= 2) {
+            return stackList[1];
+        } else {
+            return null;
+        }
+    }
 
-	/**
+    /**
 	 * 将src的属性复制到dest,只要用for in能够访问到的，都需要复制
 	 * @param paramDest     接收属的目标
 	 * @param paramSrc      定义属性的目标
 	 */
-	public static dataAssign(paramDest: unknown, paramSrc: object): void {
-		for (const k in paramSrc) {
-			(paramDest as any)[k] = (paramSrc as any)[k];
-		}
-	}
+    public static dataAssign(paramDest: unknown, paramSrc: object): void {
+        for (const k in paramSrc) {
+            (paramDest as any)[k] = (paramSrc as any)[k];
+        }
+    }
 
-	/**
+    /**
 	 * 检查对象的属性，是否符号要求
 	 * extra表示是多余的属性，lack表示是缺少的数据
 	 * @static
@@ -151,44 +147,44 @@ export class utils {
 	 * - code = EnumCheckObjectCode.MissAttrib:1 表示缺少必要的属性
 	 */
     public static checkObjectProperty(paramDestObject: any, paramSimpleObject: any): ICheckObjectResult {
-        let ret: ICheckObjectResult = {
+        const ret: ICheckObjectResult = {
             code: EnumCheckObjectCode.TotallySuitable,
             extra: [],
-            lack: []
+            lack: [],
+        };
+
+        if (!this.isObject(paramDestObject)) {
+            ret.code = EnumCheckObjectCode.DestIsNotObject;
+            return ret;
         }
 
-		if(!this.isObject(paramDestObject)) {
-			ret.code = EnumCheckObjectCode.DestIsNotObject;
-            return ret;
-		}
-
-		if(!this.isObject(paramSimpleObject)) {
+        if (!this.isObject(paramSimpleObject)) {
             ret.code = EnumCheckObjectCode.SampleIsNotObject;
-			return ret;
-		}
+            return ret;
+        }
 
-		for(let k in paramDestObject) {
-			let kk = paramSimpleObject[k];
-			if(kk === undefined) {
-				ret.extra.push(k);
-			}
-		}
+        for (const k in paramDestObject) {
+            const kk = paramSimpleObject[k];
+            if (kk === undefined) {
+                ret.extra.push(k);
+            }
+        }
 
-		for(let k in paramSimpleObject) {
-			let v = paramSimpleObject[k];
-			let kk = paramDestObject[k];
-			if(v) {
-				if(kk === undefined) {
-					ret.lack.push(k);
-				}
-			}
-		}
+        for (const k in paramSimpleObject) {
+            const v = paramSimpleObject[k];
+            const kk = paramDestObject[k];
+            if (v) {
+                if (kk === undefined) {
+                    ret.lack.push(k);
+                }
+            }
+        }
 
-		if(ret.lack.length > 0) {
-			ret.code = EnumCheckObjectCode.MissAttrib;
-		}
-		return ret;
-	}
+        if (ret.lack.length > 0) {
+            ret.code = EnumCheckObjectCode.MissAttrib;
+        }
+        return ret;
+    }
 
     /**
      * 判断指定的参数，是否是字符串类型
@@ -209,8 +205,8 @@ export class utils {
      */
     public static isNull(paramV: unknown): boolean {
         return paramV === undefined || paramV === null;
-	}
-	/**
+    }
+    /**
 	 * 判断指定的参数，是否是function
 	 * @static
 	 * @memberOf utils
@@ -218,18 +214,18 @@ export class utils {
 	 * @return 如果是，则返回true,否则返回false
 	 */
     public static isFunction(paramV: unknown): boolean {
-		return _.isFunction(paramV);
-	}
+        return _.isFunction(paramV);
+    }
 
-	/**
+    /**
 	 * 检查指定的参数，是否是整数
 	 * @static
 	 * @param paramV 被检查的对象
 	 * @return 如果是，则返回true,否则返回false
 	 */
     public static isInteger(paramV: unknown): boolean {
-		return Number.isInteger(paramV);
-	}
+        return Number.isInteger(paramV);
+    }
 
     /**
      * 检查指定的参数，是否是整数
@@ -241,26 +237,26 @@ export class utils {
         return Number.isSafeInteger(paramV);
     }
 
-	/**
+    /**
 	 * 检查指定的参数，是否是数组
 	 * @static
 	 * @param  paramV 被检查的对象
 	 * @return 如果是，则返回true,否则返回false
 	 */
     public static isArray(paramV: unknown) {
-		return Array.isArray(paramV);
-	}
-	/**
+        return Array.isArray(paramV);
+    }
+    /**
 	 * 检查指定的参数，是否是number
 	 * @static
 	 * @param paramV 被检查的对象
 	 * @return 如果是，则返回true,否则返回false
 	 */
     public static isNumber(paramV: unknown) {
-		return _.isNumber(paramV);
-	}
+        return _.isNumber(paramV);
+    }
 
-	/**
+    /**
 	 * 判断指定的参数，是否是Object
 	 * @static
 	 * @memberOf utils
@@ -268,8 +264,8 @@ export class utils {
 	 * @return 如果是，则返回true,否则返回false
 	 */
     public static isObject(paramV: unknown): boolean {
-		return _.isObject(paramV);
-	}
+        return _.isObject(paramV);
+    }
     /**
      * 判断指定的参数，是否不是 null或undefined
      * @static
@@ -278,7 +274,7 @@ export class utils {
      * @return 如果是，则返回true,否则返回false
      */
     public static isNotNull(paramV: unknown): boolean {
-		return !(paramV === null || paramV === undefined);
+        return !(paramV === null || paramV === undefined);
     }
 
     /**
@@ -288,11 +284,11 @@ export class utils {
      * @return 检查结果 true表示是,false表示不是
      */
     public static isNotNullOrEmptyString(paramV: unknown): boolean {
-		let r = _.isString(paramV);
-		if (r) {
-			return (paramV as string).length > 0;
-		}
-		return false;
+        const r = _.isString(paramV);
+        if (r) {
+            return (paramV as string).length > 0;
+        }
+        return false;
     }
 
     /**
@@ -384,8 +380,7 @@ export class utils {
         if (Number.isInteger(datetime_offset)) {
             DateTimeOffset = datetime_offset;
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -440,24 +435,19 @@ export class utils {
 
         if (bytes < MemorySize.K) {
             return bytes.toString(10);
-        }
-        else if (bytes < MemorySize.M) {   // 1KB
-            return (bytes / MemorySize.K).toFixed(2) + "KB";
-        }
-        else if (bytes < MemorySize.G) // 1M
+        } else if (bytes < MemorySize.M) { // 1KB
+            return (bytes / MemorySize.K).toFixed(2) + 'KB';
+        } else if (bytes < MemorySize.G) // 1M
         {
-            return (bytes / MemorySize.M).toFixed(2) + "MB";
-        }
-        else if (bytes < MemorySize.T) // 1T
+            return (bytes / MemorySize.M).toFixed(2) + 'MB';
+        } else if (bytes < MemorySize.T) // 1T
         {
-            return (bytes / MemorySize.G).toFixed(2) + "GB";
-        }
-        else if (bytes < MemorySize.P) // 1T
+            return (bytes / MemorySize.G).toFixed(2) + 'GB';
+        } else if (bytes < MemorySize.P) // 1T
         {
-            return (bytes / MemorySize.T).toFixed(2) + "TB";
-        }
-        else {
-            return (bytes / MemorySize.P).toFixed(2) + "PB";  // 1P
+            return (bytes / MemorySize.T).toFixed(2) + 'TB';
+        } else {
+            return (bytes / MemorySize.P).toFixed(2) + 'PB'; // 1P
         }
     }
     /**
@@ -479,8 +469,8 @@ export class utils {
      */
     public static keyValues(paramObject: any): { keys: string[], values: any[] } {
         const r = {
-            keys  : Object.keys(paramObject),
-            values: Object.values(paramObject)
+            keys: Object.keys(paramObject),
+            values: Object.values(paramObject),
         };
         // for (let k in paramObject) {
 
@@ -504,38 +494,37 @@ export class utils {
      * @return 格式化后的字符串
      */
     public static formatNumber(paramNumber: number, paramPattern: string): string {
-
-        const strArr = paramNumber  ? paramNumber.toString().split('.') : ['0'];
+        const strArr = paramNumber ? paramNumber.toString().split('.') : ['0'];
         const fmtArr = paramPattern ? paramPattern.split('.') : [''];
 
-        let str   = strArr[0];
-        let fmt   = fmtArr[0];
+        let str = strArr[0];
+        let fmt = fmtArr[0];
 
         // 用于返回的字符串
         let retString = '';
-        let i      = str.length - 1;
-        let comma  = false;
+        let i = str.length - 1;
+        let comma = false;
 
 
         for (let f = fmt.length - 1; f >= 0; f--) {
             switch (fmt.substr(f, 1)) {
-                case '#':
-                    if (i >= 0) retString = str.substr(i--, 1) + retString;
-                    break;
-                case '0':
-                    if (i >= 0) retString = str.substr(i--, 1) + retString; else retString = '0' + retString;
-                    break;
-                case ',':
-                    comma = true;
-                    retString = ',' + retString;
-                    break;
-                default:
-                    break;
+            case '#':
+                if (i >= 0) retString = str.substr(i--, 1) + retString;
+                break;
+            case '0':
+                if (i >= 0) retString = str.substr(i--, 1) + retString; else retString = '0' + retString;
+                break;
+            case ',':
+                comma = true;
+                retString = ',' + retString;
+                break;
+            default:
+                break;
             }
         }
         if (i >= 0) {
             if (comma) {
-                let l = str.length;
+                const l = str.length;
                 for (; i >= 0; i--) {
                     retString = str.substr(i, 1) + retString;
                     if (i > 0 && (l - i) % 3 === 0) retString = ',' + retString;
@@ -550,14 +539,14 @@ export class utils {
         i = 0;
         for (let f = 0; f < fmt.length; f++) {
             switch (fmt.substr(f, 1)) {
-                case '#':
-                    if (i < str.length) retString += str.substr(i++, 1);
-                    break;
-                case '0':
-                    if (i < str.length) retString += str.substr(i++, 1); else retString += '0';
-                    break;
-                default:
-                    break;
+            case '#':
+                if (i < str.length) retString += str.substr(i++, 1);
+                break;
+            case '0':
+                if (i < str.length) retString += str.substr(i++, 1); else retString += '0';
+                break;
+            default:
+                break;
             }
         }
         return retString.replace(/^,+/, '').replace(/\.$/, '');
@@ -614,7 +603,7 @@ export class utils {
      *  - errInfo 出错信息
      */
     public static async renameFile(paramOldFilename: string, paramNewFilename: string): Promise<{ret: boolean, errInfo: string}> {
-        let [error] = await this.WaitClassFunctionEx(fs, 'rename', paramOldFilename, paramNewFilename);
+        const [error] = await this.WaitClassFunctionEx(fs, 'rename', paramOldFilename, paramNewFilename);
         if (utils.isNull(error)) {
             return {
                 ret: true,
@@ -624,7 +613,7 @@ export class utils {
             return {
                 ret: false,
                 errInfo: `rename file fail: ${paramOldFilename}=>${paramNewFilename}: err=${JSON.stringify(error)}`,
-            }
+            };
         }
     }
 
@@ -661,12 +650,12 @@ export class utils {
     public static mkdirsSyncEx(paramPath: string, paramMode = 0o777): {ret: boolean, msg: string} {
         const r = {
             ret: false,
-            msg: ''
+            msg: '',
         };
         try {
             if (!fs.existsSync(paramPath)) {
                 let pathTemp: string;
-                paramPath.split(/[\/\\]/).forEach((dirName) => {  // 这里指用/ 或\ 都可以分隔目录  如  linux的/usr/local/services   和windows的 d:\temp\aaaa
+                paramPath.split(/[\/\\]/).forEach((dirName) => { // 这里指用/ 或\ 都可以分隔目录  如  linux的/usr/local/services   和windows的 d:\temp\aaaa
                     if (pathTemp) {
                         pathTemp = path.join(pathTemp, dirName);
                     } else {
@@ -685,7 +674,7 @@ export class utils {
             return r;
         } catch (e) {
             r.ret = false;
-            r.msg = "create director fail! path=" + paramPath + " errorMsg:" + e;
+            r.msg = 'create director fail! path=' + paramPath + ' errorMsg:' + e;
             return r;
         }
     }
@@ -697,9 +686,8 @@ export class utils {
      * @return round后的值
      */
     public static roundPercentage(paramValue: number | string): number {
-
-        /** 最小保留的位数 */
-        const minNumber     = 1000000;
+    /** 最小保留的位数 */
+        const minNumber = 1000000;
         /** 精度 */
         const PercentNumber = 100;
 
@@ -743,73 +731,70 @@ export class utils {
      * - args 是识别后的参数对象
      */
     public static options(paramArgs: string[]): {_: string[], args: object} {
-        /**
+    /**
          * 取参数名称
          * -
          * @param paramArg 要解析的参数
          * @return 处理结果
          */
         function GetArgsName(paramArg: string): { isArg: boolean, argName: string, argOri: string } {
-            let localRet = { isArg: false, argName: '', argOri: paramArg };
+            const localRet = {isArg: false, argName: '', argOri: paramArg};
 
             let strName = null;
-            if (paramArg.substring(0, 2) === '--') {  // 如果是前缀--
+            if (paramArg.substring(0, 2) === '--') { // 如果是前缀--
                 strName = paramArg.substring(2).trim();
-            }
-            else if (paramArg.substring(0, 1) === '-') { // 如果是前缀-
+            } else if (paramArg.substring(0, 1) === '-') { // 如果是前缀-
                 strName = paramArg.substring(1).trim();
-            }
-            else {
+            } else {
                 return localRet;
             }
             if (strName.length === 0) {
                 return localRet;
             }
-            localRet.isArg   = true;
+            localRet.isArg = true;
             localRet.argName = strName;
             return localRet;
         }
 
-        let ret = { _: [] as string[], args: {} as any };
+        const ret = {_: [] as string[], args: {} as any};
 
         let args = paramArgs || [];
         if (!Array.isArray(args)) {
             args = [args];
         }
 
-        let argPre = {
-            is     : false,   // 是否存在前缀
-            argName: '',      // 前缀的名称
-            argOri : '',      // 原始参数
+        const argPre = {
+            is: false, // 是否存在前缀
+            argName: '', // 前缀的名称
+            argOri: '', // 原始参数
         };
 
         // tslint:disable-next-line: prefer-for-of
         for (let i = 0; i < args.length; i++) {
             let arg = args[i];
-            let isString = utils.isString(arg);  // 判断是否是字符串
+            const isString = utils.isString(arg); // 判断是否是字符串
             if (isString) {
                 arg = arg.trim();
             }
 
-            if (argPre.is) {  // 如果存在前缀
+            if (argPre.is) { // 如果存在前缀
                 ret.args[argPre.argName] = arg;
 
-                argPre.is      = false;
+                argPre.is = false;
                 argPre.argName = '';
-                argPre.argOri  = '';
+                argPre.argOri = '';
                 continue;
             }
             if (!isString) {
                 ret._.push(arg);
                 continue;
             }
-            let p = GetArgsName(arg);
+            const p = GetArgsName(arg);
             if (p.isArg) {
-                argPre.is      = true;
+                argPre.is = true;
                 argPre.argName = p.argName;
-                argPre.argOri  = p.argOri;
-            }
-            else {
+                argPre.argOri = p.argOri;
+            } else {
                 ret._.push(arg);
             }
         }
@@ -844,7 +829,6 @@ export class utils {
     public static randomBetween(paramMin: number, paramMax: number) {
         return this.randomInteger() % (paramMax - paramMin + 1) + paramMin;
     }
-
 }
 
 export default utils;

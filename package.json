@@ -3,7 +3,6 @@
     "version": "0.9.0",
     "description": "javascript common lib for es6",
     "main": "index.js",
-    "types": "./types/xmcommon/index.d.ts",
     "scripts": {
         "build": "tsc",
         "compile": "tsc",
@@ -26,17 +25,6 @@
     ],
     "dependencies": {
         "lodash": "^4.17.21"
-    },
-    "lint-staged": {
-        "**/*.{tsx,ts}": [
-            "prettier-eslint --write",
-            "git add"
-        ]
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged"
-        }
     },
     "bugs": {
         "url": "https://github.com/zdhsoft/xmcommon/issues"

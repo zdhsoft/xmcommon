@@ -107,7 +107,7 @@ class utils {
      * @return 当前的栈信息
      */
     static GetStackInfo() {
-        let stackList = this.GetStack();
+        const stackList = this.GetStack();
         if (Array.isArray(stackList) && stackList.length >= 2) {
             return stackList[1];
         }
@@ -139,10 +139,10 @@ class utils {
      * - code = EnumCheckObjectCode.MissAttrib:1 表示缺少必要的属性
      */
     static checkObjectProperty(paramDestObject, paramSimpleObject) {
-        let ret = {
+        const ret = {
             code: EnumCheckObjectCode.TotallySuitable,
             extra: [],
-            lack: []
+            lack: [],
         };
         if (!this.isObject(paramDestObject)) {
             ret.code = EnumCheckObjectCode.DestIsNotObject;
@@ -152,15 +152,15 @@ class utils {
             ret.code = EnumCheckObjectCode.SampleIsNotObject;
             return ret;
         }
-        for (let k in paramDestObject) {
-            let kk = paramSimpleObject[k];
+        for (const k in paramDestObject) {
+            const kk = paramSimpleObject[k];
             if (kk === undefined) {
                 ret.extra.push(k);
             }
         }
-        for (let k in paramSimpleObject) {
-            let v = paramSimpleObject[k];
-            let kk = paramDestObject[k];
+        for (const k in paramSimpleObject) {
+            const v = paramSimpleObject[k];
+            const kk = paramDestObject[k];
             if (v) {
                 if (kk === undefined) {
                     ret.lack.push(k);
@@ -265,7 +265,7 @@ class utils {
      * @return 检查结果 true表示是,false表示不是
      */
     static isNotNullOrEmptyString(paramV) {
-        let r = lodash_1.default.isString(paramV);
+        const r = lodash_1.default.isString(paramV);
         if (r) {
             return paramV.length > 0;
         }
@@ -411,22 +411,22 @@ class utils {
             return bytes.toString(10);
         }
         else if (bytes < constant_1.MemorySize.M) { // 1KB
-            return (bytes / constant_1.MemorySize.K).toFixed(2) + "KB";
+            return (bytes / constant_1.MemorySize.K).toFixed(2) + 'KB';
         }
         else if (bytes < constant_1.MemorySize.G) // 1M
          {
-            return (bytes / constant_1.MemorySize.M).toFixed(2) + "MB";
+            return (bytes / constant_1.MemorySize.M).toFixed(2) + 'MB';
         }
         else if (bytes < constant_1.MemorySize.T) // 1T
          {
-            return (bytes / constant_1.MemorySize.G).toFixed(2) + "GB";
+            return (bytes / constant_1.MemorySize.G).toFixed(2) + 'GB';
         }
         else if (bytes < constant_1.MemorySize.P) // 1T
          {
-            return (bytes / constant_1.MemorySize.T).toFixed(2) + "TB";
+            return (bytes / constant_1.MemorySize.T).toFixed(2) + 'TB';
         }
         else {
-            return (bytes / constant_1.MemorySize.P).toFixed(2) + "PB"; // 1P
+            return (bytes / constant_1.MemorySize.P).toFixed(2) + 'PB'; // 1P
         }
     }
     /**
@@ -448,7 +448,7 @@ class utils {
     static keyValues(paramObject) {
         const r = {
             keys: Object.keys(paramObject),
-            values: Object.values(paramObject)
+            values: Object.values(paramObject),
         };
         // for (let k in paramObject) {
         //     r.keys.push(k);
@@ -500,7 +500,7 @@ class utils {
         }
         if (i >= 0) {
             if (comma) {
-                let l = str.length;
+                const l = str.length;
                 for (; i >= 0; i--) {
                     retString = str.substr(i, 1) + retString;
                     if (i > 0 && (l - i) % 3 === 0)
@@ -587,7 +587,7 @@ class utils {
      *  - errInfo 出错信息
      */
     static async renameFile(paramOldFilename, paramNewFilename) {
-        let [error] = await this.WaitClassFunctionEx(fs_1.default, 'rename', paramOldFilename, paramNewFilename);
+        const [error] = await this.WaitClassFunctionEx(fs_1.default, 'rename', paramOldFilename, paramNewFilename);
         if (utils.isNull(error)) {
             return {
                 ret: true,
@@ -633,7 +633,7 @@ class utils {
     static mkdirsSyncEx(paramPath, paramMode = 0o777) {
         const r = {
             ret: false,
-            msg: ''
+            msg: '',
         };
         try {
             if (!fs_1.default.existsSync(paramPath)) {
@@ -660,7 +660,7 @@ class utils {
         }
         catch (e) {
             r.ret = false;
-            r.msg = "create director fail! path=" + paramPath + " errorMsg:" + e;
+            r.msg = 'create director fail! path=' + paramPath + ' errorMsg:' + e;
             return r;
         }
     }
@@ -715,13 +715,13 @@ class utils {
      */
     static options(paramArgs) {
         /**
-         * 取参数名称
-         * -
-         * @param paramArg 要解析的参数
-         * @return 处理结果
-         */
+             * 取参数名称
+             * -
+             * @param paramArg 要解析的参数
+             * @return 处理结果
+             */
         function GetArgsName(paramArg) {
-            let localRet = { isArg: false, argName: '', argOri: paramArg };
+            const localRet = { isArg: false, argName: '', argOri: paramArg };
             let strName = null;
             if (paramArg.substring(0, 2) === '--') { // 如果是前缀--
                 strName = paramArg.substring(2).trim();
@@ -739,12 +739,12 @@ class utils {
             localRet.argName = strName;
             return localRet;
         }
-        let ret = { _: [], args: {} };
+        const ret = { _: [], args: {} };
         let args = paramArgs || [];
         if (!Array.isArray(args)) {
             args = [args];
         }
-        let argPre = {
+        const argPre = {
             is: false,
             argName: '',
             argOri: '', // 原始参数
@@ -752,7 +752,7 @@ class utils {
         // tslint:disable-next-line: prefer-for-of
         for (let i = 0; i < args.length; i++) {
             let arg = args[i];
-            let isString = utils.isString(arg); // 判断是否是字符串
+            const isString = utils.isString(arg); // 判断是否是字符串
             if (isString) {
                 arg = arg.trim();
             }
@@ -767,7 +767,7 @@ class utils {
                 ret._.push(arg);
                 continue;
             }
-            let p = GetArgsName(arg);
+            const p = GetArgsName(arg);
             if (p.isArg) {
                 argPre.is = true;
                 argPre.argName = p.argName;

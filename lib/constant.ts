@@ -17,7 +17,7 @@ export enum MemorySize{
 /** 默认的错误码 */
 export enum error_common {
     /** 正确 */
-    ERR_OK   = 0,
+    ERR_OK = 0,
     /** 失败 */
     ERR_FAIL = -1,
     /** 表示返回true */
@@ -30,17 +30,17 @@ export enum error_common {
 /**
  * 日期时间的常量
  */
-export enum DatetimeConstant  {
+export enum DatetimeConstant {
 	/** 最小的UTC时间 */
-	MIN_UTC    = 1,
+	MIN_UTC = 1,
 	/** 最大的UTC时间 */
-	MAX_UTC    = 253370736000000,
+	MAX_UTC = 253370736000000,
 	/** 无效的UTC时间 */
 	INVALID_UTC= 0,
 	/** 每天最大的毫少数 */
-	MILLIS_PRE_DAY      = 86400000,
+	MILLIS_PRE_DAY = 86400000,
     /** 每分钟的秒数 */
-    SECOND_PRE_MINUTE   = 60,
+    SECOND_PRE_MINUTE = 60,
     /** 每秒的毫秒数 */
-    MILLIS_PRE_SECOND   = 1000,
+    MILLIS_PRE_SECOND = 1000,
 };

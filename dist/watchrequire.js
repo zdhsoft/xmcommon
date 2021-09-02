@@ -7,7 +7,7 @@ exports.watchRequire = void 0;
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 // 回调关系映射表
-let callbackmap = {};
+const callbackmap = {};
 /**
  * watch指定的js文件，并加载回调
  * 这个主要是用于动态加载
@@ -18,11 +18,11 @@ let callbackmap = {};
  * @param paramChangeCallback 有变化才回调
  */
 function watchRequire(paramCallback, paramPath, paramFile, paramChangeCallback = true) {
-    let realPath = path_1.default.join(paramPath, paramFile);
+    const realPath = path_1.default.join(paramPath, paramFile);
     if (!callbackmap[realPath]) {
-        let cbList = [];
+        const cbList = [];
         callbackmap[realPath] = cbList;
-        fs_1.default.watchFile(realPath, ( /*curr*/) => {
+        fs_1.default.watchFile(realPath, ( /* curr*/) => {
             delete require.cache[realPath];
             const len = cbList.length - 1;
             for (let i = len; 0 <= i; i--) {

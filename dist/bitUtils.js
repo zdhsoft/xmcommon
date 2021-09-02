@@ -35,12 +35,11 @@ const BIT_VALUE_EX = [
     0xfffeffff, 0xfffdffff, 0xfffbffff, 0xfff7ffff,
     0xffefffff, 0xffdfffff, 0xffbfffff, 0xff7fffff,
     0xfeffffff, 0xfdffffff, 0xfbffffff, 0xf7ffffff,
-    0xefffffff, 0xdfffffff, 0xbfffffff
+    0xefffffff, 0xdfffffff, 0xbfffffff,
 ];
 /**
  * 位操作工具
  */
-// tslint:disable-next-line: class-name
 class bitUtils {
     /**
      * 检查是否是有效的标志位

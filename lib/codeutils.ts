@@ -1,11 +1,11 @@
 // 这里提供一些编解码的功能函数
 
-import crypto  from 'crypto';
+import crypto from 'crypto';
 import _ from 'lodash';
 /** crypto的算法枚举 */
 enum EnumCryptoAlgorithm {
     sha256 = 'sha256',
-    md5    = 'md5',
+    md5 = 'md5',
 }
 
 /** 编码类型 */
@@ -13,26 +13,25 @@ type HexBase64Encoding = 'hex' | 'base64';
 /** base64 编码 */
 const EncodingBase64: HexBase64Encoding = 'base64';
 /** hex 16进制编码 */
-const EncodingHex   : HexBase64Encoding = 'hex';
+const EncodingHex : HexBase64Encoding = 'hex';
 /** utf-8 字符集编码 */
-const EncodingUTF8  = 'utf8';
-
+const EncodingUTF8 = 'utf8';
 
 
 /** 函数MD5FromArgs中 md5 生成选项 */
 export interface IMD5Options {
     /** 生成后的编码，默认是hex */
-    encode  ?: HexBase64Encoding,
+    encode ?: HexBase64Encoding,
     /** 是否是大写， 默认是小写 */
     capital ?: boolean,
     /** 多个参数之间的分隔符，默认是""  */
-    split   ?: string
+    split ?: string
 }
 /**
  * 一组编码函数
  */
 // tslint:disable-next-line: class-name
-export class codeUtils{
+export class codeUtils {
     /**
      * 对字符串进行Base64编码
      * @param paramStringValue 要编码的字符串
@@ -98,21 +97,21 @@ export class codeUtils{
      * console.log(codeUtils.MD5FromArgs(options, 1,2,3,4,"test"));
      */
     public static MD5FromArgs(paramOptions: IMD5Options, ...args: any[]) {
-        let encode  = EncodingHex;
+        let encode = EncodingHex;
         let capital = false;
-        let split   = '';
+        let split = '';
         // 分析参数
-        if(_.isObjectLike(paramOptions)) {
-            if(paramOptions.encode === EncodingHex|| paramOptions.encode === EncodingBase64) {
+        if (_.isObjectLike(paramOptions)) {
+            if (paramOptions.encode === EncodingHex|| paramOptions.encode === EncodingBase64) {
                 encode = paramOptions.encode;
             }
-            if(paramOptions.capital === true || paramOptions.capital === false) {
+            if (paramOptions.capital === true || paramOptions.capital === false) {
                 capital = paramOptions.capital;
             }
-            if(encode === EncodingBase64) {
+            if (encode === EncodingBase64) {
                 capital = false;
             }
-            if(_.isString(paramOptions.split)) {
+            if (_.isString(paramOptions.split)) {
                 split = paramOptions.split;
             }
         }
@@ -121,7 +120,7 @@ export class codeUtils{
         // 生成md5字符串
         let md5string = crypto.createHash(EnumCryptoAlgorithm.md5).update(s, EncodingUTF8).digest(encode);
 
-        if(capital) {  // 如果是要求大写
+        if (capital) { // 如果是要求大写
             md5string = md5string.toUpperCase();
         }
         return md5string;

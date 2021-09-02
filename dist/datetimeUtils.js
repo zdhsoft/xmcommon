@@ -142,9 +142,9 @@ class datetimeUtils {
      * @memberOf datetimeUtils
      */
     static dateString(paramDate, paramMillisFlag = true, paramDaySplit = '-', paramTimeSplit = ':', paramMillisSplit = '.', paramDatetimeSplit = ' ') {
-        let d = paramDate;
-        let dateString = [d.getFullYear(), pad2(d.getMonth() + 1), pad2(d.getDate())].join(paramDaySplit);
-        let timeString = [pad2(d.getHours()), pad2(d.getMinutes()), pad2(d.getSeconds())].join(paramTimeSplit);
+        const d = paramDate;
+        const dateString = [d.getFullYear(), pad2(d.getMonth() + 1), pad2(d.getDate())].join(paramDaySplit);
+        const timeString = [pad2(d.getHours()), pad2(d.getMinutes()), pad2(d.getSeconds())].join(paramTimeSplit);
         if (paramMillisFlag) {
             return [dateString, paramDatetimeSplit, timeString, paramMillisSplit, pad3(d.getMilliseconds())].join('');
         }
@@ -163,9 +163,9 @@ class datetimeUtils {
      * @memberof datetimeUtils
      */
     static dateStringByFile(paramDate, paramMillisFlag = true) {
-        let d = paramDate;
-        let dateString = [d.getFullYear(), pad2(d.getMonth() + 1), pad2(d.getDate()), '_',
-            pad2(d.getHours()), pad2(d.getMinutes()), pad2(d.getSeconds()), paramMillisFlag ? pad3(d.getMilliseconds()) : ''
+        const d = paramDate;
+        const dateString = [d.getFullYear(), pad2(d.getMonth() + 1), pad2(d.getDate()), '_',
+            pad2(d.getHours()), pad2(d.getMinutes()), pad2(d.getSeconds()), paramMillisFlag ? pad3(d.getMilliseconds()) : '',
         ].join('');
         return dateString;
     }
@@ -174,7 +174,7 @@ class datetimeUtils {
      *
      * @static
      * @param paramMillisFlag true 是否带毫秒数
-     * @returns
+     * @return
      *
      * @memberOf datetimeUtils
      */
@@ -241,8 +241,8 @@ class datetimeUtils {
      * @return 返回结果， 0 表示失败，无效时间
      */
     static DateTimeStringToUTC(paramDateTimeString) {
-        let d = new Date(paramDateTimeString);
-        let r = d.getTime();
+        const d = new Date(paramDateTimeString);
+        const r = d.getTime();
         if (!this.isValidUTC(r)) {
             return constant_1.DatetimeConstant.INVALID_UTC;
         }
@@ -272,7 +272,7 @@ class datetimeUtils {
      * @return
      */
     static getTodayZeroTime(paramUTC) {
-        let localTime = this.ToLocalTime(paramUTC);
+        const localTime = this.ToLocalTime(paramUTC);
         return this.ToUTCTime(localTime - localTime % constant_1.DatetimeConstant.MILLIS_PRE_DAY);
     }
     /**
@@ -282,8 +282,8 @@ class datetimeUtils {
      * @return {boolean}
      */
     static isSameDay(paramUTC1, paramUTC2) {
-        let t1 = this.getTodayZeroTime(paramUTC1);
-        let t2 = this.getTodayZeroTime(paramUTC2);
+        const t1 = this.getTodayZeroTime(paramUTC1);
+        const t2 = this.getTodayZeroTime(paramUTC2);
         return t1 === t2;
     }
     /**
@@ -293,8 +293,8 @@ class datetimeUtils {
      * @return 相差的天数，同一天，返回0
      */
     static diffLocalDays(paramUTC1, paramUTC2) {
-        let t1 = this.CalcLocalDaysByUTC(paramUTC1);
-        let t2 = this.CalcLocalDaysByUTC(paramUTC2);
+        const t1 = this.CalcLocalDaysByUTC(paramUTC1);
+        const t2 = this.CalcLocalDaysByUTC(paramUTC2);
         return t1 - t2;
     }
     /**
@@ -305,8 +305,8 @@ class datetimeUtils {
      * @return 相差的天数，同一天，返回0
      */
     static diffLocalDaysByDate(paramDate1, paramDate2) {
-        let t1 = this.CalcLocalDaysByUTC(paramDate1.getTime());
-        let t2 = this.CalcLocalDaysByUTC(paramDate2.getTime());
+        const t1 = this.CalcLocalDaysByUTC(paramDate1.getTime());
+        const t2 = this.CalcLocalDaysByUTC(paramDate2.getTime());
         return t1 - t2;
     }
     /**
@@ -315,7 +315,7 @@ class datetimeUtils {
      * @return 计算出来的本地天数
      */
     static CalcLocalDaysByUTC(paramUTC) {
-        let localTime = this.ToLocalTime(paramUTC);
+        const localTime = this.ToLocalTime(paramUTC);
         return (localTime - localTime % constant_1.DatetimeConstant.MILLIS_PRE_DAY) / constant_1.DatetimeConstant.MILLIS_PRE_DAY;
     }
     /**

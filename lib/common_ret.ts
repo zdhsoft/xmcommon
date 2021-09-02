@@ -1,5 +1,5 @@
-import { error_utils } from './common_error';
-import { error_common } from './constant';
+import {error_utils} from './common_error';
+import {error_common} from './constant';
 
 /** 通用返回接口 */
 export interface ICommonRetData<T = any> {
@@ -12,7 +12,7 @@ export interface ICommonRetData<T = any> {
 /** 含err,errmsg消息头的接口 */
 export interface ICommonMsgHead {
     /** 错误码 */
-    err    : number;
+    err : number;
     /** 错误信息 */
     errmsg : string;
 }
@@ -34,10 +34,10 @@ export class common_ret implements ICommonRetData {
      * @param paramMsg 错误信息
      * @param paramData 携带数据
      */
-    public constructor(paramErr: number = error_common.ERR_OK, paramMsg: string = "", paramData: any = null) {
-        this.m_err  = paramErr;   // 错误码
-        this.m_msg  = paramMsg;   // 错误信息
-        this.m_data = paramData;  // 返回的数据,默认空数据
+    public constructor(paramErr: number = error_common.ERR_OK, paramMsg: string = '', paramData: any = null) {
+        this.m_err = paramErr; // 错误码
+        this.m_msg = paramMsg; // 错误信息
+        this.m_data = paramData; // 返回的数据,默认空数据
     }
     /**
      * 设置错误信息
@@ -47,12 +47,11 @@ export class common_ret implements ICommonRetData {
      * @param paramMsgPre 错误信息前缀 相当于执于了一次addErrorPre
      * @return 返回当前this
      */
-    public setError(paramErr: number, paramMsg: string = "", paramData: any = null, paramMsgPre: string | null = null): common_ret {
+    public setError(paramErr: number, paramMsg: string = '', paramData: any = null, paramMsgPre: string | null = null): common_ret {
         this.m_err = paramErr;
         if (paramMsgPre) {
             this.m_msg = `${paramMsgPre}${paramMsg}`;
-        }
-        else {
+        } else {
             this.m_msg = paramMsg;
         }
         this.m_data = paramData;
@@ -65,9 +64,8 @@ export class common_ret implements ICommonRetData {
     public getErrorInfo(): string {
         if (this.isNotOK) {
             return `[${this.m_err}] ${this.m_msg}`;
-        }
-        else {
-            return "";
+        } else {
+            return '';
         }
     }
 
@@ -76,11 +74,10 @@ export class common_ret implements ICommonRetData {
      * @param paramMsg 设备错误信息
      * @param paramMsgPre=null 错误信息前缀
      */
-    public setErrorMsg(paramMsg: string = "", paramMsgPre: string | null = null): void {
+    public setErrorMsg(paramMsg: string = '', paramMsgPre: string | null = null): void {
         if (paramMsgPre) {
             this.m_msg = `${paramMsgPre}${paramMsg}`;
-        }
-        else {
+        } else {
             this.m_msg = paramMsg;
         }
     }
@@ -88,16 +85,13 @@ export class common_ret implements ICommonRetData {
      * 取错误信息
      * @return 返回错误信息
      */
-    public getErrorMsg(): string
-    {
+    public getErrorMsg(): string {
         return this.m_msg;
     }
-    public get msg()
-    {
+    public get msg() {
         return this.m_msg;
     }
-    public set msg(paramMsg: string)
-    {
+    public set msg(paramMsg: string) {
         this.m_msg = paramMsg;
     }
 
@@ -105,8 +99,7 @@ export class common_ret implements ICommonRetData {
      * 取错误码
      * @return  返回错误码
      */
-    public getErrorCode()
-    {
+    public getErrorCode() {
         return this.m_err;
     }
 
@@ -121,8 +114,7 @@ export class common_ret implements ICommonRetData {
      *
      * @param err 置错误码
      */
-    public setErrorCode(err = error_common.ERR_OK): void
-    {
+    public setErrorCode(err = error_common.ERR_OK): void {
         this.m_err = err;
     }
 
@@ -204,7 +196,7 @@ export class common_ret implements ICommonRetData {
      * @return 返回this
      */
     public copyTo(paramHead: ICommonMsgHead): common_ret {
-        paramHead.err    = this.m_err;
+        paramHead.err = this.m_err;
         paramHead.errmsg = this.m_msg;
         return this;
     }
@@ -220,11 +212,21 @@ export class common_ret implements ICommonRetData {
         return this;
     }
     //
-    public get isOK(): boolean    { return error_utils.isOK(this.m_err); }
-    public get isNotOK(): boolean { return error_utils.isNotOK(this.m_err); }
-    public get isFail(): boolean  { return error_utils.isFail(this.m_err); }
-    public get isTrue(): boolean  { return error_utils.isTrue(this.m_err); }
-    public get isFalse(): boolean { return error_utils.isFalse(this.m_err); }
+    public get isOK(): boolean {
+        return error_utils.isOK(this.m_err);
+    }
+    public get isNotOK(): boolean {
+        return error_utils.isNotOK(this.m_err);
+    }
+    public get isFail(): boolean {
+        return error_utils.isFail(this.m_err);
+    }
+    public get isTrue(): boolean {
+        return error_utils.isTrue(this.m_err);
+    }
+    public get isFalse(): boolean {
+        return error_utils.isFalse(this.m_err);
+    }
     /**
      * 重载toJSON方法
      * @return {{isOK: boolean, err: number, msg: string, data: object}} 返回非类的对象
@@ -232,9 +234,9 @@ export class common_ret implements ICommonRetData {
     public toJSON(): ICommonRetData {
         return {
             isOK: this.isOK,
-            err : this.m_err,
-            msg : this.m_msg,
-            data: this.m_data
-        }
+            err: this.m_err,
+            msg: this.m_msg,
+            data: this.m_data,
+        };
     }
 }

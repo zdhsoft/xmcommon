@@ -17,7 +17,7 @@ class common_ret {
      * @param paramMsg 错误信息
      * @param paramData 携带数据
      */
-    constructor(paramErr = constant_1.error_common.ERR_OK, paramMsg = "", paramData = null) {
+    constructor(paramErr = constant_1.error_common.ERR_OK, paramMsg = '', paramData = null) {
         this.m_err = constant_1.error_common.ERR_OK;
         this.m_msg = '';
         this.m_err = paramErr; // 错误码
@@ -32,7 +32,7 @@ class common_ret {
      * @param paramMsgPre 错误信息前缀 相当于执于了一次addErrorPre
      * @return 返回当前this
      */
-    setError(paramErr, paramMsg = "", paramData = null, paramMsgPre = null) {
+    setError(paramErr, paramMsg = '', paramData = null, paramMsgPre = null) {
         this.m_err = paramErr;
         if (paramMsgPre) {
             this.m_msg = `${paramMsgPre}${paramMsg}`;
@@ -52,7 +52,7 @@ class common_ret {
             return `[${this.m_err}] ${this.m_msg}`;
         }
         else {
-            return "";
+            return '';
         }
     }
     /**
@@ -60,7 +60,7 @@ class common_ret {
      * @param paramMsg 设备错误信息
      * @param paramMsgPre=null 错误信息前缀
      */
-    setErrorMsg(paramMsg = "", paramMsgPre = null) {
+    setErrorMsg(paramMsg = '', paramMsgPre = null) {
         if (paramMsgPre) {
             this.m_msg = `${paramMsgPre}${paramMsg}`;
         }
@@ -194,11 +194,21 @@ class common_ret {
         return this;
     }
     //
-    get isOK() { return common_error_1.error_utils.isOK(this.m_err); }
-    get isNotOK() { return common_error_1.error_utils.isNotOK(this.m_err); }
-    get isFail() { return common_error_1.error_utils.isFail(this.m_err); }
-    get isTrue() { return common_error_1.error_utils.isTrue(this.m_err); }
-    get isFalse() { return common_error_1.error_utils.isFalse(this.m_err); }
+    get isOK() {
+        return common_error_1.error_utils.isOK(this.m_err);
+    }
+    get isNotOK() {
+        return common_error_1.error_utils.isNotOK(this.m_err);
+    }
+    get isFail() {
+        return common_error_1.error_utils.isFail(this.m_err);
+    }
+    get isTrue() {
+        return common_error_1.error_utils.isTrue(this.m_err);
+    }
+    get isFalse() {
+        return common_error_1.error_utils.isFalse(this.m_err);
+    }
     /**
      * 重载toJSON方法
      * @return {{isOK: boolean, err: number, msg: string, data: object}} 返回非类的对象
@@ -208,7 +218,7 @@ class common_ret {
             isOK: this.isOK,
             err: this.m_err,
             msg: this.m_msg,
-            data: this.m_data
+            data: this.m_data,
         };
     }
 }

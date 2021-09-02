@@ -37,17 +37,17 @@ class SimpleCode {
      * @return 返回处理结果，code==0表示成功，其它值表示失败， seed表示编码的种子， data表示编码后的数据
      */
     Encode(paramSeed, paramData) {
-        let r = SimpleCode.__checkParam(paramSeed, paramData, 0);
+        const r = SimpleCode.__checkParam(paramSeed, paramData, 0);
         if (r !== 0) {
             return { code: r };
         }
         // tslint:disable-next-line: no-bitwise
         this.m_seed = (paramSeed & 0x7fffffff) % 256;
         this.m_fix = this.m_seed;
-        let nCnt = paramData.length;
-        let bRet = Buffer.alloc(nCnt);
+        const nCnt = paramData.length;
+        const bRet = Buffer.alloc(nCnt);
         for (let i = 0; i < nCnt; i++) {
-            let rr = this.__Rand() % 256;
+            const rr = this.__Rand() % 256;
             bRet.writeUInt8((paramData.readUInt8(i) + rr) % 256, i);
         }
         return { code: EnumSimpleCodeError.OK, seed: paramSeed, data: bRet };
@@ -81,7 +81,7 @@ class SimpleCode {
      * @return 生成的随机整数
      */
     __Rand() {
-        let m = RANDOM_MULTIPLIER * this.m_seed + RANDOM_INCREMENT + this.m_fix;
+        const m = RANDOM_MULTIPLIER * this.m_seed + RANDOM_INCREMENT + this.m_fix;
         // tslint:disable-next-line: no-bitwise
         this.m_seed = m & 0x7fffffff;
         this.m_fix = (this.m_fix + 1) % 0x7fffffff;
@@ -94,7 +94,7 @@ class SimpleCode {
      * @return 返回处理结果，code==0表示成功，其它值表示失败， seed表示解码的种子， data表示解码后的数据
      */
     Decode(paramSeed, paramData) {
-        let r = SimpleCode.__checkParam(paramSeed, paramData, 0);
+        const r = SimpleCode.__checkParam(paramSeed, paramData, 0);
         if (r !== 0) {
             return { code: r };
         }
@@ -119,18 +119,18 @@ class SimpleCode {
      * @return 返回处理结果，code==0表示成功，其它值表示失败， seed表示编码的种子， data表示编码后的数据
      */
     EncodePackage(paramSeed, paramData) {
-        let r = SimpleCode.__checkParam(paramSeed, paramData, 0);
+        const r = SimpleCode.__checkParam(paramSeed, paramData, 0);
         if (r !== 0) {
             return { code: r };
         }
         // tslint:disable-next-line: no-bitwise
         this.m_seed = (paramSeed & 0x7fffffff) % 256;
         this.m_fix = this.m_seed;
-        let nCnt = paramData.length;
-        let bRet = Buffer.alloc(nCnt + 1);
+        const nCnt = paramData.length;
+        const bRet = Buffer.alloc(nCnt + 1);
         bRet.writeUInt8(this.m_seed, 0);
         for (let i = 0; i < nCnt; i++) {
-            let rr = this.__Rand() % 256;
+            const rr = this.__Rand() % 256;
             bRet.writeUInt8((paramData.readUInt8(i) + rr) % 256, i + 1);
         }
         return { code: EnumSimpleCodeError.OK, seed: paramSeed, data: bRet };
@@ -141,17 +141,17 @@ class SimpleCode {
      * @return 返回处理结果，code==0表示成功，其它值表示失败， seed表示解码的种子， data表示解码后的数据
      */
     DecodePackage(paramData) {
-        let r = SimpleCode.__checkParam(0, paramData, 1);
+        const r = SimpleCode.__checkParam(0, paramData, 1);
         if (r !== 0) {
             return { code: r };
         }
-        let seed = paramData.readUInt8(0);
+        const seed = paramData.readUInt8(0);
         this.m_seed = seed;
         this.m_fix = this.m_seed;
-        let nCnt = paramData.length - 1;
-        let bRet = Buffer.alloc(nCnt);
+        const nCnt = paramData.length - 1;
+        const bRet = Buffer.alloc(nCnt);
         for (let i = 0; i < nCnt; i++) {
-            let rr = this.__Rand() % 256;
+            const rr = this.__Rand() % 256;
             let mm = paramData.readUInt8(i + 1) - rr;
             if (mm < 0)
                 mm = (mm + 256) % 256;
