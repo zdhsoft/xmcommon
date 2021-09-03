@@ -9,6 +9,7 @@ import {CNYCurrency} from './cnycurrency';
 import {error_common, MemorySize, DatetimeConstant} from './constant';
 import {watchRequire} from './watchrequire';
 import {getLogger, ILog, logPrefix, setGetLogger} from './log';
+// 导出依赖包
 export {
     utils,
     bitUtils,

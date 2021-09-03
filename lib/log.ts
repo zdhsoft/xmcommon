@@ -24,6 +24,7 @@ function shortpath(paramFileName: string): string {
     if (pp === '\\' || pp === '/') {
         pp = '';
     }
+
     if (pp.length > 0) {
         ff = path.dirname(ff) + spltchar + basename;
     } else {
@@ -34,6 +35,7 @@ function shortpath(paramFileName: string): string {
     if (sss === '\\' || sss === '/') {
         ff = ff.slice(1);
     }
+
     return `${ff}`;
 }
 /**
