@@ -33,17 +33,22 @@ npm install xmcommon
 - common_ret 通用返回的类
 - bitUtils 二进制标志的工具类
 - CNYCurrency 中文货币类
+- BufferWapper 一个buffer读写的包装类
 
 # 版本变更说明
 
+## 0.9.2
+- 2021-09-05
+- \+ 增加一个BufferWapper类
+
 ## 0.9.1
 - 2021-09-03
-- * 解决不能引入的问题
+- \* 解决不能引入的问题
 
 ## 0.9.0
 - 2021-09-02
-- * 将通用库使用typescript改写，改写量比较大，还没有全面的测试，这个版本请慎用，请尽量用0.1.9这个版本。
-- * 增加一些单元测试例子
+- \* 将通用库使用typescript改写，改写量比较大，还没有全面的测试，这个版本请慎用，请尽量用0.1.9这个版本。
+- \* 增加一些单元测试例子
 
 ## 0.1.9
 - 2021-05-08
@@ -80,8 +85,8 @@ npm install xmcommon
 ## 0.1.1
 
 - 2019-07-14
-- 收到github提示，说依赖的lodash有问题，所以这里升级一下 lodash , 还是高级别的
-- We found a potential security vulnerability in one of your dependencies.
+- \* 收到github提示，说依赖的lodash有问题，所以这里升级一下 lodash , 还是高级别的
+- \* We found a potential security vulnerability in one of your dependencies.
 
 ## 0.1.0
 

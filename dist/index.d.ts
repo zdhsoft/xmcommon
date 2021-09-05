@@ -9,4 +9,5 @@ import { CNYCurrency } from './cnycurrency';
 import { error_common, MemorySize, DatetimeConstant } from './constant';
 import { watchRequire } from './watchrequire';
 import { getLogger, ILog, logPrefix, setGetLogger } from './log';
-export { utils, bitUtils, EnumBitConst, CNYCurrency, error_common, MemorySize, codeUtils, IMD5Options, datetimeUtils, DatetimeConstant, error_utils, common_ret, ICommonRetData, ICommonMsgHead, watchRequire, SimpleCode, ISimpleCodeSeed, EnumSimpleCodeError, getLogger, setGetLogger, ILog, logPrefix, };
+import { EnumBufferSize, EnumBufferWapperError, BufferWapper } from './buffer_wapper';
+export { utils, bitUtils, EnumBitConst, CNYCurrency, error_common, MemorySize, codeUtils, IMD5Options, datetimeUtils, DatetimeConstant, error_utils, common_ret, ICommonRetData, ICommonMsgHead, watchRequire, SimpleCode, ISimpleCodeSeed, EnumSimpleCodeError, EnumBufferSize, EnumBufferWapperError, BufferWapper, getLogger, setGetLogger, ILog, logPrefix, };
