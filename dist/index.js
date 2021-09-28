@@ -1,11 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.logPrefix = exports.setGetLogger = exports.getLogger = exports.BufferWapper = exports.EnumBufferWapperError = exports.EnumBufferSize = exports.EnumSimpleCodeError = exports.SimpleCode = exports.watchRequire = exports.common_ret = exports.error_utils = exports.DatetimeConstant = exports.datetimeUtils = exports.codeUtils = exports.MemorySize = exports.error_common = exports.CNYCurrency = exports.EnumBitConst = exports.bitUtils = exports.utils = void 0;
+exports.logPrefix = exports.setGetLogger = exports.getLogger = exports.BufferWapper = exports.EnumBufferWapperError = exports.EnumBufferSize = exports.EnumSimpleCodeError = exports.SimpleCode = exports.watchRequire = exports.XCommonRet = exports.common_ret = exports.error_utils = exports.DatetimeConstant = exports.datetimeUtils = exports.codeUtils = exports.MemorySize = exports.error_common = exports.CNYCurrency = exports.EnumBitConst = exports.bitUtils = exports.utils = void 0;
 const simplecode_1 = require("./simplecode");
 Object.defineProperty(exports, "SimpleCode", { enumerable: true, get: function () { return simplecode_1.SimpleCode; } });
 Object.defineProperty(exports, "EnumSimpleCodeError", { enumerable: true, get: function () { return simplecode_1.EnumSimpleCodeError; } });
 const common_ret_1 = require("./common_ret");
 Object.defineProperty(exports, "common_ret", { enumerable: true, get: function () { return common_ret_1.common_ret; } });
+Object.defineProperty(exports, "XCommonRet", { enumerable: true, get: function () { return common_ret_1.XCommonRet; } });
 const common_error_1 = require("./common_error");
 Object.defineProperty(exports, "error_utils", { enumerable: true, get: function () { return common_error_1.error_utils; } });
 const datetimeUtils_1 = require("./datetimeUtils");
