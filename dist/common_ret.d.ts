@@ -1,4 +1,3 @@
-import { error_common } from './constant';
 /** 通用返回接口 */
 export interface ICommonRetData<T = any> {
     /** 错误码 */
@@ -66,10 +65,10 @@ export declare class common_ret implements ICommonRetData<any> {
     get err(): number;
     set err(paramErr: number);
     /**
-     *
-     * @param err 置错误码
+     * 设置错误代码
+     * @param paramError 置错误码
      */
-    setErrorCode(err?: error_common): void;
+    setErrorCode(paramError?: number): void;
     /**
      * 取携带数据
      * @return 携带的数据
@@ -188,12 +187,12 @@ export declare class XCommonRet<T = any> implements ICommonRetData<T> {
      */
     getErrorCode(): number;
     get err(): number;
-    set err(paramErr: number);
+    set err(paramError: number);
     /**
      *
-     * @param err 置错误码
+     * @param paramError 置错误码
      */
-    setErrorCode(err?: error_common): void;
+    setErrorCode(paramError?: number): void;
     /**
      * 取携带数据
      * @return 携带的数据

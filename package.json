@@ -1,6 +1,6 @@
 {
     "name": "xmcommon",
-    "version": "0.9.5",
+    "version": "0.9.6",
     "description": "javascript common lib for es6",
     "main": "./dist/index.js",
     "scripts": {
@@ -35,10 +35,10 @@
     },
     "homepage": "https://github.com/zdhsoft/xmcommon#readme",
     "devDependencies": {
-        "@types/lodash": "^4.14.172",
-        "@types/node": "^10.17.59",
-        "@typescript-eslint/eslint-plugin": "^4.30.0",
-        "@typescript-eslint/parser": "^4.30.0",
+        "@types/lodash": "^4.14.175",
+        "@types/node": "^8.10.66",
+        "@typescript-eslint/eslint-plugin": "^4.32.0",
+        "@typescript-eslint/parser": "^4.32.0",
         "eslint": "^7.32.0",
         "eslint-config-google": "^0.14.0",
         "prettier-eslint": "^13.0.0",

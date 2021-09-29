@@ -113,11 +113,11 @@ export class common_ret implements ICommonRetData<any> {
         this.m_err = paramErr;
     }
     /**
-     *
-     * @param err 置错误码
+     * 设置错误代码
+     * @param paramError 置错误码
      */
-    public setErrorCode(err = error_common.ERR_OK): void {
-        this.m_err = err;
+    public setErrorCode(paramError: number = error_common.ERR_OK): void {
+        this.m_err = paramError;
     }
 
     /**
@@ -334,15 +334,15 @@ export class XCommonRet<T = any> implements ICommonRetData<T> {
         return this.m_err;
     }
 
-    public set err(paramErr: number) {
-        this.m_err = paramErr;
+    public set err(paramError: number) {
+        this.m_err = paramError;
     }
     /**
      *
-     * @param err 置错误码
+     * @param paramError 置错误码
      */
-    public setErrorCode(err = error_common.ERR_OK): void {
-        this.m_err = err;
+    public setErrorCode(paramError: number = error_common.ERR_OK): void {
+        this.m_err = paramError;
     }
 
     /**

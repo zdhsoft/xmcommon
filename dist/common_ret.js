@@ -98,11 +98,11 @@ class common_ret {
         this.m_err = paramErr;
     }
     /**
-     *
-     * @param err 置错误码
+     * 设置错误代码
+     * @param paramError 置错误码
      */
-    setErrorCode(err = constant_1.error_common.ERR_OK) {
-        this.m_err = err;
+    setErrorCode(paramError = constant_1.error_common.ERR_OK) {
+        this.m_err = paramError;
     }
     /**
      * 取携带数据
@@ -314,15 +314,15 @@ class XCommonRet {
     get err() {
         return this.m_err;
     }
-    set err(paramErr) {
-        this.m_err = paramErr;
+    set err(paramError) {
+        this.m_err = paramError;
     }
     /**
      *
-     * @param err 置错误码
+     * @param paramError 置错误码
      */
-    setErrorCode(err = constant_1.error_common.ERR_OK) {
-        this.m_err = err;
+    setErrorCode(paramError = constant_1.error_common.ERR_OK) {
+        this.m_err = paramError;
     }
     /**
      * 取携带数据
