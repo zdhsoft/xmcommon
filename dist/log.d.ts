@@ -9,6 +9,8 @@ export interface ILog {
     name: string;
     trace(...paramLog: any[]): void;
     debug(...paramLog: any[]): void;
+    /** log级别日志，等同于info */
+    log(...paramLog: any[]): void;
     info(...paramLog: any[]): void;
     error(...paramLog: any[]): void;
     warn(...paramLog: any[]): void;
@@ -28,6 +30,7 @@ export declare class LogConsole implements ILog {
     private buildLog;
     trace(...paramLog: any[]): void;
     debug(...paramLog: any[]): void;
+    log(...paramLog: any[]): void;
     info(...paramLog: any[]): void;
     warn(...paramLog: any[]): void;
     error(...paramLog: any[]): void;

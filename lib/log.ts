@@ -56,6 +56,8 @@ export interface ILog {
     name: string;
     trace(...paramLog: any[]): void;
     debug(...paramLog: any[]): void;
+    /** log级别日志，等同于info */
+    log(...paramLog: any[]):void;
     info(...paramLog: any[]): void;
     error(...paramLog: any[]): void;
     warn(...paramLog: any[]): void;
@@ -93,6 +95,10 @@ export class LogConsole implements ILog {
     public debug(...paramLog: any[]) {
         // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, 'DEBUG', ...paramLog));
+    }
+    public log(...paramLog: any[]) {
+        // tslint:disable-next-line: no-console
+        console.log(this.buildLog(this.name, '  LOG', ...paramLog));
     }
     public info(...paramLog: any[]) {
         // tslint:disable-next-line: no-console

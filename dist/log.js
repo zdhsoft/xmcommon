@@ -83,6 +83,10 @@ class LogConsole {
         // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, 'DEBUG', ...paramLog));
     }
+    log(...paramLog) {
+        // tslint:disable-next-line: no-console
+        console.log(this.buildLog(this.name, '  LOG', ...paramLog));
+    }
     info(...paramLog) {
         // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, ' INFO', ...paramLog));

@@ -37,6 +37,10 @@ npm install xmcommon
 
 # 版本变更说明
 
+## 0.9.7
+- 2021-11-12
+- \+ 日志增加log方法
+- \* 更新部分依赖包
 ## 0.9.6
 - 2021-09-29
 - \* 修改common_ret和XCommonRet的设置error的参数类型定义为number
