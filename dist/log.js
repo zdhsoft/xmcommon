@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getLogger = exports.setGetLogger = exports.getLocalLogger = exports.LogManager = exports.LogConsole = exports.logPrefix = void 0;
+exports.getLogger = exports.setGetLogger = exports.getLocalLogger = exports.GetLogManager = exports.LogConsole = exports.logPrefix = void 0;
 const path_1 = __importDefault(require("path"));
 const util_1 = __importDefault(require("util"));
 const utils_1 = require("./utils");
@@ -105,7 +105,7 @@ class LogConsole {
     }
 }
 exports.LogConsole = LogConsole;
-const log = new LogConsole('default');
+let defaultLog = new LogConsole('default');
 /**
  * 日志管理器
  *
@@ -114,6 +114,7 @@ const log = new LogConsole('default');
 class LogManager {
     constructor() {
         this.m_MapLogger = new Map();
+        this.m_createLog = (paramTag) => new LogConsole(paramTag);
     }
     /**
      * 取指定tag的日志
@@ -123,21 +124,36 @@ class LogManager {
         if (utils_1.utils.isString(paramTag) && paramTag.length > 0) {
             let l = this.m_MapLogger.get(paramTag);
             if (utils_1.utils.isNull(l)) {
-                l = new LogConsole(paramTag);
+                l = this.m_createLog(paramTag);
                 this.m_MapLogger.set(paramTag, l);
             }
             return l;
         }
         else {
-            return log;
+            return defaultLog;
         }
     }
+    /** 设置缺省的log */
+    setDefaultLog(paramDefaultLog) {
+        defaultLog = paramDefaultLog;
+    }
+    /** 设置创建log */
+    setCreateLog(paramCreateLog) {
+        this.m_createLog = paramCreateLog;
+    }
 }
-exports.LogManager = LogManager;
 /**
  * 日志管理器
  */
 const logManager = new LogManager();
+/**
+ * 取日志管理实例
+ * @returns
+ */
+function GetLogManager() {
+    return logManager;
+}
+exports.GetLogManager = GetLogManager;
 /**
  * 取指定tag的log
  * 如果没有这个tag的日志，则创建一个
@@ -162,6 +178,7 @@ exports.getLocalLogger = getLocalLogger;
  * 重新设置getLogger
  * - 返回true表示设置成功
  * - 返回false表示paramGetLogger不是一个函数
+ * @deprecated 不建议使用，可以直接使用logManager的setCreateLog方法，设置创建函数
  * @param {function} paramGetLogger 新的getLogger函数实现，替换getLogger
  * @return {boolean} 设置结果
  */

@@ -41,16 +41,29 @@ export declare class LogConsole implements ILog {
  *
  * @class LogManager
  */
-export declare class LogManager {
+declare class LogManager {
     private m_MapLogger;
+    private m_createLog;
     constructor();
     /**
      * 取指定tag的日志
      * @param paramTag 指定的tag
      */
     getLogger(paramTag: string): ILog;
+    /** 设置缺省的log */
+    setDefaultLog(paramDefaultLog: ILog): void;
+    /** 设置创建log */
+    setCreateLog(paramCreateLog: (paramTag: string) => ILog): void;
 }
+/**
+ * @deprecated 不建议使用，可以直接使用logManager的setCreateLog方法，设置创建函数
+ */
 export declare type TGetLoggerFun = (paramTag: string) => ILog;
+/**
+ * 取日志管理实例
+ * @returns
+ */
+export declare function GetLogManager(): LogManager;
 /**
  * 取指定tag的local log
  * 如果没有这个tag的日志，则创建一个
@@ -62,8 +75,10 @@ export declare function getLocalLogger(paramTag: string): ILog;
  * 重新设置getLogger
  * - 返回true表示设置成功
  * - 返回false表示paramGetLogger不是一个函数
+ * @deprecated 不建议使用，可以直接使用logManager的setCreateLog方法，设置创建函数
  * @param {function} paramGetLogger 新的getLogger函数实现，替换getLogger
  * @return {boolean} 设置结果
  */
 export declare function setGetLogger(paramGetLogger: (paramTag: string) => ILog): boolean;
 export declare function getLogger(paramTag: string): ILog;
+export {};

@@ -118,15 +118,16 @@ export class LogConsole implements ILog {
     }
 }
 
-const log = new LogConsole('default');
+let defaultLog: ILog = new LogConsole('default');
 
 /**
  * 日志管理器
  *
  * @class LogManager
  */
-export class LogManager {
+class LogManager {
     private m_MapLogger = new Map<string, ILog>();
+    private m_createLog: (paramTag:string) => ILog = (paramTag: string) => new LogConsole(paramTag);
     public constructor() {
     }
     /**
@@ -138,14 +139,21 @@ export class LogManager {
             let l = this.m_MapLogger.get(paramTag);
 
             if (utils.isNull(l)) {
-                l = new LogConsole(paramTag);
-
+                l = this.m_createLog(paramTag);
                 this.m_MapLogger.set(paramTag, l);
             }
             return l as ILog;
         } else {
-            return log;
+            return defaultLog;
         }
+    }
+    /** 设置缺省的log */
+    public setDefaultLog(paramDefaultLog: ILog) {
+        defaultLog = paramDefaultLog;
+    }
+    /** 设置创建log */
+    public setCreateLog(paramCreateLog: (paramTag:string)=>ILog) {
+        this.m_createLog = paramCreateLog;
     }
 }
 
@@ -153,8 +161,17 @@ export class LogManager {
  * 日志管理器
  */
 const logManager = new LogManager();
-
+/**
+ * @deprecated 不建议使用，可以直接使用logManager的setCreateLog方法，设置创建函数
+ */
 export type TGetLoggerFun = (paramTag: string) => ILog;
+/**
+ * 取日志管理实例
+ * @returns
+ */
+export function GetLogManager() {
+    return logManager;
+}
 /**
  * 取指定tag的log
  * 如果没有这个tag的日志，则创建一个
@@ -179,6 +196,7 @@ export function getLocalLogger(paramTag: string): ILog {
  * 重新设置getLogger
  * - 返回true表示设置成功
  * - 返回false表示paramGetLogger不是一个函数
+ * @deprecated 不建议使用，可以直接使用logManager的setCreateLog方法，设置创建函数
  * @param {function} paramGetLogger 新的getLogger函数实现，替换getLogger
  * @return {boolean} 设置结果
  */

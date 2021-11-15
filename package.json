@@ -1,6 +1,6 @@
 {
     "name": "xmcommon",
-    "version": "0.9.7",
+    "version": "0.9.8",
     "description": "javascript common lib for es6",
     "main": "./dist/index.js",
     "scripts": {
