@@ -21,7 +21,7 @@ function shortpath(paramFileName: string): string {
         spltchar = '\\';
     }
 
-    if (pp === '\\' || pp === '/') {
+    if (pp === '\\' || pp === '/' || pp === '.') {
         pp = '';
     }
 

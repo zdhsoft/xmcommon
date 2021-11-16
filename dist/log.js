@@ -24,7 +24,7 @@ function shortpath(paramFileName) {
     if (pp.indexOf('\\') >= 0) {
         spltchar = '\\';
     }
-    if (pp === '\\' || pp === '/') {
+    if (pp === '\\' || pp === '/' || pp === '.') {
         pp = '';
     }
     if (pp.length > 0) {
