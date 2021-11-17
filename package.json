@@ -30,8 +30,7 @@
         }
     ],
     "dependencies": {
-        "lodash": "^4.17.21",
-        "prettier": "^2.4.1"
+        "lodash": "^4.17.21"
     },
     "bugs": {
         "url": "https://github.com/zdhsoft/xmcommon/issues"
@@ -44,6 +43,7 @@
         "@typescript-eslint/parser": "^5.4.0",
         "eslint": "^8.2.0",
         "eslint-config-google": "^0.14.0",
+        "prettier": "^2.4.1",
         "prettier-eslint": "^13.0.0",
         "typescript-tslint-plugin": "^1.0.1"
     },
