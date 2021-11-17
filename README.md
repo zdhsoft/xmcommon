@@ -36,7 +36,10 @@ npm install xmcommon
 - BufferWapper 一个buffer读写的包装类
 
 # 版本变更说明
-
+## 0.9.11
+- 2021-11-16
+- \* 使用prettier格式化代码
+- \* 使用eslint对代码进行检查
 ## 0.9.10
 - 2021-11-15
 - \* 修复shortpath的bug

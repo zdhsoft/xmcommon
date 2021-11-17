@@ -1,12 +1,11 @@
 {
     "name": "xmcommon",
-    "version": "0.9.10",
+    "version": "0.9.11",
     "description": "javascript common lib for es6",
     "main": "./dist/index.js",
     "scripts": {
         "format": "prettier --write \"lib/**/*.ts\"",
         "lint": "eslint \"lib/**/*.ts\"",
-        "lintfix": "eslint \"lib/**/*.ts\" --fix",
         "build": "npm run lint & tsc",
         "compile": "npm run lint & tsc",
         "test": "mocha"
