@@ -6,17 +6,17 @@ import { utils } from './utils';
 /** 通用返回接口 */
 export interface ICommonRetData<T = any> {
     /** 错误码 */
-    err : number;
-    msg : string;
+    err: number;
+    msg: string;
     data: T | null;
     isOK: boolean;
 }
 /** 含err,errmsg消息头的接口 */
 export interface ICommonMsgHead {
     /** 错误码 */
-    err    : number;
+    err: number;
     /** 错误信息 */
-    errmsg : string;
+    errmsg: string;
 }
 
 // 通用的数据返回
@@ -28,9 +28,9 @@ export interface ICommonMsgHead {
  */
 // tslint:disable-next-line: class-name
 export class common_ret implements ICommonRetData<any> {
-    private m_err : number = error_common.ERR_OK;
-    private m_msg : string = '';
-    private m_data: any    = null;
+    private m_err: number = error_common.ERR_OK;
+    private m_msg: string = '';
+    private m_data: any = null;
     /**
      * 构造函数
      * @param paramErr 错误码
@@ -38,9 +38,9 @@ export class common_ret implements ICommonRetData<any> {
      * @param paramData 携带数据
      */
     public constructor(paramErr: number = error_common.ERR_OK, paramMsg: string = '', paramData: any = null) {
-        this.m_err  = paramErr;   // 错误码
-        this.m_msg  = paramMsg;   // 错误信息
-        this.m_data = paramData;  // 返回的数据,默认空数据
+        this.m_err = paramErr; // 错误码
+        this.m_msg = paramMsg; // 错误信息
+        this.m_data = paramData; // 返回的数据,默认空数据
     }
     /**
      * 设置错误信息
@@ -163,7 +163,7 @@ export class common_ret implements ICommonRetData<any> {
      * @return 返回this
      */
     public setOK(data = null): common_ret {
-        this.m_err  = error_common.ERR_OK;
+        this.m_err = error_common.ERR_OK;
         this.m_data = data;
         return this;
     }
@@ -189,7 +189,7 @@ export class common_ret implements ICommonRetData<any> {
      * @return 返回this
      */
     public addErrorPre(paramMsgPre: string): common_ret {
-        this.m_msg =`${paramMsgPre}${this.m_msg}`;
+        this.m_msg = `${paramMsgPre}${this.m_msg}`;
         return this;
     }
     /**
@@ -199,7 +199,7 @@ export class common_ret implements ICommonRetData<any> {
      * @return 返回this
      */
     public copyTo(paramHead: ICommonMsgHead): common_ret {
-        paramHead.err    = this.m_err;
+        paramHead.err = this.m_err;
         paramHead.errmsg = this.m_msg;
         return this;
     }
@@ -237,13 +237,12 @@ export class common_ret implements ICommonRetData<any> {
     public toJSON(): ICommonRetData {
         return {
             isOK: this.isOK,
-            err : this.m_err,
-            msg : this.m_msg,
+            err: this.m_err,
+            msg: this.m_msg,
             data: this.m_data,
         };
     }
 }
-
 
 /**
  * 这是一个新增的通用返回类, 因为common_ret已经在很多项目使用了，变更它的设计可能会引用很多问题，所以
@@ -263,9 +262,9 @@ export class XCommonRet<T = any> implements ICommonRetData<T> {
      * @param paramData 携带数据
      */
     public constructor(paramErr: number = error_common.ERR_OK, paramMsg: string = '', paramData: any = null) {
-        this.m_err  = paramErr;   // 错误码
-        this.m_msg  = paramMsg;   // 错误信息
-        this.m_data = paramData;  // 返回的数据,默认空数据
+        this.m_err = paramErr; // 错误码
+        this.m_msg = paramMsg; // 错误信息
+        this.m_data = paramData; // 返回的数据,默认空数据
     }
     /**
      * 设置错误信息
@@ -275,7 +274,7 @@ export class XCommonRet<T = any> implements ICommonRetData<T> {
      * @param paramMsgPre 错误信息前缀 相当于执于了一次addErrorPre
      * @return 返回当前this
      */
-    public setError(paramErr: number, paramMsg: string = '', paramData: T | null = null, paramMsgPre: string | null = null): XCommonRet<T>  {
+    public setError(paramErr: number, paramMsg: string = '', paramData: T | null = null, paramMsgPre: string | null = null): XCommonRet<T> {
         this.m_err = paramErr;
         if (utils.isNotNull(paramMsgPre)) {
             this.m_msg = `${paramMsgPre}${paramMsg}`;
@@ -388,7 +387,7 @@ export class XCommonRet<T = any> implements ICommonRetData<T> {
      * @return 返回this
      */
     public setOK(data = null): XCommonRet<T> {
-        this.m_err  = error_common.ERR_OK;
+        this.m_err = error_common.ERR_OK;
         this.m_data = data;
         return this;
     }
@@ -414,7 +413,7 @@ export class XCommonRet<T = any> implements ICommonRetData<T> {
      * @return 返回this
      */
     public addErrorPre(paramMsgPre: string): XCommonRet<T> {
-        this.m_msg =`${paramMsgPre}${this.m_msg}`;
+        this.m_msg = `${paramMsgPre}${this.m_msg}`;
         return this;
     }
     /**
@@ -424,7 +423,7 @@ export class XCommonRet<T = any> implements ICommonRetData<T> {
      * @return 返回this
      */
     public copyTo(paramHead: ICommonMsgHead): XCommonRet<T> {
-        paramHead.err    = this.m_err;
+        paramHead.err = this.m_err;
         paramHead.errmsg = this.m_msg;
         return this;
     }
@@ -462,8 +461,8 @@ export class XCommonRet<T = any> implements ICommonRetData<T> {
     public toJSON(): ICommonRetData<T> {
         return {
             isOK: this.isOK,
-            err : this.m_err,
-            msg : this.m_msg,
+            err: this.m_err,
+            msg: this.m_msg,
             data: this.m_data,
         };
     }

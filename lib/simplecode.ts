@@ -1,4 +1,3 @@
-
 const RANDOM_MULTIPLIER = 0x015a4e35;
 const RANDOM_INCREMENT = 1;
 /** 编码类的错误码 */
@@ -10,7 +9,7 @@ export enum EnumSimpleCodeError {
     /** Data不是Buffer对象 */
     DATA_NOT_BUFFER = 2,
     /** Data的长度，小于指定的长度 */
-    DATA_SIZE_TO_LOW = 3
+    DATA_SIZE_TO_LOW = 3,
 }
 
 /**
@@ -20,9 +19,9 @@ export interface ISimpleCodeSeed {
     /** 返回处理结果 code==0表示成功，其它值表示失败 */
     code: EnumSimpleCodeError;
     /**  seed表示编码的种子 */
-    seed ?: number;
+    seed?: number;
     /** data表示编码后的数据 */
-    data ?: Buffer;
+    data?: Buffer;
 }
 
 /**
@@ -44,7 +43,7 @@ export class SimpleCode {
     public Encode(paramSeed: number, paramData: Buffer): ISimpleCodeSeed {
         const r = SimpleCode.__checkParam(paramSeed, paramData, 0);
         if (r !== 0) {
-            return {code: r};
+            return { code: r };
         }
         // tslint:disable-next-line: no-bitwise
         this.m_seed = (paramSeed & 0x7fffffff) % 256;
@@ -56,7 +55,7 @@ export class SimpleCode {
             const rr = this.__Rand() % 256;
             bRet.writeUInt8((paramData.readUInt8(i) + rr) % 256, i);
         }
-        return {code: EnumSimpleCodeError.OK, seed: paramSeed, data: bRet};
+        return { code: EnumSimpleCodeError.OK, seed: paramSeed, data: bRet };
     }
     /**
      * 检查参数
@@ -71,13 +70,16 @@ export class SimpleCode {
      * @return 检查结果
      */
     private static __checkParam(paramSeed: number, paramData: Buffer, paramMinLength = 0): EnumSimpleCodeError {
-        if (!Number.isInteger(paramSeed)) { // 如果不是整数
+        if (!Number.isInteger(paramSeed)) {
+            // 如果不是整数
             return EnumSimpleCodeError.SEED_NOT_INTEGER;
         }
-        if (!Buffer.isBuffer(paramData)) { // 如果不是buffer
+        if (!Buffer.isBuffer(paramData)) {
+            // 如果不是buffer
             return EnumSimpleCodeError.DATA_NOT_BUFFER;
         }
-        if (paramData.length < paramMinLength) { // 如果长度为0
+        if (paramData.length < paramMinLength) {
+            // 如果长度为0
             return EnumSimpleCodeError.DATA_SIZE_TO_LOW;
         }
         return EnumSimpleCodeError.OK;
@@ -102,7 +104,7 @@ export class SimpleCode {
     public Decode(paramSeed: number, paramData: Buffer): ISimpleCodeSeed {
         const r = SimpleCode.__checkParam(paramSeed, paramData, 0);
         if (r !== 0) {
-            return {code: r};
+            return { code: r };
         }
 
         // tslint:disable-next-line: no-bitwise
@@ -119,7 +121,7 @@ export class SimpleCode {
             if (mm < 0) mm = (mm + 256) % 256;
             bRet.writeUInt8(mm, i);
         }
-        return {code: EnumSimpleCodeError.OK, seed: paramSeed, data: bRet};
+        return { code: EnumSimpleCodeError.OK, seed: paramSeed, data: bRet };
     }
     /**
      * 生数据编码包 含有种子的编码的包
@@ -130,7 +132,7 @@ export class SimpleCode {
     public EncodePackage(paramSeed: number, paramData: Buffer): ISimpleCodeSeed {
         const r = SimpleCode.__checkParam(paramSeed, paramData, 0);
         if (r !== 0) {
-            return {code: r};
+            return { code: r };
         }
 
         // tslint:disable-next-line: no-bitwise
@@ -138,13 +140,13 @@ export class SimpleCode {
         this.m_fix = this.m_seed;
 
         const nCnt = paramData.length;
-        const bRet = Buffer.alloc(nCnt+1);
+        const bRet = Buffer.alloc(nCnt + 1);
         bRet.writeUInt8(this.m_seed, 0);
         for (let i = 0; i < nCnt; i++) {
             const rr = this.__Rand() % 256;
             bRet.writeUInt8((paramData.readUInt8(i) + rr) % 256, i + 1);
         }
-        return {code: EnumSimpleCodeError.OK, seed: paramSeed, data: bRet};
+        return { code: EnumSimpleCodeError.OK, seed: paramSeed, data: bRet };
     }
     /**
      * 数据解码包 含有种子的编码的包
@@ -154,22 +156,22 @@ export class SimpleCode {
     public DecodePackage(paramData: Buffer): ISimpleCodeSeed {
         const r = SimpleCode.__checkParam(0, paramData, 1);
         if (r !== 0) {
-            return {code: r};
+            return { code: r };
         }
         const seed = paramData.readUInt8(0);
         this.m_seed = seed;
         this.m_fix = this.m_seed;
 
-        const nCnt = paramData.length-1;
+        const nCnt = paramData.length - 1;
         const bRet = Buffer.alloc(nCnt);
         for (let i = 0; i < nCnt; i++) {
             const rr = this.__Rand() % 256;
 
-            let mm = paramData.readUInt8(i+1) - rr;
+            let mm = paramData.readUInt8(i + 1) - rr;
             if (mm < 0) mm = (mm + 256) % 256;
             bRet.writeUInt8(mm, i);
         }
-        return {code: 0, seed, data: bRet};
+        return { code: 0, seed, data: bRet };
     }
 }
 

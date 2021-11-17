@@ -13,19 +13,18 @@ type HexBase64Encoding = 'hex' | 'base64';
 /** base64 编码 */
 const EncodingBase64: HexBase64Encoding = 'base64';
 /** hex 16进制编码 */
-const EncodingHex : HexBase64Encoding = 'hex';
+const EncodingHex: HexBase64Encoding = 'hex';
 /** utf-8 字符集编码 */
 const EncodingUTF8 = 'utf8';
-
 
 /** 函数MD5FromArgs中 md5 生成选项 */
 export interface IMD5Options {
     /** 生成后的编码，默认是hex */
-    encode ?: HexBase64Encoding,
+    encode?: HexBase64Encoding;
     /** 是否是大写， 默认是小写 */
-    capital ?: boolean,
+    capital?: boolean;
     /** 多个参数之间的分隔符，默认是""  */
-    split ?: string
+    split?: string;
 }
 /**
  * 一组编码函数
@@ -46,7 +45,7 @@ export class codeUtils {
      * @param encoding 字符串编码，主要有utf-8等
      * @return 返回解码后的字符串
      */
-    public static StringBase64Decode(paramBase64Value: string, encoding ?: string): string {
+    public static StringBase64Decode(paramBase64Value: string, encoding?: string): string {
         return Buffer.from(paramBase64Value, EncodingBase64).toString(encoding);
     }
     /**
@@ -58,8 +57,7 @@ export class codeUtils {
 
     public static HMacSHA256FromString(paramText: string, paramKey: string): string {
         const hash = crypto.createHmac(EnumCryptoAlgorithm.sha256, paramKey);
-        return hash.update(paramText)
-            .digest(EncodingHex);
+        return hash.update(paramText).digest(EncodingHex);
     }
 
     /**
@@ -103,7 +101,7 @@ export class codeUtils {
         let split = '';
         // 分析参数
         if (_.isObjectLike(paramOptions)) {
-            if (paramOptions.encode === EncodingHex|| paramOptions.encode === EncodingBase64) {
+            if (paramOptions.encode === EncodingHex || paramOptions.encode === EncodingBase64) {
                 encode = paramOptions.encode;
             }
             if (paramOptions.capital === true || paramOptions.capital === false) {
@@ -121,7 +119,8 @@ export class codeUtils {
         // 生成md5字符串
         let md5string = crypto.createHash(EnumCryptoAlgorithm.md5).update(s, EncodingUTF8).digest(encode);
 
-        if (capital) { // 如果是要求大写
+        if (capital) {
+            // 如果是要求大写
             md5string = md5string.toUpperCase();
         }
         return md5string;

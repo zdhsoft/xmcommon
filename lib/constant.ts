@@ -1,7 +1,7 @@
 // 这里定义一些必要的常量
 
 /** 内存的容量常量定义 */
-export enum MemorySize{
+export enum MemorySize {
     /** 1K字节数 1024 */
     K = 1024,
     /** 1M字节数 1048576 */
@@ -26,19 +26,18 @@ export enum error_common {
     ERR_FALSE = -3,
 }
 
-
 /**
  * 日期时间的常量
  */
 export enum DatetimeConstant {
-	/** 最小的UTC时间 */
-	MIN_UTC = 1,
-	/** 最大的UTC时间 */
-	MAX_UTC = 253370736000000,
-	/** 无效的UTC时间 */
-	INVALID_UTC= 0,
-	/** 每天最大的毫少数 */
-	MILLIS_PRE_DAY = 86400000,
+    /** 最小的UTC时间 */
+    MIN_UTC = 1,
+    /** 最大的UTC时间 */
+    MAX_UTC = 253370736000000,
+    /** 无效的UTC时间 */
+    INVALID_UTC = 0,
+    /** 每天最大的毫少数 */
+    MILLIS_PRE_DAY = 86400000,
     /** 每分钟的秒数 */
     SECOND_PRE_MINUTE = 60,
     /** 每秒的毫秒数 */

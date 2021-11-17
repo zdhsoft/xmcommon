@@ -281,7 +281,7 @@ class utils {
      * @return 返回回调函数的处理结果列表
      */
     static async WaitFunction(paramFunc, ...args) {
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             paramFunc((...result) => {
                 resolve(result);
             }, ...args);
@@ -300,7 +300,7 @@ class utils {
      */
     // tslint:disable-next-line: ban-types
     static async WaitFunctionEx(paramFunc, ...args) {
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             paramFunc(...args, (...result) => {
                 resolve(result);
             });
@@ -318,7 +318,7 @@ class utils {
      * @return 返回回调函数的传入参数列表
      */
     static async WaitClassFunction(paramObject, paramFunctionName, ...args) {
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             paramObject[paramFunctionName]((...result) => {
                 resolve(result);
             }, ...args);
@@ -336,7 +336,7 @@ class utils {
      * @return 返回回调函数的传入参数列表
      */
     static async WaitClassFunctionEx(paramObject, paramFunctionName, ...args) {
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             paramObject[paramFunctionName](...args, (...result) => {
                 resolve(result);
             });
@@ -410,19 +410,20 @@ class utils {
         if (bytes < constant_1.MemorySize.K) {
             return bytes.toString(10);
         }
-        else if (bytes < constant_1.MemorySize.M) { // 1KB
+        else if (bytes < constant_1.MemorySize.M) {
+            // 1KB
             return (bytes / constant_1.MemorySize.K).toFixed(2) + 'KB';
         }
-        else if (bytes < constant_1.MemorySize.G) // 1M
-         {
+        else if (bytes < constant_1.MemorySize.G) {
+            // 1M
             return (bytes / constant_1.MemorySize.M).toFixed(2) + 'MB';
         }
-        else if (bytes < constant_1.MemorySize.T) // 1T
-         {
+        else if (bytes < constant_1.MemorySize.T) {
+            // 1T
             return (bytes / constant_1.MemorySize.G).toFixed(2) + 'GB';
         }
-        else if (bytes < constant_1.MemorySize.P) // 1T
-         {
+        else if (bytes < constant_1.MemorySize.P) {
+            // 1T
             return (bytes / constant_1.MemorySize.T).toFixed(2) + 'TB';
         }
         else {
@@ -636,7 +637,8 @@ class utils {
         try {
             if (!fs_1.default.existsSync(paramPath)) {
                 let pathTemp;
-                paramPath.split(/[/\\]/).forEach((dirName) => {
+                paramPath.split(/[/\\]/).forEach(dirName => {
+                    // 这里指用/ 或\ 都可以分隔目录  如  linux的/usr/local/services   和windows的 d:\temp\aaaa
                     if (pathTemp) {
                         pathTemp = path_1.default.join(pathTemp, dirName);
                     }
@@ -713,18 +715,20 @@ class utils {
      */
     static options(paramArgs) {
         /**
-             * 取参数名称
-             * -
-             * @param paramArg 要解析的参数
-             * @return 处理结果
-             */
+         * 取参数名称
+         * -
+         * @param paramArg 要解析的参数
+         * @return 处理结果
+         */
         function GetArgsName(paramArg) {
             const localRet = { isArg: false, argName: '', argOri: paramArg };
             let strName = null;
-            if (paramArg.substring(0, 2) === '--') { // 如果是前缀--
+            if (paramArg.substring(0, 2) === '--') {
+                // 如果是前缀--
                 strName = paramArg.substring(2).trim();
             }
-            else if (paramArg.substring(0, 1) === '-') { // 如果是前缀-
+            else if (paramArg.substring(0, 1) === '-') {
+                // 如果是前缀-
                 strName = paramArg.substring(1).trim();
             }
             else {
@@ -754,7 +758,8 @@ class utils {
             if (isString) {
                 arg = arg.trim();
             }
-            if (argPre.is) { // 如果存在前缀
+            if (argPre.is) {
+                // 如果存在前缀
                 ret.args[argPre.argName] = arg;
                 argPre.is = false;
                 argPre.argName = '';
@@ -775,7 +780,8 @@ class utils {
                 ret._.push(arg);
             }
         }
-        if (argPre.is) { // 如果存在前缀，但是，没有值，则加到_中
+        if (argPre.is) {
+            // 如果存在前缀，但是，没有值，则加到_中
             ret._.push(argPre.argOri);
         }
         return ret;
@@ -803,7 +809,7 @@ class utils {
      * @return number
      */
     static randomBetween(paramMin, paramMax) {
-        return this.randomInteger() % (paramMax - paramMin + 1) + paramMin;
+        return (this.randomInteger() % (paramMax - paramMin + 1)) + paramMin;
     }
 }
 exports.utils = utils;

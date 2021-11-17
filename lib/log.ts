@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import path from 'path';
 import util from 'util';
-import {utils} from './utils';
-import {datetimeUtils} from './datetimeUtils';
+import { utils } from './utils';
+import { datetimeUtils } from './datetimeUtils';
 
 const workdir = process.cwd();
 /**
@@ -58,7 +58,7 @@ export interface ILog {
     trace(...paramLog: any[]): void;
     debug(...paramLog: any[]): void;
     /** log级别日志，等同于info */
-    log(...paramLog: any[]):void;
+    log(...paramLog: any[]): void;
     info(...paramLog: any[]): void;
     error(...paramLog: any[]): void;
     warn(...paramLog: any[]): void;
@@ -91,7 +91,7 @@ export class LogConsole implements ILog {
 
     public trace(...paramLog: any[]): void {
         // tslint:disable-next-line: no-console
-        console.log( this.buildLog(this.name, 'TRACE', ...paramLog));
+        console.log(this.buildLog(this.name, 'TRACE', ...paramLog));
     }
     public debug(...paramLog: any[]) {
         // tslint:disable-next-line: no-console
@@ -128,7 +128,7 @@ let defaultLog: ILog = new LogConsole('default');
  */
 class LogManager {
     private m_MapLogger = new Map<string, ILog>();
-    private m_createLog: (paramTag:string) => ILog = (paramTag: string) => new LogConsole(paramTag);
+    private m_createLog: (paramTag: string) => ILog = (paramTag: string) => new LogConsole(paramTag);
 
     /**
      * 取指定tag的日志
@@ -152,7 +152,7 @@ class LogManager {
         defaultLog = paramDefaultLog;
     }
     /** 设置创建log */
-    public setCreateLog(paramCreateLog: (paramTag:string)=>ILog) {
+    public setCreateLog(paramCreateLog: (paramTag: string) => ILog) {
         this.m_createLog = paramCreateLog;
     }
 }

@@ -14,11 +14,11 @@ type TCallBack = (paramData: any) => void;
  * @param paramFile 要watch的文件名
  * @param paramChangeCallback 有变化才回调
  */
-export function watchRequire( paramCallback: (paramData: any) => void, paramPath: string, paramFile: string, paramChangeCallback = true): void {
+export function watchRequire(paramCallback: (paramData: any) => void, paramPath: string, paramFile: string, paramChangeCallback = true): void {
     const realPath = path.join(paramPath, paramFile);
 
     if (!callbackmap[realPath]) {
-        const cbList: TCallBack [] = [];
+        const cbList: TCallBack[] = [];
         callbackmap[realPath] = cbList;
 
         fs.watchFile(realPath, (/* curr*/) => {

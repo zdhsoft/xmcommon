@@ -112,7 +112,7 @@ class BufferWapper {
             return 0;
         }
         else {
-            return (this.buffer).byteLength;
+            return this.buffer.byteLength;
         }
     }
     checkOffset(paramOffset, paramSize, paramRet) {

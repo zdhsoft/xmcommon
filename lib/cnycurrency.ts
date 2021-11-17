@@ -14,7 +14,7 @@ const MIN_VALUE = Number.MIN_SAFE_INTEGER / Precision;
 // 汉字的数字
 const cnNums = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
 // 基本单位
-const cnIntRadice =['', '拾', '佰', '仟'];
+const cnIntRadice = ['', '拾', '佰', '仟'];
 // 对应整数部分扩展单位
 const cnIntUnits = ['', '万', '亿', '兆'];
 // 对应小数部分单位
@@ -51,7 +51,7 @@ function __toNumber(paramValue: number | string) {
  * @return {{value: number, errFlag: boolean, errMsg: string}} 解析后的结果
  */
 function Parse(paramValue: number | string) {
-    const r = {value: 0, errFlag: false, errMsg: ''};
+    const r = { value: 0, errFlag: false, errMsg: '' };
     if (typeof paramValue === 'number') {
         if (paramValue > MAX_VALUE || paramValue < MIN_VALUE) {
             r.errFlag = true;
@@ -84,11 +84,11 @@ function Parse(paramValue: number | string) {
 /** 大写的Chinese函数参数选项 */
 export interface IChineseFormatOptions {
     /** 指定输出大写的前缀，默认为：人民币 */
-    prefix ?: string;
+    prefix?: string;
     /** 是否负数字符：如负 */
-    negative ?: string;
+    negative?: string;
     /** 关于“整”的定义 */
-    zheng ?: string;
+    zheng?: string;
 }
 
 /**
@@ -128,8 +128,8 @@ export interface IChineseFormatOptions {
  */
 export class CNYCurrency {
     private m_intValue: number;
-    private m_errFlag : boolean;
-    private m_errMsg : string;
+    private m_errFlag: boolean;
+    private m_errMsg: string;
     /**
      * 构造函数
      * @param {number | string | CNYCurrency} paramValue 初始值
@@ -141,7 +141,7 @@ export class CNYCurrency {
             this.m_errFlag = curr.m_errFlag;
             this.m_errMsg = curr.m_errMsg;
         } else {
-            const v = Parse(paramValue as (string| number));
+            const v = Parse(paramValue as string | number);
             if (v.errFlag) {
                 this.m_intValue = 0;
                 this.m_errFlag = true;
@@ -174,7 +174,7 @@ export class CNYCurrency {
             this.m_errFlag = curr.m_errFlag;
             this.m_errMsg = curr.m_errMsg;
         } else {
-            const v = Parse(paramValue as (string| number));
+            const v = Parse(paramValue as string | number);
             if (v.errFlag) {
                 this.m_intValue = 0;
                 this.m_errFlag = true;
@@ -345,7 +345,7 @@ export class CNYCurrency {
     public get yuan() {
         // return ~~this.value;
         const n = this.m_intValue;
-        return (n - n % Precision)/Precision;
+        return (n - (n % Precision)) / Precision;
     }
     /**
      * 货币的小数部分，单位为分
@@ -378,7 +378,7 @@ export class CNYCurrency {
         let stZheng = '整';
 
         if (utils.isObject(paramOpts)) {
-        // 人民币前缀
+            // 人民币前缀
             if (utils.isString(paramOpts.prefix)) {
                 stPrefix = paramOpts.prefix as string;
             }
@@ -399,7 +399,7 @@ export class CNYCurrency {
         let negative = '';
         const intValue = this.intValue;
         if (intValue < 0) {
-            negative = stNegative;// '负';
+            negative = stNegative; // '负';
         }
 
         let yuan = this.yuan; // 元
@@ -415,14 +415,14 @@ export class CNYCurrency {
         // }
 
         if (this.intValue === 0) {
-        // 如果金额为0
+            // 如果金额为0
             chineseStr = [stPrefix, cnNums[0], cnIntLast, stZheng].join('');
             return chineseStr;
         }
 
         if (yuan === 0 && cent < 10) {
-        // 如果只存在分的情况 就是零元零角几分
-        // chineseStr = [paramPrefix, negative, cnNums[0], cnIntLast, cnNums[0], cnDecUnits[0],cnNums[cent],cnDecUnits[1]].join('');
+            // 如果只存在分的情况 就是零元零角几分
+            // chineseStr = [paramPrefix, negative, cnNums[0], cnIntLast, cnNums[0], cnDecUnits[0],cnNums[cent],cnDecUnits[1]].join('');
             chineseStr = [stPrefix, negative, cnNums[cent], cnDecUnits[1]].join('');
             return chineseStr;
         }
@@ -451,7 +451,7 @@ export class CNYCurrency {
             }
             chineseStr += cnIntLast;
         } else if (yuan === 0 && cent > 0) {
-        // chineseStr = cnNums[0] + cnIntLast;
+            // chineseStr = cnNums[0] + cnIntLast;
         }
 
         // 小数部分
@@ -468,8 +468,8 @@ export class CNYCurrency {
                 }
             }
         }
-        if ((cent % 10) === 0) {
-        // 当分为0的时候，有整
+        if (cent % 10 === 0) {
+            // 当分为0的时候，有整
             chineseStr += stZheng;
         }
         return stPrefix + negative + chineseStr;
@@ -499,7 +499,7 @@ export class CNYCurrency {
         if (paramUseSymbol) {
             strSymbol = '￥';
         }
-        return [strSymbol, negative, yuan, '.', cent].join('');// `${strSymbol}${negative}${yuan}.${cent}`;
+        return [strSymbol, negative, yuan, '.', cent].join(''); // `${strSymbol}${negative}${yuan}.${cent}`;
     }
 
     public toJSON() {

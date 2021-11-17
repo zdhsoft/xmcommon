@@ -4,14 +4,14 @@ import { error_common } from './constant';
 
 /** BufferWapper的错误码 */
 export enum EnumBufferWapperError {
-    OK                  = error_common.ERR_OK,
-    FAIL                = error_common.ERR_FAIL,
+    OK = error_common.ERR_OK,
+    FAIL = error_common.ERR_FAIL,
     /** 数据为NULL */
-    DATA_IS_NULL        = 1,
+    DATA_IS_NULL = 1,
     /** 数据不是Buffer对象 */
-    DATA_IS_NOT_BUFFER  = 2,
+    DATA_IS_NOT_BUFFER = 2,
     /** 超出范围 */
-    OUT_OF_RANGE        = 3,
+    OUT_OF_RANGE = 3,
 }
 
 /**
@@ -19,17 +19,17 @@ export enum EnumBufferWapperError {
  */
 export enum EnumBufferSize {
     /** 8位整数的字节数 */
-    int8   = 1,
+    int8 = 1,
     /** 16位整数的字节数 */
-    int16  = 2,
+    int16 = 2,
     /** 32位整数的字节数 */
-    int32  = 4,
+    int32 = 4,
     /** 64位整数的字节数 */
-    int64  = 8,
+    int64 = 8,
     /** 单精度浮点数字节数 */
-    float  = 4,
+    float = 4,
     /** 双精度浮点数字节数 */
-    double = 8
+    double = 8,
 }
 
 /**
@@ -46,7 +46,7 @@ export class BufferWapper {
      * @param paramData 被操作的buffer对象
      * @param paramOffset 初始的偏移量
      */
-    public constructor(paramData ?: Buffer, paramOffset ?: number) {
+    public constructor(paramData?: Buffer, paramOffset?: number) {
         this.bindBuffer(paramData, paramOffset);
     }
     /** 取当前的buffer对象 */
@@ -111,7 +111,7 @@ export class BufferWapper {
         if (utils.isNull(this.m_buffer)) {
             return 0;
         } else {
-            return ((this.buffer) as Buffer).byteLength;
+            return (this.buffer as Buffer).byteLength;
         }
     }
 
@@ -148,7 +148,6 @@ export class BufferWapper {
         return this.readBuffer(bytes);
     }
 
-
     public readInt8(): number {
         const ret = (this.m_buffer as Buffer).readInt8(this.m_offset);
         this.m_offset += EnumBufferSize.int8;
@@ -160,7 +159,6 @@ export class BufferWapper {
         this.m_offset += EnumBufferSize.int8;
         return ret;
     }
-
 
     public readInt16(): number {
         const ret = (this.m_buffer as Buffer).readInt16BE(this.m_offset);
@@ -185,7 +183,7 @@ export class BufferWapper {
     }
     public readInt64(): number {
         const high = this.readInt32();
-        const low  = this.readUInt32();
+        const low = this.readUInt32();
 
         const sign = high < 0;
         if (sign) {
@@ -195,8 +193,7 @@ export class BufferWapper {
         }
     }
 
-
-    public readString(paramEncoding: BufferEncoding ='utf8'): string {
+    public readString(paramEncoding: BufferEncoding = 'utf8'): string {
         return this.readPackBuffer().toString(paramEncoding);
     }
 
@@ -236,7 +233,7 @@ export class BufferWapper {
             this.writeInt32(high);
             this.writeUInt32(low);
         } else {
-            const v= paramValue;
+            const v = paramValue;
             const low = v % 0x100000000;
             const high = (v - low) / 0x100000000;
             this.writeInt32(high);
@@ -249,13 +246,12 @@ export class BufferWapper {
         this.m_offset += EnumBufferSize.float;
     }
 
-
     public writeDouble(paramValue: number): void {
         (this.m_buffer as Buffer).writeDoubleBE(paramValue, this.m_offset);
         this.m_offset += EnumBufferSize.double;
     }
 
-    public writeBuffer(paramBuffer: Buffer, paramBytes ?:number): void {
+    public writeBuffer(paramBuffer: Buffer, paramBytes?: number): void {
         const bytes = Number.isSafeInteger(paramBytes) ? (paramBytes as number) : paramBuffer.byteLength;
         paramBuffer.copy(this.m_buffer as Buffer, this.m_offset, 0, bytes);
         this.m_offset += bytes;
@@ -266,11 +262,9 @@ export class BufferWapper {
         this.writeBuffer(paramBuffer);
     }
 
-    public writeString(paramString: string, paramEncoding: BufferEncoding ='utf8'): void {
+    public writeString(paramString: string, paramEncoding: BufferEncoding = 'utf8'): void {
         this.writePackBuffer(Buffer.from(paramString, paramEncoding));
     }
-
-
 
     /**
      * 绑定buffer对象
@@ -278,7 +272,7 @@ export class BufferWapper {
      * @param paramOffset 初始偏移位置
      * @returns
      */
-    public bindBuffer(paramBuffer ?: Buffer, paramOffset ?: number): common_ret {
+    public bindBuffer(paramBuffer?: Buffer, paramOffset?: number): common_ret {
         const ret = new common_ret();
         do {
             if (utils.isNull(paramBuffer)) {

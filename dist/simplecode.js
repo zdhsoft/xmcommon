@@ -62,13 +62,16 @@ class SimpleCode {
      * @return 检查结果
      */
     static __checkParam(paramSeed, paramData, paramMinLength = 0) {
-        if (!Number.isInteger(paramSeed)) { // 如果不是整数
+        if (!Number.isInteger(paramSeed)) {
+            // 如果不是整数
             return EnumSimpleCodeError.SEED_NOT_INTEGER;
         }
-        if (!Buffer.isBuffer(paramData)) { // 如果不是buffer
+        if (!Buffer.isBuffer(paramData)) {
+            // 如果不是buffer
             return EnumSimpleCodeError.DATA_NOT_BUFFER;
         }
-        if (paramData.length < paramMinLength) { // 如果长度为0
+        if (paramData.length < paramMinLength) {
+            // 如果长度为0
             return EnumSimpleCodeError.DATA_SIZE_TO_LOW;
         }
         return EnumSimpleCodeError.OK;

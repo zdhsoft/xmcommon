@@ -164,8 +164,15 @@ class datetimeUtils {
      */
     static dateStringByFile(paramDate, paramMillisFlag = true) {
         const d = paramDate;
-        const dateString = [d.getFullYear(), pad2(d.getMonth() + 1), pad2(d.getDate()), '_',
-            pad2(d.getHours()), pad2(d.getMinutes()), pad2(d.getSeconds()), paramMillisFlag ? pad3(d.getMilliseconds()) : '',
+        const dateString = [
+            d.getFullYear(),
+            pad2(d.getMonth() + 1),
+            pad2(d.getDate()),
+            '_',
+            pad2(d.getHours()),
+            pad2(d.getMinutes()),
+            pad2(d.getSeconds()),
+            paramMillisFlag ? pad3(d.getMilliseconds()) : '',
         ].join('');
         return dateString;
     }
@@ -273,7 +280,7 @@ class datetimeUtils {
      */
     static getTodayZeroTime(paramUTC) {
         const localTime = this.ToLocalTime(paramUTC);
-        return this.ToUTCTime(localTime - localTime % constant_1.DatetimeConstant.MILLIS_PRE_DAY);
+        return this.ToUTCTime(localTime - (localTime % constant_1.DatetimeConstant.MILLIS_PRE_DAY));
     }
     /**
      * 判断是不是同一天
@@ -316,7 +323,7 @@ class datetimeUtils {
      */
     static CalcLocalDaysByUTC(paramUTC) {
         const localTime = this.ToLocalTime(paramUTC);
-        return (localTime - localTime % constant_1.DatetimeConstant.MILLIS_PRE_DAY) / constant_1.DatetimeConstant.MILLIS_PRE_DAY;
+        return (localTime - (localTime % constant_1.DatetimeConstant.MILLIS_PRE_DAY)) / constant_1.DatetimeConstant.MILLIS_PRE_DAY;
     }
     /**
      * 计算，元年到指定时间的本地天数

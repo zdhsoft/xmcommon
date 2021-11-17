@@ -49,8 +49,7 @@ class codeUtils {
      */
     static HMacSHA256FromString(paramText, paramKey) {
         const hash = crypto_1.default.createHmac(EnumCryptoAlgorithm.sha256, paramKey);
-        return hash.update(paramText)
-            .digest(EncodingHex);
+        return hash.update(paramText).digest(EncodingHex);
     }
     /**
      * 生成字符串的sha256编码，注意这个不是hmac的，纯sha256编码
@@ -107,7 +106,8 @@ class codeUtils {
         const s = args.join(split);
         // 生成md5字符串
         let md5string = crypto_1.default.createHash(EnumCryptoAlgorithm.md5).update(s, EncodingUTF8).digest(encode);
-        if (capital) { // 如果是要求大写
+        if (capital) {
+            // 如果是要求大写
             md5string = md5string.toUpperCase();
         }
         return md5string;

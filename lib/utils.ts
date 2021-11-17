@@ -2,7 +2,7 @@
 import _ from 'lodash';
 import fs from 'fs';
 import path from 'path';
-import {MemorySize} from './constant';
+import { MemorySize } from './constant';
 
 /** 日期偏移值，主要用于测试 */
 let DateTimeOffset = 0;
@@ -18,18 +18,18 @@ export enum EnumCheckObjectCode {
     /** code = -2 表示paramSimpleObject不是object对象 */
     SampleIsNotObject = -2,
     /** code = 1 表示缺少必要的属性 */
-    MissAttrib = 1
+    MissAttrib = 1,
 }
 /**
  * 检查对象属性结果
  */
 export interface ICheckObjectResult {
     /**  检查对象属性结果，枚举 */
-    code : EnumCheckObjectCode,
+    code: EnumCheckObjectCode;
     /** 多余属性名称列表 */
-    extra: string[],
+    extra: string[];
     /** 缺少的属性名称列表 */
-    lack : string[]
+    lack: string[];
 }
 
 /**
@@ -47,11 +47,11 @@ export class utils {
         return 'utils 2.0';
     }
     /**
-	 * 取调用堆栈
-	 * @static
-	 * @memberOf utils
-	 * @return 调用堆栈列表
-	 */
+     * 取调用堆栈
+     * @static
+     * @memberOf utils
+     * @return 调用堆栈列表
+     */
     public static GetStack(): NodeJS.CallSite[] {
         const orig = Error.prepareStackTrace;
         Error.prepareStackTrace = (__, paramStack) => {
@@ -65,12 +65,12 @@ export class utils {
     }
 
     /**
-	 * 取当前调用所在的文件名
-	 * @static
-	 * @memberOf utils
-	 * @param paramStack 调用堆栈列表
-	 * @return 返回的文件名
-	 */
+     * 取当前调用所在的文件名
+     * @static
+     * @memberOf utils
+     * @param paramStack 调用堆栈列表
+     * @return 返回的文件名
+     */
     public static GetFileNameByStack(paramStack: NodeJS.CallSite[]): string | null {
         if (Array.isArray(paramStack) && paramStack.length > 1) {
             return paramStack[1].getFileName();
@@ -79,12 +79,12 @@ export class utils {
         }
     }
     /**
-	 * 取当前调用所在的行号
-	 * @static
-	 * @memberOf utils
-	 * @param paramStack 调用堆栈列表
-	 * @return 返回的行号
-	 */
+     * 取当前调用所在的行号
+     * @static
+     * @memberOf utils
+     * @param paramStack 调用堆栈列表
+     * @return 返回的行号
+     */
     public static GetLineNumberByStack(paramStack: NodeJS.CallSite[]): number | null {
         if (Array.isArray(paramStack) && paramStack.length > 1) {
             return paramStack[1].getLineNumber();
@@ -109,11 +109,11 @@ export class utils {
     }
 
     /**
-	 * 取当前调用堆栈信息
-	 * @static
-	 * @memberOf utils
-	 * @return 当前的栈信息
-	 */
+     * 取当前调用堆栈信息
+     * @static
+     * @memberOf utils
+     * @return 当前的栈信息
+     */
     public static GetStackInfo(): NodeJS.CallSite | null {
         const stackList = this.GetStack();
         if (Array.isArray(stackList) && stackList.length >= 2) {
@@ -124,10 +124,10 @@ export class utils {
     }
 
     /**
-	 * 将src的属性复制到dest,只要用for in能够访问到的，都需要复制
-	 * @param paramDest     接收属的目标
-	 * @param paramSrc      定义属性的目标
-	 */
+     * 将src的属性复制到dest,只要用for in能够访问到的，都需要复制
+     * @param paramDest     接收属的目标
+     * @param paramSrc      定义属性的目标
+     */
     public static dataAssign(paramDest: unknown, paramSrc: object): void {
         for (const k in paramSrc) {
             (paramDest as any)[k] = (paramSrc as any)[k];
@@ -135,18 +135,18 @@ export class utils {
     }
 
     /**
-	 * 检查对象的属性，是否符号要求
-	 * extra表示是多余的属性，lack表示是缺少的数据
-	 * @static
-	 * @memberOf utils
-	 * @param paramDestObject 被检查的属性
-	 * @param paramSimpleObject 参考属性
-	 * @return 返回结果
-	 * - code = EnumCheckObjectCode.TotallySuitable: 0 表示完全符合，否则存在问题
-	 * - code = EnumCheckObjectCode.DestIsNotObject:-1 表示paramDestObject不是object对象
-	 * - code = EnumCheckObjectCode.SampleIsNotObject:-2 表示paramSimpleObject不是object对象
-	 * - code = EnumCheckObjectCode.MissAttrib:1 表示缺少必要的属性
-	 */
+     * 检查对象的属性，是否符号要求
+     * extra表示是多余的属性，lack表示是缺少的数据
+     * @static
+     * @memberOf utils
+     * @param paramDestObject 被检查的属性
+     * @param paramSimpleObject 参考属性
+     * @return 返回结果
+     * - code = EnumCheckObjectCode.TotallySuitable: 0 表示完全符合，否则存在问题
+     * - code = EnumCheckObjectCode.DestIsNotObject:-1 表示paramDestObject不是object对象
+     * - code = EnumCheckObjectCode.SampleIsNotObject:-2 表示paramSimpleObject不是object对象
+     * - code = EnumCheckObjectCode.MissAttrib:1 表示缺少必要的属性
+     */
     public static checkObjectProperty(paramDestObject: any, paramSimpleObject: any): ICheckObjectResult {
         const ret: ICheckObjectResult = {
             code: EnumCheckObjectCode.TotallySuitable,
@@ -194,7 +194,7 @@ export class utils {
      * @param paramV 被检查的对象
      * @return 是字符串对象，则返回true,否则返回false
      */
-    public static isString(paramV: unknown) : boolean {
+    public static isString(paramV: unknown): boolean {
         return _.isString(paramV);
     }
     /**
@@ -208,22 +208,22 @@ export class utils {
         return paramV === undefined || paramV === null;
     }
     /**
-	 * 判断指定的参数，是否是function
-	 * @static
-	 * @memberOf utils
-	 * @param paramV 被检查的对象
-	 * @return 如果是，则返回true,否则返回false
-	 */
+     * 判断指定的参数，是否是function
+     * @static
+     * @memberOf utils
+     * @param paramV 被检查的对象
+     * @return 如果是，则返回true,否则返回false
+     */
     public static isFunction(paramV: unknown): boolean {
         return _.isFunction(paramV);
     }
 
     /**
-	 * 检查指定的参数，是否是整数
-	 * @static
-	 * @param paramV 被检查的对象
-	 * @return 如果是，则返回true,否则返回false
-	 */
+     * 检查指定的参数，是否是整数
+     * @static
+     * @param paramV 被检查的对象
+     * @return 如果是，则返回true,否则返回false
+     */
     public static isInteger(paramV: unknown): boolean {
         return Number.isInteger(paramV);
     }
@@ -239,31 +239,31 @@ export class utils {
     }
 
     /**
-	 * 检查指定的参数，是否是数组
-	 * @static
-	 * @param  paramV 被检查的对象
-	 * @return 如果是，则返回true,否则返回false
-	 */
+     * 检查指定的参数，是否是数组
+     * @static
+     * @param  paramV 被检查的对象
+     * @return 如果是，则返回true,否则返回false
+     */
     public static isArray(paramV: unknown) {
         return Array.isArray(paramV);
     }
     /**
-	 * 检查指定的参数，是否是number
-	 * @static
-	 * @param paramV 被检查的对象
-	 * @return 如果是，则返回true,否则返回false
-	 */
+     * 检查指定的参数，是否是number
+     * @static
+     * @param paramV 被检查的对象
+     * @return 如果是，则返回true,否则返回false
+     */
     public static isNumber(paramV: unknown) {
         return _.isNumber(paramV);
     }
 
     /**
-	 * 判断指定的参数，是否是Object
-	 * @static
-	 * @memberOf utils
-	 * @param paramV 被检查的对象
-	 * @return 如果是，则返回true,否则返回false
-	 */
+     * 判断指定的参数，是否是Object
+     * @static
+     * @memberOf utils
+     * @param paramV 被检查的对象
+     * @return 如果是，则返回true,否则返回false
+     */
     public static isObject(paramV: unknown): boolean {
         return _.isObject(paramV);
     }
@@ -301,7 +301,7 @@ export class utils {
      * @return 返回回调函数的处理结果列表
      */
     public static async WaitFunction(paramFunc: Function, ...args: any[]): Promise<any[]> {
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             paramFunc((...result: any[]) => {
                 resolve(result);
             }, ...args);
@@ -321,7 +321,7 @@ export class utils {
      */
     // tslint:disable-next-line: ban-types
     public static async WaitFunctionEx(paramFunc: Function, ...args: any[]): Promise<any[]> {
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             paramFunc(...args, (...result: any[]) => {
                 resolve(result);
             });
@@ -340,13 +340,12 @@ export class utils {
      * @return 返回回调函数的传入参数列表
      */
     public static async WaitClassFunction(paramObject: any, paramFunctionName: string, ...args: any[]): Promise<any[]> {
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             paramObject[paramFunctionName]((...result: any[]) => {
                 resolve(result);
             }, ...args);
         });
     }
-
 
     /**
      *  异步调用类成员函数,注意：要求最后一个参数回调函数
@@ -360,7 +359,7 @@ export class utils {
      * @return 返回回调函数的传入参数列表
      */
     public static async WaitClassFunctionEx(paramObject: any, paramFunctionName: string, ...args: any[]): Promise<any[]> {
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             paramObject[paramFunctionName](...args, (...result: any[]) => {
                 resolve(result);
             });
@@ -435,16 +434,17 @@ export class utils {
 
         if (bytes < MemorySize.K) {
             return bytes.toString(10);
-        } else if (bytes < MemorySize.M) { // 1KB
+        } else if (bytes < MemorySize.M) {
+            // 1KB
             return (bytes / MemorySize.K).toFixed(2) + 'KB';
-        } else if (bytes < MemorySize.G) // 1M
-        {
+        } else if (bytes < MemorySize.G) {
+            // 1M
             return (bytes / MemorySize.M).toFixed(2) + 'MB';
-        } else if (bytes < MemorySize.T) // 1T
-        {
+        } else if (bytes < MemorySize.T) {
+            // 1T
             return (bytes / MemorySize.G).toFixed(2) + 'GB';
-        } else if (bytes < MemorySize.P) // 1T
-        {
+        } else if (bytes < MemorySize.P) {
+            // 1T
             return (bytes / MemorySize.T).toFixed(2) + 'TB';
         } else {
             return (bytes / MemorySize.P).toFixed(2) + 'PB'; // 1P
@@ -467,7 +467,7 @@ export class utils {
      * @param paramObject 参数表
      * @return 返回的结果
      */
-    public static keyValues(paramObject: any): { keys: string[], values: any[] } {
+    public static keyValues(paramObject: any): { keys: string[]; values: any[] } {
         const r = {
             keys: Object.keys(paramObject),
             values: Object.values(paramObject),
@@ -505,14 +505,14 @@ export class utils {
         let i = str.length - 1;
         let comma = false;
 
-
         for (let f = fmt.length - 1; f >= 0; f--) {
             switch (fmt.substr(f, 1)) {
             case '#':
                 if (i >= 0) retString = str.substr(i--, 1) + retString;
                 break;
             case '0':
-                if (i >= 0) retString = str.substr(i--, 1) + retString; else retString = '0' + retString;
+                if (i >= 0) retString = str.substr(i--, 1) + retString;
+                else retString = '0' + retString;
                 break;
             case ',':
                 comma = true;
@@ -543,7 +543,8 @@ export class utils {
                 if (i < str.length) retString += str.substr(i++, 1);
                 break;
             case '0':
-                if (i < str.length) retString += str.substr(i++, 1); else retString += '0';
+                if (i < str.length) retString += str.substr(i++, 1);
+                else retString += '0';
                 break;
             default:
                 break;
@@ -602,7 +603,7 @@ export class utils {
      *  - ret = false 表示移动失败
      *  - errInfo 出错信息
      */
-    public static async renameFile(paramOldFilename: string, paramNewFilename: string): Promise<{ret: boolean, errInfo: string}> {
+    public static async renameFile(paramOldFilename: string, paramNewFilename: string): Promise<{ ret: boolean; errInfo: string }> {
         const [error] = await this.WaitClassFunctionEx(fs, 'rename', paramOldFilename, paramNewFilename);
         if (utils.isNull(error)) {
             return {
@@ -647,7 +648,7 @@ export class utils {
      *  - ret = true 表示创建成功
      *  - ret = false 表示创建失败 ，msg为错误信息
      */
-    public static mkdirsSyncEx(paramPath: string, paramMode = 0o777): {ret: boolean, msg: string} {
+    public static mkdirsSyncEx(paramPath: string, paramMode = 0o777): { ret: boolean; msg: string } {
         const r = {
             ret: false,
             msg: '',
@@ -655,7 +656,8 @@ export class utils {
         try {
             if (!fs.existsSync(paramPath)) {
                 let pathTemp: string;
-                paramPath.split(/[/\\]/).forEach((dirName) => { // 这里指用/ 或\ 都可以分隔目录  如  linux的/usr/local/services   和windows的 d:\temp\aaaa
+                paramPath.split(/[/\\]/).forEach(dirName => {
+                    // 这里指用/ 或\ 都可以分隔目录  如  linux的/usr/local/services   和windows的 d:\temp\aaaa
                     if (pathTemp) {
                         pathTemp = path.join(pathTemp, dirName);
                     } else {
@@ -686,7 +688,7 @@ export class utils {
      * @return round后的值
      */
     public static roundPercentage(paramValue: number | string): number {
-    /** 最小保留的位数 */
+        /** 最小保留的位数 */
         const minNumber = 1000000;
         /** 精度 */
         const PercentNumber = 100;
@@ -730,20 +732,22 @@ export class utils {
      * - _ 是未能识别的参数数组，
      * - args 是识别后的参数对象
      */
-    public static options(paramArgs: string[]): {_: string[], args: object} {
-    /**
+    public static options(paramArgs: string[]): { _: string[]; args: object } {
+        /**
          * 取参数名称
          * -
          * @param paramArg 要解析的参数
          * @return 处理结果
          */
-        function GetArgsName(paramArg: string): { isArg: boolean, argName: string, argOri: string } {
-            const localRet = {isArg: false, argName: '', argOri: paramArg};
+        function GetArgsName(paramArg: string): { isArg: boolean; argName: string; argOri: string } {
+            const localRet = { isArg: false, argName: '', argOri: paramArg };
 
             let strName = null;
-            if (paramArg.substring(0, 2) === '--') { // 如果是前缀--
+            if (paramArg.substring(0, 2) === '--') {
+                // 如果是前缀--
                 strName = paramArg.substring(2).trim();
-            } else if (paramArg.substring(0, 1) === '-') { // 如果是前缀-
+            } else if (paramArg.substring(0, 1) === '-') {
+                // 如果是前缀-
                 strName = paramArg.substring(1).trim();
             } else {
                 return localRet;
@@ -756,7 +760,7 @@ export class utils {
             return localRet;
         }
 
-        const ret = {_: [] as string[], args: {} as any};
+        const ret = { _: [] as string[], args: {} as any };
 
         let args = paramArgs || [];
         if (!Array.isArray(args)) {
@@ -777,7 +781,8 @@ export class utils {
                 arg = arg.trim();
             }
 
-            if (argPre.is) { // 如果存在前缀
+            if (argPre.is) {
+                // 如果存在前缀
                 ret.args[argPre.argName] = arg;
 
                 argPre.is = false;
@@ -799,7 +804,8 @@ export class utils {
             }
         }
 
-        if (argPre.is) { // 如果存在前缀，但是，没有值，则加到_中
+        if (argPre.is) {
+            // 如果存在前缀，但是，没有值，则加到_中
             ret._.push(argPre.argOri);
         }
         return ret;
@@ -827,7 +833,7 @@ export class utils {
      * @return number
      */
     public static randomBetween(paramMin: number, paramMax: number) {
-        return this.randomInteger() % (paramMax - paramMin + 1) + paramMin;
+        return (this.randomInteger() % (paramMax - paramMin + 1)) + paramMin;
     }
 }
 

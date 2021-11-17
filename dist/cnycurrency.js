@@ -342,7 +342,7 @@ class CNYCurrency {
     get yuan() {
         // return ~~this.value;
         const n = this.m_intValue;
-        return (n - n % Precision) / Precision;
+        return (n - (n % Precision)) / Precision;
     }
     /**
      * 货币的小数部分，单位为分
@@ -462,7 +462,7 @@ class CNYCurrency {
                 }
             }
         }
-        if ((cent % 10) === 0) {
+        if (cent % 10 === 0) {
             // 当分为0的时候，有整
             chineseStr += stZheng;
         }
