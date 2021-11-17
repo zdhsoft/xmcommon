@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import fs from 'fs';
 import path from 'path';
 // 回调关系映射表
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const callbackmap: any = {};
 
-type TCallBack = (paramData: any) => void;
+type TCallBack = (paramData: unknown) => void;
 /**
  * watch指定的js文件，并加载回调
  * 这个主要是用于动态加载
@@ -13,7 +15,7 @@ type TCallBack = (paramData: any) => void;
  * @param paramFile 要watch的文件名
  * @param paramChangeCallback 有变化才回调
  */
-export function watchRequire( paramCallback: (paramData: any) => void, paramPath: string, paramFile: string, paramChangeCallback: boolean = true): void {
+export function watchRequire( paramCallback: (paramData: unknown) => void, paramPath: string, paramFile: string, paramChangeCallback = true): void {
     const realPath = path.join(paramPath, paramFile);
 
     if (!callbackmap[realPath]) {

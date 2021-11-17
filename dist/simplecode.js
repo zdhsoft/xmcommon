@@ -21,9 +21,6 @@ var EnumSimpleCodeError;
  * 这里使用的随机数算是非平衡算法，只用于这个编解码运算
  */
 class SimpleCode {
-    /**
-     * 构造函数
-     */
     constructor() {
         /** 当前的种子 */
         this.m_seed = 1;

@@ -3,7 +3,7 @@ import { error_common } from './constant';
 import { utils } from './utils';
 
 /** 通用返回接口 */
-export interface ICommonRetData<T = any> {
+export interface ICommonRetData<T = unknown> {
     /** 错误码 */
     err : number;
     msg : string;
@@ -26,17 +26,17 @@ export interface ICommonMsgHead {
  * 有isOK,isNotOK,isFail三个属性来简化返回结果.
  */
 // tslint:disable-next-line: class-name
-export class common_ret implements ICommonRetData<any> {
+export class common_ret implements ICommonRetData<unknown> {
     private m_err : number = error_common.ERR_OK;
-    private m_msg : string = '';
-    private m_data: any    = null;
+    private m_msg  = '';
+    private m_data: unknown = null;
     /**
      * 构造函数
      * @param paramErr 错误码
      * @param paramMsg 错误信息
      * @param paramData 携带数据
      */
-    public constructor(paramErr: number = error_common.ERR_OK, paramMsg: string = '', paramData: any = null) {
+    public constructor(paramErr: number = error_common.ERR_OK, paramMsg = '', paramData: unknown = null) {
         this.m_err  = paramErr;   // 错误码
         this.m_msg  = paramMsg;   // 错误信息
         this.m_data = paramData;  // 返回的数据,默认空数据
@@ -49,7 +49,7 @@ export class common_ret implements ICommonRetData<any> {
      * @param paramMsgPre 错误信息前缀 相当于执于了一次addErrorPre
      * @return 返回当前this
      */
-    public setError(paramErr: number, paramMsg: string = '', paramData: any = null, paramMsgPre: string | null = null): common_ret {
+    public setError(paramErr: number, paramMsg = '', paramData: unknown = null, paramMsgPre?: string): common_ret {
         this.m_err = paramErr;
         if (paramMsgPre) {
             this.m_msg = `${paramMsgPre}${paramMsg}`;
@@ -76,7 +76,7 @@ export class common_ret implements ICommonRetData<any> {
      * @param paramMsg 设备错误信息
      * @param paramMsgPre=null 错误信息前缀
      */
-    public setErrorMsg(paramMsg: string = '', paramMsgPre: string | null = null): void {
+    public setErrorMsg(paramMsg = '', paramMsgPre?: string): void {
         if (paramMsgPre) {
             this.m_msg = `${paramMsgPre}${paramMsg}`;
         } else {
@@ -137,7 +137,7 @@ export class common_ret implements ICommonRetData<any> {
     public get data() {
         return this.m_data;
     }
-    public set data(paramData: any) {
+    public set data(paramData: unknown) {
         this.m_data = paramData;
     }
 
@@ -251,9 +251,9 @@ export class common_ret implements ICommonRetData<any> {
  * 有isOK,isNotOK,isFail三个属性来简化返回结果.
  */
 // tslint:disable-next-line: class-name
-export class XCommonRet<T = any> implements ICommonRetData<T> {
+export class XCommonRet<T = unknown> implements ICommonRetData<T> {
     private m_err: number = error_common.ERR_OK;
-    private m_msg: string = '';
+    private m_msg = '';
     private m_data: T | null;
     /**
      * 构造函数
@@ -261,7 +261,7 @@ export class XCommonRet<T = any> implements ICommonRetData<T> {
      * @param paramMsg 错误信息
      * @param paramData 携带数据
      */
-    public constructor(paramErr: number = error_common.ERR_OK, paramMsg: string = '', paramData: any = null) {
+    public constructor(paramErr: number = error_common.ERR_OK, paramMsg = '', paramData: T | null = null) {
         this.m_err  = paramErr;   // 错误码
         this.m_msg  = paramMsg;   // 错误信息
         this.m_data = paramData;  // 返回的数据,默认空数据
@@ -274,7 +274,7 @@ export class XCommonRet<T = any> implements ICommonRetData<T> {
      * @param paramMsgPre 错误信息前缀 相当于执于了一次addErrorPre
      * @return 返回当前this
      */
-    public setError(paramErr: number, paramMsg: string = '', paramData: T | null = null, paramMsgPre: string | null = null): XCommonRet<T>  {
+    public setError(paramErr: number, paramMsg = '', paramData: T | null = null, paramMsgPre: string | null = null): XCommonRet<T>  {
         this.m_err = paramErr;
         if (utils.isNotNull(paramMsgPre)) {
             this.m_msg = `${paramMsgPre}${paramMsg}`;
@@ -301,7 +301,7 @@ export class XCommonRet<T = any> implements ICommonRetData<T> {
      * @param paramMsg 设备错误信息
      * @param paramMsgPre 错误信息前缀
      */
-    public setErrorMsg(paramMsg: string = '', paramMsgPre: string | null = null): void {
+    public setErrorMsg(paramMsg = '', paramMsgPre: string | null = null): void {
         if (utils.isNotNull(paramMsgPre)) {
             this.m_msg = `${paramMsgPre}${paramMsg}`;
         } else {

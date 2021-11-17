@@ -7,8 +7,8 @@
         "format": "prettier --write \"lib/**/*.ts\"",
         "lint": "eslint \"lib/**/*.ts\"",
         "lintfix": "eslint \"lib/**/*.ts\" --fix",
-        "build": "tsc",
-        "compile": "tsc",
+        "build": "npm run lint & tsc",
+        "compile": "npm run lint & tsc",
         "test": "mocha"
     },
     "repository": {

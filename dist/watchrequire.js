@@ -4,9 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.watchRequire = void 0;
+/* eslint-disable @typescript-eslint/no-var-requires */
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 // 回调关系映射表
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const callbackmap = {};
 /**
  * watch指定的js文件，并加载回调

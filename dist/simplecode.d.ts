@@ -32,10 +32,6 @@ export declare class SimpleCode {
     /** 修改值 */
     private m_fix;
     /**
-     * 构造函数
-     */
-    constructor();
-    /**
      * 数据编码
      * @param paramSeed 编码种子
      * @param paramData 要编码的数据

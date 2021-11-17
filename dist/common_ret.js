@@ -35,7 +35,7 @@ class common_ret {
      * @param paramMsgPre 错误信息前缀 相当于执于了一次addErrorPre
      * @return 返回当前this
      */
-    setError(paramErr, paramMsg = '', paramData = null, paramMsgPre = null) {
+    setError(paramErr, paramMsg = '', paramData = null, paramMsgPre) {
         this.m_err = paramErr;
         if (paramMsgPre) {
             this.m_msg = `${paramMsgPre}${paramMsg}`;
@@ -63,7 +63,7 @@ class common_ret {
      * @param paramMsg 设备错误信息
      * @param paramMsgPre=null 错误信息前缀
      */
-    setErrorMsg(paramMsg = '', paramMsgPre = null) {
+    setErrorMsg(paramMsg = '', paramMsgPre) {
         if (paramMsgPre) {
             this.m_msg = `${paramMsgPre}${paramMsg}`;
         }

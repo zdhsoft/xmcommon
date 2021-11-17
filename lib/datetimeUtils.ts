@@ -165,7 +165,7 @@ export class datetimeUtils {
      *
      * @memberof datetimeUtils
      */
-    public static dateStringByFile(paramDate: Date, paramMillisFlag: boolean = true): string {
+    public static dateStringByFile(paramDate: Date, paramMillisFlag = true): string {
         const d = paramDate;
         const dateString = [d.getFullYear(), pad2(d.getMonth()+1), pad2(d.getDate()), '_',
             pad2(d.getHours()), pad2(d.getMinutes()), pad2(d.getSeconds()), paramMillisFlag ? pad3(d.getMilliseconds()):'',

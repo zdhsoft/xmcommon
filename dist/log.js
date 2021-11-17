@@ -76,31 +76,24 @@ class LogConsole {
         return `[${categoryName} ${datetimeUtils_1.datetimeUtils.nowDateString()} ${level}] ${util_1.default.format('', ...data)}`;
     }
     trace(...paramLog) {
-        // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, 'TRACE', ...paramLog));
     }
     debug(...paramLog) {
-        // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, 'DEBUG', ...paramLog));
     }
     log(...paramLog) {
-        // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, '  LOG', ...paramLog));
     }
     info(...paramLog) {
-        // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, ' INFO', ...paramLog));
     }
     warn(...paramLog) {
-        // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, ' WARN', ...paramLog));
     }
     error(...paramLog) {
-        // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, 'ERROR', ...paramLog));
     }
     fatal(...paramLog) {
-        // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, 'FATEL', ...paramLog));
     }
 }

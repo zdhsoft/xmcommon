@@ -638,7 +638,7 @@ class utils {
         try {
             if (!fs_1.default.existsSync(paramPath)) {
                 let pathTemp;
-                paramPath.split(/[\/\\]/).forEach((dirName) => {
+                paramPath.split(/[/\\]/).forEach((dirName) => {
                     if (pathTemp) {
                         pathTemp = path_1.default.join(pathTemp, dirName);
                     }

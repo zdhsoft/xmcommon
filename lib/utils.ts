@@ -58,7 +58,7 @@ export class utils {
         };
         const err = new Error();
         Error.captureStackTrace(err);
-        const stack = err.stack as any as NodeJS.CallSite[];
+        const stack = err.stack as unknown as NodeJS.CallSite[];
         Error.prepareStackTrace = orig; // 恢复
         return stack;
     }
@@ -655,7 +655,7 @@ export class utils {
         try {
             if (!fs.existsSync(paramPath)) {
                 let pathTemp: string;
-                paramPath.split(/[\/\\]/).forEach((dirName) => { // 这里指用/ 或\ 都可以分隔目录  如  linux的/usr/local/services   和windows的 d:\temp\aaaa
+                paramPath.split(/[/\\]/).forEach((dirName) => { // 这里指用/ 或\ 都可以分隔目录  如  linux的/usr/local/services   和windows的 d:\temp\aaaa
                     if (pathTemp) {
                         pathTemp = path.join(pathTemp, dirName);
                     } else {

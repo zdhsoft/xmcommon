@@ -35,11 +35,6 @@ export class SimpleCode {
     private m_seed = 1;
     /** 修改值 */
     private m_fix = 1;
-    /**
-     * 构造函数
-     */
-    public constructor() {
-    }
 
     /**
      * 数据编码
