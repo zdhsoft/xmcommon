@@ -84,6 +84,7 @@ class codeUtils {
      * };
      * console.log(codeUtils.MD5FromArgs(options, 1,2,3,4,"test"));
      */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     static MD5FromArgs(paramOptions, ...args) {
         let encode = EncodingHex;
         let capital = false;

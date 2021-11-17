@@ -60,6 +60,6 @@ export declare class codeUtils {
      * };
      * console.log(codeUtils.MD5FromArgs(options, 1,2,3,4,"test"));
      */
-    static MD5FromArgs(paramOptions: IMD5Options, ...args: unknown[]): string;
+    static MD5FromArgs(paramOptions: IMD5Options, ...args: any[]): string;
 }
 export {};

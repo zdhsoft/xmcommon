@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import path from 'path';
 import util from 'util';
 import {utils} from './utils';
@@ -44,7 +45,7 @@ function shortpath(paramFileName: string): string {
  * @param args 其它前缀
  * @return 返回结果
  */
-export function logPrefix(paramFilename: string, ...args: unknown[]): unknown[] {
+export function logPrefix(paramFilename: string, ...args: any[]): any[] {
     if (paramFilename === null || paramFilename === undefined) {
         return [...args];
     } else {
@@ -54,20 +55,20 @@ export function logPrefix(paramFilename: string, ...args: unknown[]): unknown[] 
 
 export interface ILog {
     name: string;
-    trace(...paramLog: unknown[]): void;
-    debug(...paramLog: unknown[]): void;
+    trace(...paramLog: any[]): void;
+    debug(...paramLog: any[]): void;
     /** log级别日志，等同于info */
-    log(...paramLog: unknown[]):void;
-    info(...paramLog: unknown[]): void;
-    error(...paramLog: unknown[]): void;
-    warn(...paramLog: unknown[]): void;
+    log(...paramLog: any[]):void;
+    info(...paramLog: any[]): void;
+    error(...paramLog: any[]): void;
+    warn(...paramLog: any[]): void;
 }
 
 /**
  * 控制台日志类
  */
 export class LogConsole implements ILog {
-    private m_name = '';
+    private m_name: string = '';
     /**
      * 控制台日志构造函数
      * @param {string} [paramName=''] tag名称
@@ -84,29 +85,36 @@ export class LogConsole implements ILog {
         this.m_name = paramName;
     }
 
-    private buildLog(categoryName: string, level: string, ...data: unknown[]) {
+    private buildLog(categoryName: string, level: string, ...data: any[]) {
         return `[${categoryName} ${datetimeUtils.nowDateString()} ${level}] ${util.format('', ...data)}`;
     }
 
-    public trace(...paramLog: unknown[]): void {
+    public trace(...paramLog: any[]): void {
+        // tslint:disable-next-line: no-console
         console.log( this.buildLog(this.name, 'TRACE', ...paramLog));
     }
-    public debug(...paramLog: unknown[]) {
+    public debug(...paramLog: any[]) {
+        // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, 'DEBUG', ...paramLog));
     }
-    public log(...paramLog: unknown[]) {
+    public log(...paramLog: any[]) {
+        // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, '  LOG', ...paramLog));
     }
-    public info(...paramLog: unknown[]) {
+    public info(...paramLog: any[]) {
+        // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, ' INFO', ...paramLog));
     }
-    public warn(...paramLog: unknown[]) {
+    public warn(...paramLog: any[]) {
+        // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, ' WARN', ...paramLog));
     }
-    public error(...paramLog: unknown[]) {
+    public error(...paramLog: any[]) {
+        // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, 'ERROR', ...paramLog));
     }
-    public fatal(...paramLog: unknown[]) {
+    public fatal(...paramLog: any[]) {
+        // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, 'FATEL', ...paramLog));
     }
 }
@@ -121,6 +129,7 @@ let defaultLog: ILog = new LogConsole('default');
 class LogManager {
     private m_MapLogger = new Map<string, ILog>();
     private m_createLog: (paramTag:string) => ILog = (paramTag: string) => new LogConsole(paramTag);
+
     /**
      * 取指定tag的日志
      * @param paramTag 指定的tag
@@ -171,7 +180,7 @@ export function GetLogManager() {
  */
 let __getLogger: TGetLoggerFun = (paramTag: string): ILog => {
     const [prefix] = logPrefix(paramTag);
-    return logManager.getLogger(prefix as string);
+    return logManager.getLogger(prefix);
 };
 /**
  * 取指定tag的local log

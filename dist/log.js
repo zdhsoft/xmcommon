@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getLogger = exports.setGetLogger = exports.getLocalLogger = exports.GetLogManager = exports.LogConsole = exports.logPrefix = void 0;
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const path_1 = __importDefault(require("path"));
 const util_1 = __importDefault(require("util"));
 const utils_1 = require("./utils");
@@ -76,24 +77,31 @@ class LogConsole {
         return `[${categoryName} ${datetimeUtils_1.datetimeUtils.nowDateString()} ${level}] ${util_1.default.format('', ...data)}`;
     }
     trace(...paramLog) {
+        // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, 'TRACE', ...paramLog));
     }
     debug(...paramLog) {
+        // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, 'DEBUG', ...paramLog));
     }
     log(...paramLog) {
+        // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, '  LOG', ...paramLog));
     }
     info(...paramLog) {
+        // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, ' INFO', ...paramLog));
     }
     warn(...paramLog) {
+        // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, ' WARN', ...paramLog));
     }
     error(...paramLog) {
+        // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, 'ERROR', ...paramLog));
     }
     fatal(...paramLog) {
+        // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, 'FATEL', ...paramLog));
     }
 }

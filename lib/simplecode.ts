@@ -35,7 +35,6 @@ export class SimpleCode {
     private m_seed = 1;
     /** 修改值 */
     private m_fix = 1;
-
     /**
      * 数据编码
      * @param paramSeed 编码种子

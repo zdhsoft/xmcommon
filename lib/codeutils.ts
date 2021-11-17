@@ -96,7 +96,8 @@ export class codeUtils {
      * };
      * console.log(codeUtils.MD5FromArgs(options, 1,2,3,4,"test"));
      */
-    public static MD5FromArgs(paramOptions: IMD5Options, ...args: unknown[]) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    public static MD5FromArgs(paramOptions: IMD5Options, ...args: any[]) {
         let encode = EncodingHex;
         let capital = false;
         let split = '';

@@ -7,4 +7,4 @@
  * @param paramFile 要watch的文件名
  * @param paramChangeCallback 有变化才回调
  */
-export declare function watchRequire(paramCallback: (paramData: unknown) => void, paramPath: string, paramFile: string, paramChangeCallback?: boolean): void;
+export declare function watchRequire(paramCallback: (paramData: any) => void, paramPath: string, paramFile: string, paramChangeCallback?: boolean): void;

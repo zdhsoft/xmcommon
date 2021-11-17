@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.XCommonRet = exports.common_ret = void 0;
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const common_error_1 = require("./common_error");
 const constant_1 = require("./constant");
 const utils_1 = require("./utils");
@@ -35,7 +36,7 @@ class common_ret {
      * @param paramMsgPre 错误信息前缀 相当于执于了一次addErrorPre
      * @return 返回当前this
      */
-    setError(paramErr, paramMsg = '', paramData = null, paramMsgPre) {
+    setError(paramErr, paramMsg = '', paramData = null, paramMsgPre = null) {
         this.m_err = paramErr;
         if (paramMsgPre) {
             this.m_msg = `${paramMsgPre}${paramMsg}`;
@@ -63,7 +64,7 @@ class common_ret {
      * @param paramMsg 设备错误信息
      * @param paramMsgPre=null 错误信息前缀
      */
-    setErrorMsg(paramMsg = '', paramMsgPre) {
+    setErrorMsg(paramMsg = '', paramMsgPre = null) {
         if (paramMsgPre) {
             this.m_msg = `${paramMsgPre}${paramMsg}`;
         }

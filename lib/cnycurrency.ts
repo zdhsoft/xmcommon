@@ -1,5 +1,5 @@
 // const _ = require("lodash");
-import {utils} from './utils';
+import { utils } from './utils';
 /** 货币精度 */
 const Precision = 100;
 /** 三数一组 正则 */

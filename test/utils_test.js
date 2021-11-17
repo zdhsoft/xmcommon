@@ -1,4 +1,4 @@
-let { utils } = require('../dist/index');
+import { utils } from '../dist/index';
 let assert = require('assert').strict;
 describe('utils', () => {
     describe('utils.GetFileNameByStack', ()=> {

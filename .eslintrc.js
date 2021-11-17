@@ -1,3 +1,5 @@
+const { off } = require("process");
+
 module.exports = {
     'env': {
         'browser': true,
@@ -33,9 +35,9 @@ module.exports = {
             'error',
             'single'
         ],
-        'no-inferrable-types':[
-            'off'
-        ],
+        '@typescript-eslint/no-inferrable-types':'off',
+        '@typescript-eslint/ban-types': 'off',
+        'no-explicit-any': 'off',
         'max-len': ['error', {
             'code': 160,
         }],

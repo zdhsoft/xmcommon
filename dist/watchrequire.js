@@ -4,11 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.watchRequire = void 0;
-/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 // 回调关系映射表
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const callbackmap = {};
 /**
  * watch指定的js文件，并加载回调
@@ -28,12 +27,14 @@ function watchRequire(paramCallback, paramPath, paramFile, paramChangeCallback =
             delete require.cache[realPath];
             const len = cbList.length - 1;
             for (let i = len; 0 <= i; i--) {
+                // eslint-disable-next-line @typescript-eslint/no-var-requires
                 cbList[i](require(realPath));
             }
         });
     }
     callbackmap[realPath].push(paramCallback);
     if (!paramChangeCallback) {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
         paramCallback(require(realPath)); // 只有变化
     }
 }

@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.utils = exports.EnumCheckObjectCode = void 0;
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const lodash_1 = __importDefault(require("lodash"));
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
@@ -279,7 +280,6 @@ class utils {
      * @param args 要调用的参数
      * @return 返回回调函数的处理结果列表
      */
-    // tslint:disable-next-line: ban-types
     static async WaitFunction(paramFunc, ...args) {
         return new Promise((resolve) => {
             paramFunc((...result) => {
@@ -558,7 +558,6 @@ class utils {
         }
         return n;
     }
-    ;
     /**
      * 将字符串转换为json，如果出错返回undefined
      * 这个主要的做是，对异常做了处理，减少其它地方对异常处理的问题。
@@ -574,7 +573,6 @@ class utils {
         }
         return undefined;
     }
-    ;
     /**
      * 原路径移动到新路径
      * - 注：在windows下面，C盘或非同盘符的文件是改不了名的
