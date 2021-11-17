@@ -46,4 +46,3 @@ var DatetimeConstant;
     /** 每秒的毫秒数 */
     DatetimeConstant[DatetimeConstant["MILLIS_PRE_SECOND"] = 1000] = "MILLIS_PRE_SECOND";
 })(DatetimeConstant = exports.DatetimeConstant || (exports.DatetimeConstant = {}));
-;

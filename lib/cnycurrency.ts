@@ -1,5 +1,5 @@
 // const _ = require("lodash");
-const {utils} = require('./utils');
+import {utils} from './utils';
 /** 货币精度 */
 const Precision = 100;
 /** 三数一组 正则 */
@@ -154,7 +154,7 @@ export class CNYCurrency {
         }
     }
     /** 判断指定的对象，是不是指定的CNYCurrency对象 */
-    public static isCurrency(paramV: any): boolean {
+    public static isCurrency(paramV: unknown): boolean {
         return paramV instanceof CNYCurrency;
     }
 

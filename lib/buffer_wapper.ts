@@ -286,10 +286,10 @@ export class BufferWapper {
                 break;
             }
             if (!Buffer.isBuffer(paramBuffer)) {
-                ret.setError(EnumBufferWapperError.DATA_IS_NOT_BUFFER, `paramBuffer不是Buffer对象！`);
+                ret.setError(EnumBufferWapperError.DATA_IS_NOT_BUFFER, 'paramBuffer不是Buffer对象！');
                 break;
             }
-            const offset = Number.isSafeInteger(paramOffset as unknown) ? (paramOffset as number) : 0
+            const offset = Number.isSafeInteger(paramOffset as unknown) ? (paramOffset as number) : 0;
             // ESLint检查这块，不能正确识别参数，只好as一下，语法糖，无性能影响
             if (!this.checkOffset(offset, (paramBuffer as unknown as Buffer).byteLength, ret)) {
                 break;

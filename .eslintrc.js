@@ -1,30 +1,47 @@
 module.exports = {
-    "env": {
-        "browser": true,
-        "commonjs": true,
-        "es2021": true,
-        "node": true,
+    'env': {
+        'browser': true,
+        'es2021': true,
+        'commonjs': true,
+        'node': true
     },
-    "extends": [
-        "google"
+    'extends': [
+        'eslint:recommended',
+        'plugin:@typescript-eslint/recommended'
     ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaVersion": 2018,
+    'parser': '@typescript-eslint/parser',
+    'parserOptions': {
+        'ecmaVersion': 2018,
+        'sourceType': 'module'
     },
-    "plugins": [
-        "@typescript-eslint",
-        "prettier-eslint",
+    'plugins': [
+        '@typescript-eslint'
     ],
-    "rules": {
-        "tabWidth": 4,
-        "indent": ["error", 4],
-        "linebreak-style": ["warn", "windows"],
-        "quotes": 0,
-        "semi": ["error", "always"],
-        "max-len": ["error", {
-            "code": 160,
+    'rules': {
+        'indent': [
+            'error',
+            4
+        ],
+        'linebreak-style': [
+            'error',
+            'windows'
+        ],
+        'no-constant-condition': [
+            'error', { 'checkLoops': false }
+        ],
+        'quotes': [
+            'error',
+            'single'
+        ],
+        'no-inferrable-types':[
+            'off'
+        ],
+        'max-len': ['error', {
+            'code': 160,
         }],
-        "requireParamType": true,
-    },
+        'semi': [
+            'error',
+            'always'
+        ]
+    }
 };

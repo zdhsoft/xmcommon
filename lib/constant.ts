@@ -43,4 +43,4 @@ export enum DatetimeConstant {
     SECOND_PRE_MINUTE = 60,
     /** 每秒的毫秒数 */
     MILLIS_PRE_SECOND = 1000,
-};
+}

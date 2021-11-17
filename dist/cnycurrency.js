@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CNYCurrency = void 0;
 // const _ = require("lodash");
-const { utils } = require('./utils');
+const utils_1 = require("./utils");
 /** 货币精度 */
 const Precision = 100;
 /** 三数一组 正则 */
@@ -36,7 +36,7 @@ function __toNumber(paramValue) {
         result: false,
         value: 0,
     };
-    if (utils.isNumber(paramValue)) {
+    if (utils_1.utils.isNumber(paramValue)) {
         r.value = paramValue;
     }
     else {
@@ -373,17 +373,17 @@ class CNYCurrency {
         let stPrefix = '人民币';
         let stNegative = '负';
         let stZheng = '整';
-        if (utils.isObject(paramOpts)) {
+        if (utils_1.utils.isObject(paramOpts)) {
             // 人民币前缀
-            if (utils.isString(paramOpts.prefix)) {
+            if (utils_1.utils.isString(paramOpts.prefix)) {
                 stPrefix = paramOpts.prefix;
             }
             // 负数前缀
-            if (utils.isString(paramOpts.negative)) {
+            if (utils_1.utils.isString(paramOpts.negative)) {
                 stNegative = paramOpts.negative;
             }
             // 整或正字
-            if (utils.isString(paramOpts.zheng)) {
+            if (utils_1.utils.isString(paramOpts.zheng)) {
                 stZheng = paramOpts.zheng;
             }
         }

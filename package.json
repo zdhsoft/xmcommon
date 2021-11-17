@@ -4,6 +4,9 @@
     "description": "javascript common lib for es6",
     "main": "./dist/index.js",
     "scripts": {
+        "format": "prettier --write \"lib/**/*.ts\"",
+        "lint": "eslint \"lib/**/*.ts\"",
+        "lintfix": "eslint \"lib/**/*.ts\" --fix",
         "build": "tsc",
         "compile": "tsc",
         "test": "mocha"
@@ -28,17 +31,18 @@
         }
     ],
     "dependencies": {
-        "lodash": "^4.17.21"
+        "lodash": "^4.17.21",
+        "prettier": "^2.4.1"
     },
     "bugs": {
         "url": "https://github.com/zdhsoft/xmcommon/issues"
     },
     "homepage": "https://github.com/zdhsoft/xmcommon#readme",
     "devDependencies": {
-        "@types/lodash": "^4.14.176",
+        "@types/lodash": "^4.14.177",
         "@types/node": "^8.10.66",
-        "@typescript-eslint/eslint-plugin": "^5.3.1",
-        "@typescript-eslint/parser": "^5.3.1",
+        "@typescript-eslint/eslint-plugin": "^5.4.0",
+        "@typescript-eslint/parser": "^5.4.0",
         "eslint": "^8.2.0",
         "eslint-config-google": "^0.14.0",
         "prettier-eslint": "^13.0.0",

@@ -263,7 +263,7 @@ class BufferWapper {
                 break;
             }
             if (!Buffer.isBuffer(paramBuffer)) {
-                ret.setError(EnumBufferWapperError.DATA_IS_NOT_BUFFER, `paramBuffer不是Buffer对象！`);
+                ret.setError(EnumBufferWapperError.DATA_IS_NOT_BUFFER, 'paramBuffer不是Buffer对象！');
                 break;
             }
             const offset = Number.isSafeInteger(paramOffset) ? paramOffset : 0;

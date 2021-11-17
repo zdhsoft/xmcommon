@@ -52,7 +52,7 @@ export declare class CNYCurrency {
      */
     constructor(paramValue?: number | string | CNYCurrency);
     /** 判断指定的对象，是不是指定的CNYCurrency对象 */
-    static isCurrency(paramV: any): boolean;
+    static isCurrency(paramV: unknown): boolean;
     /** 货币值 */
     get value(): number;
     /**
