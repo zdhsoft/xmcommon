@@ -148,9 +148,10 @@ export declare class CNYCurrency {
     /**
      * 格式化输出
      * @param {boolean} paramUseSymbol 是否带有"￥"符号
-     * @param {*} paramCNYsplit 是否以中文四数字一组
+     * @param {boolean} paramCNYsplit 是否以中文四数字一组
+     * @param {boolean} paramHasSplit 是否存在千分位分隔符
      * @return {string} 生成后的字符串
      */
-    format(paramUseSymbol?: boolean, paramCNYsplit?: boolean): string;
+    format(paramUseSymbol?: boolean, paramCNYsplit?: boolean, paramHasSplit?: boolean): string;
     toJSON(): number;
 }

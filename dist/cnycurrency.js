@@ -471,19 +471,22 @@ class CNYCurrency {
     /**
      * 格式化输出
      * @param {boolean} paramUseSymbol 是否带有"￥"符号
-     * @param {*} paramCNYsplit 是否以中文四数字一组
+     * @param {boolean} paramCNYsplit 是否以中文四数字一组
+     * @param {boolean} paramHasSplit 是否存在千分位分隔符
      * @return {string} 生成后的字符串
      */
-    format(paramUseSymbol = false, paramCNYsplit = false) {
+    format(paramUseSymbol = false, paramCNYsplit = false, paramHasSplit = true) {
         const value = Math.abs(this.value);
         const values = value.toFixed(2).split('.');
         let yuan = values[0];
         const cent = values[1];
-        if (paramCNYsplit) {
-            yuan = yuan.replace(groupCNYReg, '$1,');
-        }
-        else {
-            yuan = yuan.replace(groupReg, '$1,');
+        if (paramHasSplit) {
+            if (paramCNYsplit) {
+                yuan = yuan.replace(groupCNYReg, '$1,');
+            }
+            else {
+                yuan = yuan.replace(groupReg, '$1,');
+            }
         }
         let negative = '';
         if (this.m_intValue < 0) {

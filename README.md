@@ -36,6 +36,10 @@ npm install xmcommon
 - BufferWapper 一个buffer读写的包装类
 
 # 版本变更说明
+## 0.9.12
+- 2021-11-29
+- \* CNYCurrency类的format方法，增加无千分位分隔符的参数
+
 ## 0.9.11
 - 2021-11-16
 - \* 使用prettier格式化代码

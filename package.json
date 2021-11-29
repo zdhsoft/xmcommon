@@ -1,7 +1,7 @@
 {
     "name": "xmcommon",
-    "version": "0.9.11",
-    "description": "javascript common lib for es6",
+    "version": "0.9.12",
+    "description": "一个基于javascript的常用功能扩展库！",
     "main": "./dist/index.js",
     "scripts": {
         "format": "prettier --write \"lib/**/*.ts\"",
@@ -41,10 +41,10 @@
         "@types/node": "^8.10.66",
         "@typescript-eslint/eslint-plugin": "^5.4.0",
         "@typescript-eslint/parser": "^5.4.0",
-        "eslint": "^8.2.0",
+        "eslint": "^8.3.0",
         "eslint-config-google": "^0.14.0",
-        "prettier": "^2.4.1",
-        "prettier-eslint": "^13.0.0",
+        "prettier": "^2.5.0",
+        "prettier-eslint": "^8.2.2",
         "typescript-tslint-plugin": "^1.0.1"
     },
     "engines": {
