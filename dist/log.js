@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getLogger = exports.setGetLogger = exports.getLocalLogger = exports.GetLogManager = exports.LogConsole = exports.logPrefix = void 0;
-/* eslint-disable @typescript-eslint/no-explicit-any */
 const path_1 = __importDefault(require("path"));
 const util_1 = __importDefault(require("util"));
 const utils_1 = require("./utils");

@@ -91,7 +91,7 @@ export declare class utils {
      * - code = EnumCheckObjectCode.SampleIsNotObject:-2 表示paramSimpleObject不是object对象
      * - code = EnumCheckObjectCode.MissAttrib:1 表示缺少必要的属性
      */
-    static checkObjectProperty(paramDestObject: any, paramSimpleObject: any): ICheckObjectResult;
+    static checkObjectProperty(paramDestObject: unknown, paramSimpleObject: unknown): ICheckObjectResult;
     /**
      * 判断指定的参数，是否是字符串类型
      * @static
@@ -175,7 +175,7 @@ export declare class utils {
      * @param args 要调用的参数
      * @return 返回回调函数的处理结果列表
      */
-    static WaitFunction(paramFunc: Function, ...args: any[]): Promise<any[]>;
+    static WaitFunction(paramFunc: Function, ...args: unknown[]): Promise<unknown[]>;
     /**
      * 异步调用函数,注意：
      * - 传入的函数要求是这样的  function (arg1, arg2, ..., callback), 最后一个入参是回调函数;
@@ -187,7 +187,7 @@ export declare class utils {
      * @param args 要传给函数的参数数组
      * @return 返回回调函数的处理结果列表
      */
-    static WaitFunctionEx(paramFunc: Function, ...args: any[]): Promise<any[]>;
+    static WaitFunctionEx(paramFunc: Function, ...args: unknown[]): Promise<unknown[]>;
     /**
      *  异步调用类成员函数,注意：要求第一个参数回调函数,
      *  - @see WaitFunction
@@ -199,7 +199,7 @@ export declare class utils {
      * @param args 要调用的参数
      * @return 返回回调函数的传入参数列表
      */
-    static WaitClassFunction(paramObject: any, paramFunctionName: string, ...args: any[]): Promise<any[]>;
+    static WaitClassFunction(paramObject: unknown, paramFunctionName: string, ...args: unknown[]): Promise<unknown[]>;
     /**
      *  异步调用类成员函数,注意：要求最后一个参数回调函数
      * - @see WaitFunctionEx
@@ -211,7 +211,7 @@ export declare class utils {
      * @param args 要调用的参数
      * @return 返回回调函数的传入参数列表
      */
-    static WaitClassFunctionEx(paramObject: any, paramFunctionName: string, ...args: any[]): Promise<any[]>;
+    static WaitClassFunctionEx(paramObject: unknown, paramFunctionName: string, ...args: unknown[]): Promise<unknown[]>;
     /**
      * 设置DateTimeOffset值
      * @static
@@ -260,9 +260,9 @@ export declare class utils {
      * @param paramObject 参数表
      * @return 返回的结果
      */
-    static keyValues(paramObject: any): {
+    static keyValues(paramObject: unknown): {
         keys: string[];
-        values: any[];
+        values: unknown[];
     };
     /**
      * 格式化数字显示方式

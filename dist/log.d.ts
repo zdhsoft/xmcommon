@@ -4,16 +4,16 @@
  * @param args 其它前缀
  * @return 返回结果
  */
-export declare function logPrefix(paramFilename: string, ...args: any[]): any[];
+export declare function logPrefix(paramFilename: string, ...args: unknown[]): unknown[];
 export interface ILog {
     name: string;
-    trace(...paramLog: any[]): void;
-    debug(...paramLog: any[]): void;
+    trace(...paramLog: unknown[]): void;
+    debug(...paramLog: unknown[]): void;
     /** log级别日志，等同于info */
-    log(...paramLog: any[]): void;
-    info(...paramLog: any[]): void;
-    error(...paramLog: any[]): void;
-    warn(...paramLog: any[]): void;
+    log(...paramLog: unknown[]): void;
+    info(...paramLog: unknown[]): void;
+    error(...paramLog: unknown[]): void;
+    warn(...paramLog: unknown[]): void;
 }
 /**
  * 控制台日志类
@@ -28,13 +28,13 @@ export declare class LogConsole implements ILog {
     get name(): string;
     set name(paramName: string);
     private buildLog;
-    trace(...paramLog: any[]): void;
-    debug(...paramLog: any[]): void;
-    log(...paramLog: any[]): void;
-    info(...paramLog: any[]): void;
-    warn(...paramLog: any[]): void;
-    error(...paramLog: any[]): void;
-    fatal(...paramLog: any[]): void;
+    trace(...paramLog: unknown[]): void;
+    debug(...paramLog: unknown[]): void;
+    log(...paramLog: unknown[]): void;
+    info(...paramLog: unknown[]): void;
+    warn(...paramLog: unknown[]): void;
+    error(...paramLog: unknown[]): void;
+    fatal(...paramLog: unknown[]): void;
 }
 /**
  * 日志管理器

@@ -1,5 +1,5 @@
 /** 通用返回接口 */
-export interface ICommonRetData<T = any> {
+export interface ICommonRetData<T = unknown> {
     /** 错误码 */
     err: number;
     msg: string;
@@ -15,11 +15,11 @@ export interface ICommonMsgHead {
 }
 /**
  * 这个类主要是增加了错误判断的属性,可以做为一个通用的返回类
- * - 但是这里的数据类型都any类型的，不建议使用，所以这里新增加带模板的XCommonRet<T>类，两个功能接口完全一样
+ * - 但是这里的数据类型都unknown类型的，不建议使用，所以这里新增加带模板的XCommonRet<T>类，两个功能接口完全一样
  * - 要返回的数据可以通过data属性返回
  * 有isOK,isNotOK,isFail三个属性来简化返回结果.
  */
-export declare class common_ret implements ICommonRetData<any> {
+export declare class common_ret implements ICommonRetData<unknown> {
     private m_err;
     private m_msg;
     private m_data;
@@ -29,7 +29,7 @@ export declare class common_ret implements ICommonRetData<any> {
      * @param paramMsg 错误信息
      * @param paramData 携带数据
      */
-    constructor(paramErr?: number, paramMsg?: string, paramData?: any);
+    constructor(paramErr?: number, paramMsg?: string, paramData?: unknown);
     /**
      * 设置错误信息
      * @param paramErr 错误码 @see error_common定义
@@ -38,7 +38,7 @@ export declare class common_ret implements ICommonRetData<any> {
      * @param paramMsgPre 错误信息前缀 相当于执于了一次addErrorPre
      * @return 返回当前this
      */
-    setError(paramErr: number, paramMsg?: string, paramData?: any, paramMsgPre?: string | null): common_ret;
+    setError(paramErr: number, paramMsg?: string, paramData?: unknown, paramMsgPre?: string | null): common_ret;
     /**
      * 取错信息
      * @return 返回含有错误码的错误信息
@@ -73,14 +73,14 @@ export declare class common_ret implements ICommonRetData<any> {
      * 取携带数据
      * @return 携带的数据
      */
-    getData(): any;
+    getData(): unknown;
     /**
      * 设置携带的数据
      * @param paramData 数据
      */
-    setData(paramData?: null): void;
-    get data(): any;
-    set data(paramData: any);
+    setData(paramData?: unknown): void;
+    get data(): unknown;
+    set data(paramData: unknown);
     /**
      * 设置错误信息为ERR_OK;
      */
@@ -95,7 +95,7 @@ export declare class common_ret implements ICommonRetData<any> {
      * @param data 携带的数据
      * @return 返回this
      */
-    setOK(data?: null): common_ret;
+    setOK(data?: unknown): common_ret;
     /**
      * 设为ERR_TRUE
      * @return 返回this
@@ -143,7 +143,7 @@ export declare class common_ret implements ICommonRetData<any> {
  * 要返回的数据可以通过data属性返回
  * 有isOK,isNotOK,isFail三个属性来简化返回结果.
  */
-export declare class XCommonRet<T = any> implements ICommonRetData<T> {
+export declare class XCommonRet<T = unknown> implements ICommonRetData<T> {
     private m_err;
     private m_msg;
     private m_data;
@@ -153,7 +153,7 @@ export declare class XCommonRet<T = any> implements ICommonRetData<T> {
      * @param paramMsg 错误信息
      * @param paramData 携带数据
      */
-    constructor(paramErr?: number, paramMsg?: string, paramData?: any);
+    constructor(paramErr?: number, paramMsg?: string, paramData?: T | null);
     /**
      * 设置错误信息
      * @param paramErr 错误码 @see error_common定义
@@ -219,7 +219,7 @@ export declare class XCommonRet<T = any> implements ICommonRetData<T> {
      * @param data 携带的数据
      * @return 返回this
      */
-    setOK(data?: null): XCommonRet<T>;
+    setOK(data?: T | null): XCommonRet<T>;
     /**
      * 设为ERR_TRUE
      * @return  返回当前对象

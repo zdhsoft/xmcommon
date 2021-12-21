@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import path from 'path';
 import util from 'util';
 import { utils } from './utils';
@@ -45,7 +44,7 @@ function shortpath(paramFileName: string): string {
  * @param args 其它前缀
  * @return 返回结果
  */
-export function logPrefix(paramFilename: string, ...args: any[]): any[] {
+export function logPrefix(paramFilename: string, ...args: unknown[]): unknown[] {
     if (paramFilename === null || paramFilename === undefined) {
         return [...args];
     } else {
@@ -55,13 +54,13 @@ export function logPrefix(paramFilename: string, ...args: any[]): any[] {
 
 export interface ILog {
     name: string;
-    trace(...paramLog: any[]): void;
-    debug(...paramLog: any[]): void;
+    trace(...paramLog: unknown[]): void;
+    debug(...paramLog: unknown[]): void;
     /** log级别日志，等同于info */
-    log(...paramLog: any[]): void;
-    info(...paramLog: any[]): void;
-    error(...paramLog: any[]): void;
-    warn(...paramLog: any[]): void;
+    log(...paramLog: unknown[]): void;
+    info(...paramLog: unknown[]): void;
+    error(...paramLog: unknown[]): void;
+    warn(...paramLog: unknown[]): void;
 }
 
 /**
@@ -85,35 +84,35 @@ export class LogConsole implements ILog {
         this.m_name = paramName;
     }
 
-    private buildLog(categoryName: string, level: string, ...data: any[]) {
+    private buildLog(categoryName: string, level: string, ...data: unknown[]) {
         return `[${categoryName} ${datetimeUtils.nowDateString()} ${level}] ${util.format('', ...data)}`;
     }
 
-    public trace(...paramLog: any[]): void {
+    public trace(...paramLog: unknown[]): void {
         // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, 'TRACE', ...paramLog));
     }
-    public debug(...paramLog: any[]) {
+    public debug(...paramLog: unknown[]) {
         // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, 'DEBUG', ...paramLog));
     }
-    public log(...paramLog: any[]) {
+    public log(...paramLog: unknown[]) {
         // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, '  LOG', ...paramLog));
     }
-    public info(...paramLog: any[]) {
+    public info(...paramLog: unknown[]) {
         // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, ' INFO', ...paramLog));
     }
-    public warn(...paramLog: any[]) {
+    public warn(...paramLog: unknown[]) {
         // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, ' WARN', ...paramLog));
     }
-    public error(...paramLog: any[]) {
+    public error(...paramLog: unknown[]) {
         // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, 'ERROR', ...paramLog));
     }
-    public fatal(...paramLog: any[]) {
+    public fatal(...paramLog: unknown[]) {
         // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, 'FATEL', ...paramLog));
     }
@@ -180,7 +179,7 @@ export function GetLogManager() {
  */
 let __getLogger: TGetLoggerFun = (paramTag: string): ILog => {
     const [prefix] = logPrefix(paramTag);
-    return logManager.getLogger(prefix);
+    return logManager.getLogger(prefix as string);
 };
 /**
  * 取指定tag的local log

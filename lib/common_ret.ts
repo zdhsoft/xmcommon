@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { error_utils } from './common_error';
 import { error_common } from './constant';
 import { utils } from './utils';
 
 /** 通用返回接口 */
-export interface ICommonRetData<T = any> {
+export interface ICommonRetData<T = unknown> {
     /** 错误码 */
     err: number;
     msg: string;
@@ -22,22 +21,22 @@ export interface ICommonMsgHead {
 // 通用的数据返回
 /**
  * 这个类主要是增加了错误判断的属性,可以做为一个通用的返回类
- * - 但是这里的数据类型都any类型的，不建议使用，所以这里新增加带模板的XCommonRet<T>类，两个功能接口完全一样
+ * - 但是这里的数据类型都unknown类型的，不建议使用，所以这里新增加带模板的XCommonRet<T>类，两个功能接口完全一样
  * - 要返回的数据可以通过data属性返回
  * 有isOK,isNotOK,isFail三个属性来简化返回结果.
  */
 // tslint:disable-next-line: class-name
-export class common_ret implements ICommonRetData<any> {
+export class common_ret implements ICommonRetData<unknown> {
     private m_err: number = error_common.ERR_OK;
     private m_msg: string = '';
-    private m_data: any = null;
+    private m_data: unknown = null;
     /**
      * 构造函数
      * @param paramErr 错误码
      * @param paramMsg 错误信息
      * @param paramData 携带数据
      */
-    public constructor(paramErr: number = error_common.ERR_OK, paramMsg: string = '', paramData: any = null) {
+    public constructor(paramErr: number = error_common.ERR_OK, paramMsg: string = '', paramData: unknown = null) {
         this.m_err = paramErr; // 错误码
         this.m_msg = paramMsg; // 错误信息
         this.m_data = paramData; // 返回的数据,默认空数据
@@ -50,7 +49,7 @@ export class common_ret implements ICommonRetData<any> {
      * @param paramMsgPre 错误信息前缀 相当于执于了一次addErrorPre
      * @return 返回当前this
      */
-    public setError(paramErr: number, paramMsg: string = '', paramData: any = null, paramMsgPre: string | null = null): common_ret {
+    public setError(paramErr: number, paramMsg: string = '', paramData: unknown = null, paramMsgPre: string | null = null): common_ret {
         this.m_err = paramErr;
         if (paramMsgPre) {
             this.m_msg = `${paramMsgPre}${paramMsg}`;
@@ -132,13 +131,13 @@ export class common_ret implements ICommonRetData<any> {
      * 设置携带的数据
      * @param paramData 数据
      */
-    public setData(paramData = null) {
+    public setData(paramData: unknown = null) {
         this.m_data = paramData;
     }
     public get data() {
         return this.m_data;
     }
-    public set data(paramData: any) {
+    public set data(paramData: unknown) {
         this.m_data = paramData;
     }
 
@@ -162,7 +161,7 @@ export class common_ret implements ICommonRetData<any> {
      * @param data 携带的数据
      * @return 返回this
      */
-    public setOK(data = null): common_ret {
+    public setOK(data : unknown = null): common_ret {
         this.m_err = error_common.ERR_OK;
         this.m_data = data;
         return this;
@@ -251,7 +250,7 @@ export class common_ret implements ICommonRetData<any> {
  * 有isOK,isNotOK,isFail三个属性来简化返回结果.
  */
 // tslint:disable-next-line: class-name
-export class XCommonRet<T = any> implements ICommonRetData<T> {
+export class XCommonRet<T = unknown> implements ICommonRetData<T> {
     private m_err: number = error_common.ERR_OK;
     private m_msg: string = '';
     private m_data: T | null;
@@ -261,7 +260,7 @@ export class XCommonRet<T = any> implements ICommonRetData<T> {
      * @param paramMsg 错误信息
      * @param paramData 携带数据
      */
-    public constructor(paramErr: number = error_common.ERR_OK, paramMsg: string = '', paramData: any = null) {
+    public constructor(paramErr: number = error_common.ERR_OK, paramMsg: string = '', paramData: T | null = null) {
         this.m_err = paramErr; // 错误码
         this.m_msg = paramMsg; // 错误信息
         this.m_data = paramData; // 返回的数据,默认空数据
@@ -386,7 +385,7 @@ export class XCommonRet<T = any> implements ICommonRetData<T> {
      * @param data 携带的数据
      * @return 返回this
      */
-    public setOK(data = null): XCommonRet<T> {
+    public setOK(data:T | null= null): XCommonRet<T> {
         this.m_err = error_common.ERR_OK;
         this.m_data = data;
         return this;

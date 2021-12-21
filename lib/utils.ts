@@ -59,7 +59,7 @@ export class utils {
         };
         const err = new Error();
         Error.captureStackTrace(err);
-        const stack = err.stack as any as NodeJS.CallSite[];
+        const stack = err.stack as unknown as NodeJS.CallSite[];
         Error.prepareStackTrace = orig; // 恢复
         return stack;
     }
@@ -147,7 +147,7 @@ export class utils {
      * - code = EnumCheckObjectCode.SampleIsNotObject:-2 表示paramSimpleObject不是object对象
      * - code = EnumCheckObjectCode.MissAttrib:1 表示缺少必要的属性
      */
-    public static checkObjectProperty(paramDestObject: any, paramSimpleObject: any): ICheckObjectResult {
+    public static checkObjectProperty(paramDestObject: unknown, paramSimpleObject: unknown): ICheckObjectResult {
         const ret: ICheckObjectResult = {
             code: EnumCheckObjectCode.TotallySuitable,
             extra: [],
@@ -164,16 +164,16 @@ export class utils {
             return ret;
         }
 
-        for (const k in paramDestObject) {
-            const kk = paramSimpleObject[k];
+        for (const k in (paramDestObject as any)) {
+            const kk = (paramSimpleObject as any)[k] ;
             if (kk === undefined) {
                 ret.extra.push(k);
             }
         }
 
-        for (const k in paramSimpleObject) {
-            const v = paramSimpleObject[k];
-            const kk = paramDestObject[k];
+        for (const k in (paramSimpleObject as any)) {
+            const v = (paramSimpleObject as any)[k];
+            const kk = (paramDestObject as any)[k];
             if (v) {
                 if (kk === undefined) {
                     ret.lack.push(k);
@@ -300,9 +300,9 @@ export class utils {
      * @param args 要调用的参数
      * @return 返回回调函数的处理结果列表
      */
-    public static async WaitFunction(paramFunc: Function, ...args: any[]): Promise<any[]> {
+    public static async WaitFunction(paramFunc: Function, ...args: unknown[]): Promise<unknown[]> {
         return new Promise(resolve => {
-            paramFunc((...result: any[]) => {
+            paramFunc((...result: unknown[]) => {
                 resolve(result);
             }, ...args);
         });
@@ -320,9 +320,9 @@ export class utils {
      * @return 返回回调函数的处理结果列表
      */
     // tslint:disable-next-line: ban-types
-    public static async WaitFunctionEx(paramFunc: Function, ...args: any[]): Promise<any[]> {
+    public static async WaitFunctionEx(paramFunc: Function, ...args: unknown[]): Promise<unknown[]> {
         return new Promise(resolve => {
-            paramFunc(...args, (...result: any[]) => {
+            paramFunc(...args, (...result: unknown[]) => {
                 resolve(result);
             });
         });
@@ -339,9 +339,9 @@ export class utils {
      * @param args 要调用的参数
      * @return 返回回调函数的传入参数列表
      */
-    public static async WaitClassFunction(paramObject: any, paramFunctionName: string, ...args: any[]): Promise<any[]> {
+    public static async WaitClassFunction(paramObject: unknown, paramFunctionName: string, ...args: unknown[]): Promise<unknown[]> {
         return new Promise(resolve => {
-            paramObject[paramFunctionName]((...result: any[]) => {
+            (paramObject as any)[paramFunctionName]((...result: unknown[]) => {
                 resolve(result);
             }, ...args);
         });
@@ -358,9 +358,9 @@ export class utils {
      * @param args 要调用的参数
      * @return 返回回调函数的传入参数列表
      */
-    public static async WaitClassFunctionEx(paramObject: any, paramFunctionName: string, ...args: any[]): Promise<any[]> {
+    public static async WaitClassFunctionEx(paramObject: unknown, paramFunctionName: string, ...args: unknown[]): Promise<unknown[]> {
         return new Promise(resolve => {
-            paramObject[paramFunctionName](...args, (...result: any[]) => {
+            (paramObject as any)[paramFunctionName](...args, (...result: unknown[]) => {
                 resolve(result);
             });
         });
@@ -467,10 +467,10 @@ export class utils {
      * @param paramObject 参数表
      * @return 返回的结果
      */
-    public static keyValues(paramObject: any): { keys: string[]; values: any[] } {
+    public static keyValues(paramObject: unknown): { keys: string[]; values: unknown[] } {
         const r = {
-            keys: Object.keys(paramObject),
-            values: Object.values(paramObject),
+            keys: Object.keys(paramObject as any),
+            values: Object.values(paramObject as any),
         };
         // for (let k in paramObject) {
 
