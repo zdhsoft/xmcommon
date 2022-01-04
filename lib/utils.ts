@@ -2,7 +2,8 @@
 import _ from 'lodash';
 import fs from 'fs';
 import path from 'path';
-import { MemorySize } from './constant';
+import { MemorySize, error_common } from './constant';
+import { XCommonRet } from './common_ret';
 
 /** 日期偏移值，主要用于测试 */
 let DateTimeOffset = 0;
@@ -30,6 +31,21 @@ export interface ICheckObjectResult {
     extra: string[];
     /** 缺少的属性名称列表 */
     lack: string[];
+}
+
+/**
+ * 分页信息
+ * - 主要用于mysql的分页请求处理
+ */
+export interface IPageInfo {
+    /** 第几条记录 从0开始 */
+    start: number;
+    /** 取几条记录 最小1，最大100 */
+    length: number;
+    /** 第几页，从1开始 */
+    page: number;
+    /** // 每页的记录数，等同于length */
+    pageSize: number;
 }
 
 /**
@@ -164,14 +180,14 @@ export class utils {
             return ret;
         }
 
-        for (const k in (paramDestObject as any)) {
-            const kk = (paramSimpleObject as any)[k] ;
+        for (const k in paramDestObject as any) {
+            const kk = (paramSimpleObject as any)[k];
             if (kk === undefined) {
                 ret.extra.push(k);
             }
         }
 
-        for (const k in (paramSimpleObject as any)) {
+        for (const k in paramSimpleObject as any) {
             const v = (paramSimpleObject as any)[k];
             const kk = (paramDestObject as any)[k];
             if (v) {
@@ -506,12 +522,18 @@ export class utils {
         let comma = false;
 
         for (let f = fmt.length - 1; f >= 0; f--) {
-            switch (fmt.substr(f, 1)) {
+            switch (fmt.substring(f, f+1)) {
             case '#':
-                if (i >= 0) retString = str.substr(i--, 1) + retString;
+                if (i >= 0) {
+                    retString = str.substring(i, i+1) + retString;
+                    i--;
+                }
                 break;
             case '0':
-                if (i >= 0) retString = str.substr(i--, 1) + retString;
+                if (i >= 0) {
+                    retString = str.substring(i, 1+1) + retString;
+                    i--;
+                }
                 else retString = '0' + retString;
                 break;
             case ',':
@@ -526,7 +548,7 @@ export class utils {
             if (comma) {
                 const l = str.length;
                 for (; i >= 0; i--) {
-                    retString = str.substr(i, 1) + retString;
+                    retString = str.substring(i, i+1) + retString;
                     if (i > 0 && (l - i) % 3 === 0) retString = ',' + retString;
                 }
             } else retString = str.substr(0, i + 1) + retString;
@@ -540,10 +562,16 @@ export class utils {
         for (let f = 0; f < fmt.length; f++) {
             switch (fmt.substr(f, 1)) {
             case '#':
-                if (i < str.length) retString += str.substr(i++, 1);
+                if (i < str.length) {
+                    retString += str.substring(i, i+1);
+                    i++;
+                }
                 break;
             case '0':
-                if (i < str.length) retString += str.substr(i++, 1);
+                if (i < str.length) {
+                    retString += str.substring(i, i+1);
+                    i++;
+                }
                 else retString += '0';
                 break;
             default:
@@ -834,6 +862,62 @@ export class utils {
      */
     public static randomBetween(paramMin: number, paramMax: number) {
         return (this.randomInteger() % (paramMax - paramMin + 1)) + paramMin;
+    }
+
+    /**
+     * 计算页信息
+     * - 与mysql limit相对应
+     * @param paramStart 开始的下标，从0开始 默认值0
+     * @param paramLength 对应的数量，要求大于1，小于1000，最大值1000, 默认值为10
+     */
+    public static roundPageInfo(paramStart: number = 0, paramLength: number = 10): IPageInfo {
+        const start = Number.isInteger(paramStart) ? paramStart : 0;
+        let length = Number.isInteger(paramLength) ? paramLength : 10;
+        if (length < 1) {
+            length = 10;
+        } else if (length > 1000) {
+            length = 1000;
+        }
+        const page = Math.floor(start / length) + 1;
+        return { start, length, page, pageSize: length };
+    }
+    /**
+     * 计算最大页数 CommonRetEx.data就是计算出来的页数
+     * @param paramCount 总的记录数
+     * @param paramPageSize 每页的记录数
+     */
+    public static calcMaxPage(paramCount: number, paramPageSize: number): XCommonRet<number> {
+        const r = new XCommonRet<number>();
+        r.setOK(0);
+        do {
+            if (!Number.isSafeInteger(paramCount)) {
+                r.setError(error_common.ERR_FAIL, `paramCount = ${paramCount} is not safe integer!`);
+                break;
+            }
+
+            if (!Number.isSafeInteger(paramPageSize)) {
+                r.setError(error_common.ERR_FAIL, `paramPageSize = ${paramPageSize} is not safe integer!`);
+                break;
+            }
+
+            if (paramPageSize <= 0) {
+                r.setError(error_common.ERR_FAIL, `paramPageSize = ${paramPageSize} <= 0,  页数要是大于0的整数`);
+                break;
+            }
+
+            if (paramCount <= 0) {
+                // 如果记录数，小于等于0，则 总页数0
+                break;
+            }
+
+            const p = paramCount % paramPageSize;
+            let pageCnt = (paramCount - p) / paramPageSize;
+            if (p > 0) {
+                pageCnt++;
+            }
+            r.setOK(pageCnt);
+        } while (false);
+        return r;
     }
 }
 

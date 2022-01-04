@@ -36,6 +36,11 @@ npm install xmcommon
 - BufferWapper 一个buffer读写的包装类
 
 # 版本变更说明
+
+## 0.9.14
+- 2022-01-05
+- \+ 增加utils.calcMaxPage方法
+- \+ 增加utils.roundPageInfo方法
 ## 0.9.13
 - 2021-12-02
 - \* 将一些any类型改为unknown类型

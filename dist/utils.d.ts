@@ -1,4 +1,5 @@
 /// <reference types="node" />
+import { XCommonRet } from './common_ret';
 /**
  * 检查对象属性结果，枚举
  */
@@ -22,6 +23,20 @@ export interface ICheckObjectResult {
     extra: string[];
     /** 缺少的属性名称列表 */
     lack: string[];
+}
+/**
+ * 分页信息
+ * - 主要用于mysql的分页请求处理
+ */
+export interface IPageInfo {
+    /** 第几条记录 从0开始 */
+    start: number;
+    /** 取几条记录 最小1，最大100 */
+    length: number;
+    /** 第几页，从1开始 */
+    page: number;
+    /** // 每页的记录数，等同于length */
+    pageSize: number;
 }
 /**
  * 常用工具类
@@ -392,5 +407,18 @@ export declare class utils {
      * @return number
      */
     static randomBetween(paramMin: number, paramMax: number): number;
+    /**
+     * 计算页信息
+     * - 与mysql limit相对应
+     * @param paramStart 开始的下标，从0开始 默认值0
+     * @param paramLength 对应的数量，要求大于1，小于1000，最大值1000, 默认值为10
+     */
+    static roundPageInfo(paramStart?: number, paramLength?: number): IPageInfo;
+    /**
+     * 计算最大页数 CommonRetEx.data就是计算出来的页数
+     * @param paramCount 总的记录数
+     * @param paramPageSize 每页的记录数
+     */
+    static calcMaxPage(paramCount: number, paramPageSize: number): XCommonRet<number>;
 }
 export default utils;
