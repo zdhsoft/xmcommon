@@ -522,19 +522,18 @@ export class utils {
         let comma = false;
 
         for (let f = fmt.length - 1; f >= 0; f--) {
-            switch (fmt.substring(f, f+1)) {
+            switch (fmt.substring(f, f + 1)) {
             case '#':
                 if (i >= 0) {
-                    retString = str.substring(i, i+1) + retString;
+                    retString = str.substring(i, i + 1) + retString;
                     i--;
                 }
                 break;
             case '0':
                 if (i >= 0) {
-                    retString = str.substring(i, 1+1) + retString;
+                    retString = str.substring(i, 1 + 1) + retString;
                     i--;
-                }
-                else retString = '0' + retString;
+                } else retString = '0' + retString;
                 break;
             case ',':
                 comma = true;
@@ -548,7 +547,7 @@ export class utils {
             if (comma) {
                 const l = str.length;
                 for (; i >= 0; i--) {
-                    retString = str.substring(i, i+1) + retString;
+                    retString = str.substring(i, i + 1) + retString;
                     if (i > 0 && (l - i) % 3 === 0) retString = ',' + retString;
                 }
             } else retString = str.substr(0, i + 1) + retString;
@@ -560,19 +559,18 @@ export class utils {
         fmt = fmtArr.length > 1 ? fmtArr[1] : '';
         i = 0;
         for (let f = 0; f < fmt.length; f++) {
-            switch (fmt.substr(f, 1)) {
+            switch (fmt.substring(f, f+1)) {
             case '#':
                 if (i < str.length) {
-                    retString += str.substring(i, i+1);
+                    retString += str.substring(i, i + 1);
                     i++;
                 }
                 break;
             case '0':
                 if (i < str.length) {
-                    retString += str.substring(i, i+1);
+                    retString += str.substring(i, i + 1);
                     i++;
-                }
-                else retString += '0';
+                } else retString += '0';
                 break;
             default:
                 break;

@@ -161,7 +161,7 @@ export class common_ret implements ICommonRetData<unknown> {
      * @param data 携带的数据
      * @return 返回this
      */
-    public setOK(data : unknown = null): common_ret {
+    public setOK(data: unknown = null): common_ret {
         this.m_err = error_common.ERR_OK;
         this.m_data = data;
         return this;
@@ -385,7 +385,7 @@ export class XCommonRet<T = unknown> implements ICommonRetData<T> {
      * @param data 携带的数据
      * @return 返回this
      */
-    public setOK(data:T | null= null): XCommonRet<T> {
+    public setOK(data: T | null = null): XCommonRet<T> {
         this.m_err = error_common.ERR_OK;
         this.m_data = data;
         return this;

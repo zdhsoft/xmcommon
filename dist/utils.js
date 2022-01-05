@@ -521,7 +521,7 @@ class utils {
         fmt = fmtArr.length > 1 ? fmtArr[1] : '';
         i = 0;
         for (let f = 0; f < fmt.length; f++) {
-            switch (fmt.substr(f, 1)) {
+            switch (fmt.substring(f, f + 1)) {
                 case '#':
                     if (i < str.length) {
                         retString += str.substring(i, i + 1);

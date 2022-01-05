@@ -37,6 +37,10 @@ npm install xmcommon
 
 # 版本变更说明
 
+## 0.9.15
+- 2022-01-05
+- \* 更新依赖库的版本
+- \* 优化utils.formatNumber函数
 ## 0.9.14
 - 2022-01-05
 - \+ 增加utils.calcMaxPage方法
