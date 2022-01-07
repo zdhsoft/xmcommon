@@ -185,6 +185,12 @@ class common_ret {
         paramHead.errmsg = this.m_msg;
         return this;
     }
+    /** 从某返回对象赋值 */
+    assignFrom(paramRet) {
+        this.m_data = paramRet.data;
+        this.m_err = paramRet.err;
+        this.m_msg = paramRet.msg;
+    }
     /**
      * 将错误信息从head复制过来
      * 这个是专门针对协议中的msgHead
@@ -393,6 +399,12 @@ class XCommonRet {
     addErrorPre(paramMsgPre) {
         this.m_msg = `${paramMsgPre}${this.m_msg}`;
         return this;
+    }
+    /** 从某返回对象赋值 */
+    assignFrom(paramRet) {
+        this.m_data = paramRet.data;
+        this.m_err = paramRet.err;
+        this.m_msg = paramRet.msg;
     }
     /**
      * 将错误信息复制到msgHead

@@ -5,12 +5,6 @@
  */
 export declare class datetimeUtils {
     /**
-     * 取版本号
-     * @deprecated
-     * @return 版本字符串
-     */
-    static version(): string;
-    /**
      * 取当前UTC时间戳,毫秒数
      * @return 当前UTC时间戳
      */
@@ -77,6 +71,22 @@ export declare class datetimeUtils {
      * @memberOf datetimeUtils
      */
     static dateString(paramDate: Date, paramMillisFlag?: boolean, paramDaySplit?: string, paramTimeSplit?: string, paramMillisSplit?: string, paramDatetimeSplit?: string): string;
+    /**
+     * 生成日期相关的字符串
+     * @param paramDate 要转的日期对象
+     * @param paramDaySplit 日期分隔符
+     * @returns String 生成的日期字符串
+     */
+    static getDateString(paramDate: Date, paramDaySplit?: string): string;
+    /**
+     * 生成时间相关的字符串
+     * @param paramDate 要转的日期对象
+     * @param paramTimeSplit 时间分隔符，默认为:
+     * @param paramMillisFlag 是需要输出毫秒数，默认为true
+     * @param paramMillisSplit 时间与毫秒的分隔符,默认为.
+     * @return string 时间相关的字符串
+     */
+    static getTimeString(paramDate: Date, paramTimeSplit?: string, paramMillisFlag?: boolean, paramMillisSplit?: string): string;
     /**
      * 生成YYYYMMDD_HHmmssddd格式的时间字符串
      *

@@ -48,14 +48,6 @@ function UpdateTimeZone() {
 // tslint:disable-next-line: class-name
 class datetimeUtils {
     /**
-     * 取版本号
-     * @deprecated
-     * @return 版本字符串
-     */
-    static version() {
-        return 'datetimeUtils 1.3.0';
-    }
-    /**
      * 取当前UTC时间戳,毫秒数
      * @return 当前UTC时间戳
      */
@@ -150,6 +142,32 @@ class datetimeUtils {
         }
         else {
             return [dateString, paramDatetimeSplit, timeString].join('');
+        }
+    }
+    /**
+     * 生成日期相关的字符串
+     * @param paramDate 要转的日期对象
+     * @param paramDaySplit 日期分隔符
+     * @returns String 生成的日期字符串
+     */
+    static getDateString(paramDate, paramDaySplit = '-') {
+        return [paramDate.getFullYear(), pad2(paramDate.getMonth() + 1), pad2(paramDate.getDate())].join(paramDaySplit);
+    }
+    /**
+     * 生成时间相关的字符串
+     * @param paramDate 要转的日期对象
+     * @param paramTimeSplit 时间分隔符，默认为:
+     * @param paramMillisFlag 是需要输出毫秒数，默认为true
+     * @param paramMillisSplit 时间与毫秒的分隔符,默认为.
+     * @return string 时间相关的字符串
+     */
+    static getTimeString(paramDate, paramTimeSplit = ':', paramMillisFlag = true, paramMillisSplit = '.') {
+        const timeString = [pad2(paramDate.getHours()), pad2(paramDate.getMinutes()), pad2(paramDate.getSeconds())].join(paramTimeSplit);
+        if (paramMillisFlag) {
+            return [timeString, paramMillisSplit, pad3(paramDate.getMilliseconds())].join('');
+        }
+        else {
+            return timeString;
         }
     }
     /**

@@ -37,6 +37,13 @@ npm install xmcommon
 
 # 版本变更说明
 
+## 0.9.16
+- 2022-01-07
+- \+ 给common_ret增加assignFrom方法
+- \+ 增加ICommonRetBase的定义
+- \- 删除datatimeUtils的version方法
+- \+ datetimeUtils增加getDateString和getTimeString方法
+
 ## 0.9.15
 - 2022-01-05
 - \* 更新依赖库的版本

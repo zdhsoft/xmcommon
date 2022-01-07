@@ -2,12 +2,19 @@ import { error_utils } from './common_error';
 import { error_common } from './constant';
 import { utils } from './utils';
 
-/** 通用返回接口 */
-export interface ICommonRetData<T = unknown> {
+/** 通用返回数据，默认接口定义 */
+export interface ICommonRetBase<T = unknown> {
     /** 错误码 */
     err: number;
+    /** 错误信息 */
     msg: string;
+    /** 数据 */
     data: T | null;
+}
+
+/** 通用返回接口 */
+export interface ICommonRetData<T = unknown> extends ICommonRetBase<T> {
+    /** 是否OK */
     isOK: boolean;
 }
 /** 含err,errmsg消息头的接口 */
@@ -202,6 +209,14 @@ export class common_ret implements ICommonRetData<unknown> {
         paramHead.errmsg = this.m_msg;
         return this;
     }
+
+    /** 从某返回对象赋值 */
+    public assignFrom(paramRet: ICommonRetBase<unknown>) {
+        this.m_data = paramRet.data;
+        this.m_err = paramRet.err;
+        this.m_msg = paramRet.msg;
+    }
+
     /**
      * 将错误信息从head复制过来
      * 这个是专门针对协议中的msgHead
@@ -414,6 +429,12 @@ export class XCommonRet<T = unknown> implements ICommonRetData<T> {
     public addErrorPre(paramMsgPre: string): XCommonRet<T> {
         this.m_msg = `${paramMsgPre}${this.m_msg}`;
         return this;
+    }
+    /** 从某返回对象赋值 */
+    public assignFrom(paramRet: ICommonRetBase<T>) {
+        this.m_data = paramRet.data;
+        this.m_err = paramRet.err;
+        this.m_msg = paramRet.msg;
     }
     /**
      * 将错误信息复制到msgHead

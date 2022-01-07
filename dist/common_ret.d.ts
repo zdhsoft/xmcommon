@@ -1,9 +1,15 @@
-/** 通用返回接口 */
-export interface ICommonRetData<T = unknown> {
+/** 通用返回数据，默认接口定义 */
+export interface ICommonRetBase<T = unknown> {
     /** 错误码 */
     err: number;
+    /** 错误信息 */
     msg: string;
+    /** 数据 */
     data: T | null;
+}
+/** 通用返回接口 */
+export interface ICommonRetData<T = unknown> extends ICommonRetBase<T> {
+    /** 是否OK */
     isOK: boolean;
 }
 /** 含err,errmsg消息头的接口 */
@@ -119,6 +125,8 @@ export declare class common_ret implements ICommonRetData<unknown> {
      * @return 返回this
      */
     copyTo(paramHead: ICommonMsgHead): common_ret;
+    /** 从某返回对象赋值 */
+    assignFrom(paramRet: ICommonRetBase<unknown>): void;
     /**
      * 将错误信息从head复制过来
      * 这个是专门针对协议中的msgHead
@@ -236,6 +244,8 @@ export declare class XCommonRet<T = unknown> implements ICommonRetData<T> {
      * @return 返回this
      */
     addErrorPre(paramMsgPre: string): XCommonRet<T>;
+    /** 从某返回对象赋值 */
+    assignFrom(paramRet: ICommonRetBase<T>): void;
     /**
      * 将错误信息复制到msgHead
      * 这个是专门针对协议中的msgHead
