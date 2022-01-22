@@ -836,6 +836,52 @@ export class utils {
         }
         return ret;
     }
+
+    /**
+     * 检查value是否是字符串，不是则返回缺省值
+     * @param paramValue 被检查的值
+     * @param paramDefault 缺省值
+     * @returns
+     */
+    public static stringOpts(paramValue: unknown, paramDefault: string): string {
+        return _.isString(paramValue) ? (paramValue as string) : paramDefault;
+    }
+    /**
+     * 检查value是否是整数，不是则返回缺省值
+     * @param paramValue 被检查的值
+     * @param paramDefault 缺省值
+     * @returns
+     */
+    public static intOpts(paramValue: unknown, paramDefault: number): number {
+        return Number.isInteger(paramValue) ? (paramValue as number) : paramDefault;
+    }
+    /**
+     * 检查value是否是数字，不是则返回缺省值
+     * @param paramValue 被检查的值
+     * @param paramDefault 缺省值
+     * @returns
+     */
+    public static numberOpts(paramValue: unknown, paramDefault: number): number {
+        return _.isNumber(paramValue) ? (paramValue as number) : paramDefault;
+    }
+    /**
+     * 检查value是否是boolean，不是则返回缺省值
+     * @param paramValue 被检查的值
+     * @param paramDefault 缺省值
+     * @returns
+     */
+    public static boolOpts(paramValue: unknown, paramDefault: boolean): boolean {
+        return _.isBoolean(paramValue) ? (paramValue as boolean) : paramDefault;
+    }
+    /**
+     * 检查value是否是对象，不是则返回缺省值
+     * @param paramValue 被检查的值
+     * @param paramDefault 缺省值
+     * @returns
+     */
+    public static objectOpts(paramValue: unknown, paramDefault: unknown): unknown {
+        return _.isObject(paramValue) ? paramValue : paramDefault;
+    }
     /**
      * 随机一个整数
      * @return
@@ -861,7 +907,24 @@ export class utils {
     public static randomBetween(paramMin: number, paramMax: number) {
         return (this.randomInteger() % (paramMax - paramMin + 1)) + paramMin;
     }
-
+    /**
+     * 限制字符串的长度，超过则自动截取，如果传入字符串为null或undefined,则返回缺省字符串
+     * @param paramString 要检查的字符串
+     * @param paramMaxLength 最大字符数
+     * @param paramDefault 缺省字符串
+     */
+    public static limitString(paramString: string, paramMaxLength?: number, paramDefault = '' ): string {
+        const defaultString = utils.isNull(paramDefault)? '' : paramDefault;
+        let v = utils.isNull(paramString)? defaultString: paramString;
+        if (utils.isInteger(paramMaxLength) && (paramMaxLength as number) >= 0) {
+            if (paramMaxLength === 0) {
+                v = '';
+            } else if (v.length > (paramMaxLength as number)) {
+                v = v.substring(0, paramMaxLength);
+            }
+        }
+        return v;
+    }
     /**
      * 计算页信息
      * - 与mysql limit相对应

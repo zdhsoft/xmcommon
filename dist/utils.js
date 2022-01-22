@@ -796,6 +796,51 @@ class utils {
         return ret;
     }
     /**
+     * 检查value是否是字符串，不是则返回缺省值
+     * @param paramValue 被检查的值
+     * @param paramDefault 缺省值
+     * @returns
+     */
+    static stringOpts(paramValue, paramDefault) {
+        return lodash_1.default.isString(paramValue) ? paramValue : paramDefault;
+    }
+    /**
+     * 检查value是否是整数，不是则返回缺省值
+     * @param paramValue 被检查的值
+     * @param paramDefault 缺省值
+     * @returns
+     */
+    static intOpts(paramValue, paramDefault) {
+        return Number.isInteger(paramValue) ? paramValue : paramDefault;
+    }
+    /**
+     * 检查value是否是数字，不是则返回缺省值
+     * @param paramValue 被检查的值
+     * @param paramDefault 缺省值
+     * @returns
+     */
+    static numberOpts(paramValue, paramDefault) {
+        return lodash_1.default.isNumber(paramValue) ? paramValue : paramDefault;
+    }
+    /**
+     * 检查value是否是boolean，不是则返回缺省值
+     * @param paramValue 被检查的值
+     * @param paramDefault 缺省值
+     * @returns
+     */
+    static boolOpts(paramValue, paramDefault) {
+        return lodash_1.default.isBoolean(paramValue) ? paramValue : paramDefault;
+    }
+    /**
+     * 检查value是否是对象，不是则返回缺省值
+     * @param paramValue 被检查的值
+     * @param paramDefault 缺省值
+     * @returns
+     */
+    static objectOpts(paramValue, paramDefault) {
+        return lodash_1.default.isObject(paramValue) ? paramValue : paramDefault;
+    }
+    /**
      * 随机一个整数
      * @return
      */
@@ -819,6 +864,25 @@ class utils {
      */
     static randomBetween(paramMin, paramMax) {
         return (this.randomInteger() % (paramMax - paramMin + 1)) + paramMin;
+    }
+    /**
+     * 限制字符串的长度，超过则自动截取，如果传入字符串为null或undefined,则返回缺省字符串
+     * @param paramString 要检查的字符串
+     * @param paramMaxLength 最大字符数
+     * @param paramDefault 缺省字符串
+     */
+    static limitString(paramString, paramMaxLength, paramDefault = '') {
+        const defaultString = utils.isNull(paramDefault) ? '' : paramDefault;
+        let v = utils.isNull(paramString) ? defaultString : paramString;
+        if (utils.isInteger(paramMaxLength) && paramMaxLength >= 0) {
+            if (paramMaxLength === 0) {
+                v = '';
+            }
+            else if (v.length > paramMaxLength) {
+                v = v.substring(0, paramMaxLength);
+            }
+        }
+        return v;
     }
     /**
      * 计算页信息

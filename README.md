@@ -37,6 +37,11 @@ npm install xmcommon
 
 # 版本变更说明
 
+## 0.9.17
+- 2022-01-22
+- \+ utils增加一组选项默认值方法 stringOpts, intOpts, numberOpts, boolOpts, objectOpts, 当传入参数不是指定类型时，会返回默认值
+- \+ utils增加一个方法limitString，超过指定的长度，会自动截取指定的长度
+
 ## 0.9.16
 - 2022-01-07
 - \+ 给common_ret增加assignFrom方法

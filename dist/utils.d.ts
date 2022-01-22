@@ -389,6 +389,41 @@ export declare class utils {
         args: object;
     };
     /**
+     * 检查value是否是字符串，不是则返回缺省值
+     * @param paramValue 被检查的值
+     * @param paramDefault 缺省值
+     * @returns
+     */
+    static stringOpts(paramValue: unknown, paramDefault: string): string;
+    /**
+     * 检查value是否是整数，不是则返回缺省值
+     * @param paramValue 被检查的值
+     * @param paramDefault 缺省值
+     * @returns
+     */
+    static intOpts(paramValue: unknown, paramDefault: number): number;
+    /**
+     * 检查value是否是数字，不是则返回缺省值
+     * @param paramValue 被检查的值
+     * @param paramDefault 缺省值
+     * @returns
+     */
+    static numberOpts(paramValue: unknown, paramDefault: number): number;
+    /**
+     * 检查value是否是boolean，不是则返回缺省值
+     * @param paramValue 被检查的值
+     * @param paramDefault 缺省值
+     * @returns
+     */
+    static boolOpts(paramValue: unknown, paramDefault: boolean): boolean;
+    /**
+     * 检查value是否是对象，不是则返回缺省值
+     * @param paramValue 被检查的值
+     * @param paramDefault 缺省值
+     * @returns
+     */
+    static objectOpts(paramValue: unknown, paramDefault: unknown): unknown;
+    /**
      * 随机一个整数
      * @return
      */
@@ -407,6 +442,13 @@ export declare class utils {
      * @return number
      */
     static randomBetween(paramMin: number, paramMax: number): number;
+    /**
+     * 限制字符串的长度，超过则自动截取，如果传入字符串为null或undefined,则返回缺省字符串
+     * @param paramString 要检查的字符串
+     * @param paramMaxLength 最大字符数
+     * @param paramDefault 缺省字符串
+     */
+    static limitString(paramString: string, paramMaxLength?: number, paramDefault?: string): string;
     /**
      * 计算页信息
      * - 与mysql limit相对应
