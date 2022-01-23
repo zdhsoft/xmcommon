@@ -37,6 +37,10 @@ npm install xmcommon
 
 # 版本变更说明
 
+## 0.9.18
+- 2022-01-23
+- \+ 增加基于数组实现的Queue和Stack两个类
+
 ## 0.9.17
 - 2022-01-22
 - \+ utils增加一组选项默认值方法 stringOpts, intOpts, numberOpts, boolOpts, objectOpts, 当传入参数不是指定类型时，会返回默认值
