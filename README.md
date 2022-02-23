@@ -34,6 +34,7 @@ npm install xmcommon
 - bitUtils 二进制标志的工具类
 - CNYCurrency 中文货币类
 - BufferWapper 一个buffer读写的包装类
+- list_sturct 包含了队列和堆栈的简单实现。
 
 # 版本变更说明
 ## 0.9.19
