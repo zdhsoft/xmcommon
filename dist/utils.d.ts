@@ -340,11 +340,37 @@ export declare class utils {
     /**
      * 检查指定的文件或目录，是否存在
      * @param paramFullPath 被检查的文件名或路径名
+     * @deprecated 请用fileExistsSync
      * @return 检查结果
      *  - true 表示存在
      *  - false 表示不存在
      */
     static fileExists(paramFullPath: string): boolean;
+    /**
+     * 检查指定的文件或目录，是否存在
+     * @param paramFullPath 被检查的文件名或路径名
+     * @deprecated 请用fileExistsSync
+     * @return 检查结果
+     *  - true 表示存在
+     *  - false 表示不存在
+     */
+    static fileExistsSync(paramFullPath: string): boolean;
+    /**
+     * 判断指定路径是不是目录
+     * @param paramFullPath 被检查的文件名或路径名
+     * @return 检查结果
+     *  - true 表示是
+     *  - false 表示不是
+     */
+    static isDirSync(paramFullPath: string): boolean;
+    /**
+     * 判断指定路径是不是文件
+     * @param paramFullPath 被检查的文件名或路径名
+     * @return 检查结果
+     *  - true 表示是
+     *  - false 表示不是
+     */
+    static isFileSync(paramFullPath: string): boolean;
     /**
      * 创建目录
      * - 注意，请用绝对路径， 这里会返回具体的错误信息

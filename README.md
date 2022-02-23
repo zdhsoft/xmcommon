@@ -36,7 +36,10 @@ npm install xmcommon
 - BufferWapper 一个buffer读写的包装类
 
 # 版本变更说明
-
+## 0.9.19
+- 2022-2-23
+- \+ utils增加isDirSync, isFileSync方法
+- \* 更新依赖库的版本
 ## 0.9.18
 - 2022-01-23
 - \+ 增加基于数组实现的Queue和Stack两个类

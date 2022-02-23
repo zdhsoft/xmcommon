@@ -657,12 +657,45 @@ export class utils {
     /**
      * 检查指定的文件或目录，是否存在
      * @param paramFullPath 被检查的文件名或路径名
+     * @deprecated 请用fileExistsSync
      * @return 检查结果
      *  - true 表示存在
      *  - false 表示不存在
      */
     public static fileExists(paramFullPath: string): boolean {
         return fs.existsSync(paramFullPath);
+    }
+    /**
+     * 检查指定的文件或目录，是否存在
+     * @param paramFullPath 被检查的文件名或路径名
+     * @deprecated 请用fileExistsSync
+     * @return 检查结果
+     *  - true 表示存在
+     *  - false 表示不存在
+     */
+    public static fileExistsSync(paramFullPath: string): boolean {
+        return fs.existsSync(paramFullPath);
+    }
+
+    /**
+     * 判断指定路径是不是目录
+     * @param paramFullPath 被检查的文件名或路径名
+     * @return 检查结果
+     *  - true 表示是
+     *  - false 表示不是
+     */
+    public static isDirSync(paramFullPath: string): boolean {
+        return fs.statSync(paramFullPath)?.isDirectory() || false;
+    }
+    /**
+     * 判断指定路径是不是文件
+     * @param paramFullPath 被检查的文件名或路径名
+     * @return 检查结果
+     *  - true 表示是
+     *  - false 表示不是
+     */
+    public static isFileSync(paramFullPath: string): boolean {
+        return fs.statSync(paramFullPath)?.isFile() || false;
     }
 
     /**
