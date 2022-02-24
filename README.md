@@ -37,7 +37,11 @@ npm install xmcommon
 - list_sturct 包含了队列和堆栈的简单实现。
 
 # 版本变更说明
+## 0.9.20
+- 2022-2-24
+- \* 修改fileExistsSync描述错误
 ## 0.9.19
+
 - 2022-2-23
 - \+ utils增加isDirSync, isFileSync方法
 - \* 更新依赖库的版本

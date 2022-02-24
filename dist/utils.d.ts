@@ -349,7 +349,6 @@ export declare class utils {
     /**
      * 检查指定的文件或目录，是否存在
      * @param paramFullPath 被检查的文件名或路径名
-     * @deprecated 请用fileExistsSync
      * @return 检查结果
      *  - true 表示存在
      *  - false 表示不存在
