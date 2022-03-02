@@ -918,6 +918,35 @@ class utils {
         return v;
     }
     /**
+     * 检查处理字符串
+     * - 如果要检查的字符串的值是一个null或undefined，则返回null
+     * - 如果字符串经trim()处理后，为空串，则返回null
+     * - 如果传入的不是字符串对象，会先转换成字符串后再做处理
+     * - 其它情况，返回trim()的字符串
+     * @param parmaValue 要检查的字符串
+     * @return {string | null} 返回null或trim()后的字符串
+     */
+    static notNullEmptyString(parmaValue) {
+        if (this.isNull(parmaValue)) {
+            return null;
+        }
+        const v = (lodash_1.default.isString(parmaValue) ? parmaValue : String(parmaValue)).trim();
+        if (v.length < 1) {
+            return null;
+        }
+        else {
+            return v;
+        }
+    }
+    /** 计算页的偏移量 */
+    static calcPageOffsetByPageInfo(paramPage) {
+        return this.calcPageOffset(paramPage.page, paramPage.pageSize);
+    }
+    /** 计算页的偏移量 */
+    static calcPageOffset(paramPageNo, paramPageSize) {
+        return (paramPageNo - 1) * paramPageSize;
+    }
+    /**
      * 计算页信息
      * - 与mysql limit相对应
      * @param paramStart 开始的下标，从0开始 默认值0
@@ -936,7 +965,7 @@ class utils {
         return { start, length, page, pageSize: length };
     }
     /**
-     * 计算最大页数 CommonRetEx.data就是计算出来的页数
+     * 计算最大页数 就是计算出来的页数
      * @param paramCount 总的记录数
      * @param paramPageSize 每页的记录数
      */

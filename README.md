@@ -37,6 +37,10 @@ npm install xmcommon
 - list_sturct 包含了队列和堆栈的简单实现。
 
 # 版本变更说明
+
+## 0.9.21
+- 2022-3-2
+- \+ utils增加calcPageOffsetByPageInfo，calcPageOffset，notNullEmptyString三个函数
 ## 0.9.20
 - 2022-2-24
 - \* 修改fileExistsSync描述错误
