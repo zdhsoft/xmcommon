@@ -1,6 +1,6 @@
 {
     "name": "xmcommon",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "一个基于javascript的常用功能扩展库! 使用TypeScript重构!",
     "main": "./dist/index.js",
     "scripts": {
