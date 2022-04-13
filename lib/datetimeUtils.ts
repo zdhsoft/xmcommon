@@ -11,7 +11,6 @@ const PadRadix = 10;
  */
 function pad2(n: number): string {
     return n.toString(PadRadix).padStart(2, '0');
-    // return n < PadRadix ? '0' + n.toString(PadRadix) : n.toString(PadRadix);
 }
 /**
  * 将整数生成字符串，不足3位补0
@@ -22,10 +21,6 @@ function pad2(n: number): string {
  */
 function pad3(n: number) {
     return n.toString(PadRadix).padStart(3, '0');
-    // let r = n.toString(TEN);
-    // if (n < 10) return '00' + r;
-    // else if (n < 100) return '0' + r;
-    // else return r;
 }
 
 let TimeZoneMinute = new Date().getTimezoneOffset(); // 时区，单位，分

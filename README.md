@@ -33,10 +33,13 @@ npm install xmcommon
 - common_ret 通用返回的类
 - bitUtils 二进制标志的工具类
 - CNYCurrency 中文货币类
-- BufferWapper 一个buffer读写的包装类
 - list_sturct 包含了队列和堆栈的简单实现。
 
 # 版本变更说明
+## 1.0.0
+- 2022-04-14
+- \* 将一些用不到的函数以及类标注为deprecated，还会保留，在2.0的时候会删除
+- \* 这里的utils,datetimeUtils,watchRequire,common_ret，CNYCurrency等已经常过了常时间的使用，暂无问题，可以放心使用了
 
 ## 0.9.21
 - 2022-3-2

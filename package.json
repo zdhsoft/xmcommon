@@ -1,6 +1,6 @@
 {
     "name": "xmcommon",
-    "version": "0.9.21",
+    "version": "1.0.0",
     "description": "一个基于javascript的常用功能扩展库! 使用TypeScript重构!",
     "main": "./dist/index.js",
     "scripts": {
@@ -37,15 +37,14 @@
     },
     "homepage": "https://github.com/zdhsoft/xmcommon#readme",
     "devDependencies": {
-        "@types/lodash": "^4.14.178",
+        "@types/lodash": "^4.14.181",
         "@types/node": "^8.10.66",
-        "@typescript-eslint/eslint-plugin": "^5.12.1",
-        "@typescript-eslint/parser": "^5.12.1",
-        "eslint": "^8.9.0",
+        "@typescript-eslint/eslint-plugin": "^5.19.0",
+        "@typescript-eslint/parser": "^5.19.0",
+        "eslint": "^8.13.0",
         "eslint-config-google": "^0.14.0",
-        "prettier": "^2.5.1",
-        "prettier-eslint": "^13.0.0",
-        "typescript-tslint-plugin": "^1.0.1"
+        "prettier": "^2.6.2",
+        "prettier-eslint": "^13.0.0"
     },
     "engines": {
         "node": ">=8.0.0",

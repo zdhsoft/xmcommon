@@ -133,6 +133,7 @@ class common_ret {
     }
     /**
      * 设为失败
+     * @deprecated
      * @return 返回this
      */
     setErrorCodeFail() {
@@ -151,6 +152,7 @@ class common_ret {
     }
     /**
      * 设为ERR_TRUE
+     * @deprecated
      * @return 返回this
      */
     setTrue() {
@@ -159,6 +161,7 @@ class common_ret {
     }
     /**
      * 设为ERR_FALSE
+     * @deprecated
      * @return 返回this
      */
     setFalse() {
@@ -209,12 +212,21 @@ class common_ret {
     get isNotOK() {
         return common_error_1.error_utils.isNotOK(this.m_err);
     }
+    /**
+     * @deprecated
+     */
     get isFail() {
         return common_error_1.error_utils.isFail(this.m_err);
     }
+    /**
+     * @deprecated
+     */
     get isTrue() {
         return common_error_1.error_utils.isTrue(this.m_err);
     }
+    /**
+     * @deprecated
+     */
     get isFalse() {
         return common_error_1.error_utils.isFalse(this.m_err);
     }
@@ -359,6 +371,7 @@ class XCommonRet {
     }
     /**
      * 设为失败
+     * @deprecated
      * @return 返回this
      */
     setErrorCodeFail() {
@@ -377,6 +390,7 @@ class XCommonRet {
     }
     /**
      * 设为ERR_TRUE
+     * @deprecated
      * @return  返回当前对象
      */
     setTrue() {
@@ -385,6 +399,7 @@ class XCommonRet {
     }
     /**
      * 设为ERR_FALSE
+     * @deprecated
      * @return 返回当前对象
      */
     setFalse() {
@@ -435,12 +450,21 @@ class XCommonRet {
     get isNotOK() {
         return common_error_1.error_utils.isNotOK(this.m_err);
     }
+    /**
+     * @deprecated
+     */
     get isFail() {
         return common_error_1.error_utils.isFail(this.m_err);
     }
+    /**
+     * @deprecated
+     */
     get isTrue() {
         return common_error_1.error_utils.isTrue(this.m_err);
     }
+    /**
+     * @deprecated
+     */
     get isFalse() {
         return common_error_1.error_utils.isFalse(this.m_err);
     }

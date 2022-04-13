@@ -35,6 +35,8 @@ export enum EnumBufferSize {
 /**
  * 一个针对buffer专门封装的类
  * - 这里使用的方法，都是基于BE的方式，如果使用LE的方式，需要重新改一下
+ * - 这个类，还不成享，暂时就不建议使用了
+ * @deprecated
  */
 export class BufferWapper {
     /** 当前操作的buffer的对象 */

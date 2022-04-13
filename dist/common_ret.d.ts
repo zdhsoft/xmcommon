@@ -93,6 +93,7 @@ export declare class common_ret implements ICommonRetData<unknown> {
     setErrorCodeOK(): common_ret;
     /**
      * 设为失败
+     * @deprecated
      * @return 返回this
      */
     setErrorCodeFail(): common_ret;
@@ -104,11 +105,13 @@ export declare class common_ret implements ICommonRetData<unknown> {
     setOK(data?: unknown): common_ret;
     /**
      * 设为ERR_TRUE
+     * @deprecated
      * @return 返回this
      */
     setTrue(): common_ret;
     /**
      * 设为ERR_FALSE
+     * @deprecated
      * @return 返回this
      */
     setFalse(): common_ret;
@@ -136,8 +139,17 @@ export declare class common_ret implements ICommonRetData<unknown> {
     setErrorFromMsghead(paramHead: ICommonMsgHead): common_ret;
     get isOK(): boolean;
     get isNotOK(): boolean;
+    /**
+     * @deprecated
+     */
     get isFail(): boolean;
+    /**
+     * @deprecated
+     */
     get isTrue(): boolean;
+    /**
+     * @deprecated
+     */
     get isFalse(): boolean;
     /**
      * 重载toJSON方法
@@ -219,6 +231,7 @@ export declare class XCommonRet<T = unknown> implements ICommonRetData<T> {
     setErrorCodeOK(): XCommonRet<T>;
     /**
      * 设为失败
+     * @deprecated
      * @return 返回this
      */
     setErrorCodeFail(): XCommonRet<T>;
@@ -230,11 +243,13 @@ export declare class XCommonRet<T = unknown> implements ICommonRetData<T> {
     setOK(data?: T | null): XCommonRet<T>;
     /**
      * 设为ERR_TRUE
+     * @deprecated
      * @return  返回当前对象
      */
     setTrue(): XCommonRet<T>;
     /**
      * 设为ERR_FALSE
+     * @deprecated
      * @return 返回当前对象
      */
     setFalse(): XCommonRet<T>;
@@ -262,8 +277,17 @@ export declare class XCommonRet<T = unknown> implements ICommonRetData<T> {
     setErrorFromMsghead(paramHead: ICommonMsgHead): XCommonRet<T>;
     get isOK(): boolean;
     get isNotOK(): boolean;
+    /**
+     * @deprecated
+     */
     get isFail(): boolean;
+    /**
+     * @deprecated
+     */
     get isTrue(): boolean;
+    /**
+     * @deprecated
+     */
     get isFalse(): boolean;
     /**
      * 重载toJSON方法

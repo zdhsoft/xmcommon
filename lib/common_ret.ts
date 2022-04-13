@@ -157,6 +157,7 @@ export class common_ret implements ICommonRetData<unknown> {
     }
     /**
      * 设为失败
+     * @deprecated
      * @return 返回this
      */
     public setErrorCodeFail(): common_ret {
@@ -175,6 +176,7 @@ export class common_ret implements ICommonRetData<unknown> {
     }
     /**
      * 设为ERR_TRUE
+     * @deprecated
      * @return 返回this
      */
     public setTrue(): common_ret {
@@ -183,6 +185,7 @@ export class common_ret implements ICommonRetData<unknown> {
     }
     /**
      * 设为ERR_FALSE
+     * @deprecated
      * @return 返回this
      */
     public setFalse(): common_ret {
@@ -235,12 +238,21 @@ export class common_ret implements ICommonRetData<unknown> {
     public get isNotOK(): boolean {
         return error_utils.isNotOK(this.m_err);
     }
+    /**
+     * @deprecated
+     */
     public get isFail(): boolean {
         return error_utils.isFail(this.m_err);
     }
+    /**
+     * @deprecated
+     */
     public get isTrue(): boolean {
         return error_utils.isTrue(this.m_err);
     }
+    /**
+     * @deprecated
+     */
     public get isFalse(): boolean {
         return error_utils.isFalse(this.m_err);
     }
@@ -389,6 +401,7 @@ export class XCommonRet<T = unknown> implements ICommonRetData<T> {
     }
     /**
      * 设为失败
+     * @deprecated
      * @return 返回this
      */
     public setErrorCodeFail(): XCommonRet<T> {
@@ -407,6 +420,7 @@ export class XCommonRet<T = unknown> implements ICommonRetData<T> {
     }
     /**
      * 设为ERR_TRUE
+     * @deprecated
      * @return  返回当前对象
      */
     public setTrue(): XCommonRet<T> {
@@ -415,6 +429,7 @@ export class XCommonRet<T = unknown> implements ICommonRetData<T> {
     }
     /**
      * 设为ERR_FALSE
+     * @deprecated
      * @return 返回当前对象
      */
     public setFalse(): XCommonRet<T> {
@@ -465,12 +480,21 @@ export class XCommonRet<T = unknown> implements ICommonRetData<T> {
     public get isNotOK(): boolean {
         return error_utils.isNotOK(this.m_err);
     }
+    /**
+     * @deprecated
+     */
     public get isFail(): boolean {
         return error_utils.isFail(this.m_err);
     }
+    /**
+     * @deprecated
+     */
     public get isTrue(): boolean {
         return error_utils.isTrue(this.m_err);
     }
+    /**
+     * @deprecated
+     */
     public get isFalse(): boolean {
         return error_utils.isFalse(this.m_err);
     }
