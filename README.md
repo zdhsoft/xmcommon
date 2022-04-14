@@ -4,8 +4,6 @@
 
 - 使用typescript重写的1.0版正式发布。
 
-## 当前的版本，是正在开发的中的版本，未完成测试，请不要使用。
-
 - github: https://github.com/zdhsoft/xmcommon
 - npm: https://www.npmjs.com/package/xmcommon
 
@@ -33,7 +31,7 @@ npm install xmcommon
 - list_sturct 包含了队列和堆栈的简单实现。
 
 # 版本变更说明
-## 1.0.0
+## 1.0.3
 - 2022-04-14
 - \* 将一些用不到的函数以及类标注为deprecated，还会保留，在2.0的时候会删除
 - \* 这里的utils,datetimeUtils,watchRequire,common_ret，CNYCurrency等已经常过了常时间的使用，暂无问题，可以放心使用了
