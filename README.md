@@ -31,6 +31,10 @@ npm install xmcommon
 - list_sturct 包含了队列和堆栈的简单实现。
 
 # 版本变更说明
+## 1.0.4
+- 2022-07-08
+- 增加isEmpty和isTrueEmpty的方法，这个方法和thinkjs中对应的方法的作用是一样的
+- 将一些isXXX的函数，引用lodash或js自带的，不再封装一次，直接引用了
 ## 1.0.3
 - 2022-04-14
 - \* 将一些用不到的函数以及类标注为deprecated，还会保留，在2.0的时候会删除
