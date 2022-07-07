@@ -61,6 +61,7 @@ export interface ILog {
     info(...paramLog: unknown[]): void;
     error(...paramLog: unknown[]): void;
     warn(...paramLog: unknown[]): void;
+    msg(...paramLog: unknown[]): void;
 }
 
 /**
@@ -115,6 +116,10 @@ export class LogConsole implements ILog {
     public fatal(...paramLog: unknown[]) {
         // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, 'FATEL', ...paramLog));
+    }
+    public msg(...paramLog: unknown[]) {
+        // tslint:disable-next-line: no-console
+        console.log(this.buildLog(this.name, '  MSG', ...paramLog));
     }
 }
 

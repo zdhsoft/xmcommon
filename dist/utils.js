@@ -43,7 +43,6 @@ class utils {
     /**
      * 取调用堆栈
      * @static
-     * @memberOf utils
      * @return 调用堆栈列表
      */
     static GetStack() {
@@ -60,7 +59,6 @@ class utils {
     /**
      * 取当前调用所在的文件名
      * @static
-     * @memberOf utils
      * @param paramStack 调用堆栈列表
      * @return 返回的文件名
      */
@@ -75,7 +73,6 @@ class utils {
     /**
      * 取当前调用所在的行号
      * @static
-     * @memberOf utils
      * @param paramStack 调用堆栈列表
      * @return 返回的行号
      */
@@ -90,7 +87,6 @@ class utils {
     /**
      * 取当前调用所在的列
      * @static
-     * @memberOf utils
      * @param paramStack 调用堆栈列表
      * @return 返回的列
      */
@@ -105,7 +101,6 @@ class utils {
     /**
      * 取当前调用堆栈信息
      * @static
-     * @memberOf utils
      * @return 当前的栈信息
      */
     static GetStackInfo() {
@@ -131,7 +126,6 @@ class utils {
      * 检查对象的属性，是否符号要求
      * extra表示是多余的属性，lack表示是缺少的数据
      * @static
-     * @memberOf utils
      * @param paramDestObject 被检查的属性
      * @param paramSimpleObject 参考属性
      * @return 返回结果
@@ -175,19 +169,8 @@ class utils {
         return ret;
     }
     /**
-     * 判断指定的参数，是否是字符串类型
-     * @static
-     * @memberOf utils
-     * @param paramV 被检查的对象
-     * @return 是字符串对象，则返回true,否则返回false
-     */
-    static isString(paramV) {
-        return lodash_1.default.isString(paramV);
-    }
-    /**
      * 判断指定的参数，是否是null或undefined
      * @static
-     * @memberOf utils
      * @param paramV 被检查的对象
      * @return 如果是，则返回true,否则返回false
      */
@@ -195,65 +178,8 @@ class utils {
         return paramV === undefined || paramV === null;
     }
     /**
-     * 判断指定的参数，是否是function
-     * @static
-     * @memberOf utils
-     * @param paramV 被检查的对象
-     * @return 如果是，则返回true,否则返回false
-     */
-    static isFunction(paramV) {
-        return lodash_1.default.isFunction(paramV);
-    }
-    /**
-     * 检查指定的参数，是否是整数
-     * @static
-     * @param paramV 被检查的对象
-     * @return 如果是，则返回true,否则返回false
-     */
-    static isInteger(paramV) {
-        return Number.isInteger(paramV);
-    }
-    /**
-     * 检查指定的参数，是否是整数
-     * @static
-     * @param paramV 被检查的对象
-     * @return 如果是，则返回true,否则返回false
-     */
-    static isSafeInteger(paramV) {
-        return Number.isSafeInteger(paramV);
-    }
-    /**
-     * 检查指定的参数，是否是数组
-     * @static
-     * @param  paramV 被检查的对象
-     * @return 如果是，则返回true,否则返回false
-     */
-    static isArray(paramV) {
-        return Array.isArray(paramV);
-    }
-    /**
-     * 检查指定的参数，是否是number
-     * @static
-     * @param paramV 被检查的对象
-     * @return 如果是，则返回true,否则返回false
-     */
-    static isNumber(paramV) {
-        return lodash_1.default.isNumber(paramV);
-    }
-    /**
-     * 判断指定的参数，是否是Object
-     * @static
-     * @memberOf utils
-     * @param paramV 被检查的对象
-     * @return 如果是，则返回true,否则返回false
-     */
-    static isObject(paramV) {
-        return lodash_1.default.isObject(paramV);
-    }
-    /**
      * 判断指定的参数，是否不是 null或undefined
      * @static
-     * @memberOf utils
      * @param paramV 被检查的对象
      * @return 如果是，则返回true,否则返回false
      */
@@ -270,6 +196,61 @@ class utils {
         const r = lodash_1.default.isString(paramV);
         if (r) {
             return paramV.length > 0;
+        }
+        return false;
+    }
+    /**
+     * 检查对象是不是真的空
+     * undefined null '' NaN 以及无效的数字 时返回true
+     * @from thinkjs 从thinkjs借鉴过来的函数
+     * @param paramV
+     */
+    static isTrueEmpty(paramV) {
+        if (paramV === undefined || paramV === null || paramV === '')
+            return true;
+        if (this.isNumber(paramV) && Number.isNaN(paramV))
+            return true;
+        return false;
+    }
+    /**
+     * 检查对象是不是真的空
+     * - null, undefined, '', {}, false, 无效日期, 0, [], NaN 这些都是空对象
+     * - 这个与thinkjs的isEmpty判断结果一样
+     * @from thinkjs 从thinkjs借鉴过来的函数
+     * @param paramV
+     */
+    static isEmpty(paramV) {
+        if (this.isTrueEmpty(paramV)) {
+            return true;
+        }
+        else if (this.isRegExp(paramV)) {
+            return false;
+        }
+        else if (this.isDate(paramV)) {
+            return this.isNaN(paramV.getTime());
+        }
+        else if (Array.isArray(paramV)) {
+            return paramV.length === 0;
+        }
+        else if (this.isString(paramV)) {
+            return paramV.length === 0;
+        }
+        else if (this.isNumber(paramV)) {
+            return paramV === 0;
+        }
+        else if (this.isBoolean(paramV)) {
+            return paramV === false;
+        }
+        else if (this.isError(paramV)) {
+            return false;
+        }
+        else if (this.isObject(paramV)) {
+            for (const key in paramV) {
+                return false && key;
+            }
+        }
+        else if (this.isNaN(paramV)) {
+            return true;
         }
         return false;
     }
@@ -294,7 +275,6 @@ class utils {
      * - 这个函数和WaitFunction主要的区别是：传入函数的回调，是放到最后面的，而WaitFunction则要求是第一个参数
      *
      * @static
-     * @memberOf utils
      * @param paramFunc 要调用的函数
      * @param args 要传给函数的参数数组
      * @return 返回回调函数的处理结果列表
@@ -312,7 +292,6 @@ class utils {
      *  - @see WaitFunction
      *  -  传入的函数要求是这样的  paramObject.function(callback, arg1, arg2, ...), 第一个入参是回调函数;
      * @static
-     * @memberOf utils
      * @param paramObject 要调用函数的对象实例
      * @param paramFunctionName 要调用的函数名称
      * @param args 要调用的参数
@@ -330,7 +309,6 @@ class utils {
      * - @see WaitFunctionEx
      * - 传入的函数要求是这样的  paramObject.function(arg1, arg2, ..., callback), 最后一个入参是回调函数;
      * @static
-     * @memberOf utils
      * @param paramObject 要调用函数的对象实例
      * @param paramFunctionName 要调用的函数名称
      * @param args 要调用的参数
@@ -346,7 +324,6 @@ class utils {
     /**
      * 设置DateTimeOffset值
      * @static
-     * @memberOf utils
      * @param datetime_offset 要偏移的时间，单位毫秒数
      * @return 返回
      * - true 表示设置成功，
@@ -466,7 +443,6 @@ class utils {
      * formatNumber(12345.999,'#,##0.##');
      * formatNumber(123,'000000');
      * @static
-     * @memberOf utils
      * @param paramNumber 要格化的数字
      * @param paramPattern 模式
      * @return 格式化后的字符串
@@ -1000,4 +976,63 @@ class utils {
     }
 }
 exports.utils = utils;
+/**
+ * 判断指定的参数，是否是字符串类型
+ * @static
+ * @param value 被检查的对象
+ * @return 是字符串对象，则返回true,否则返回false
+ */
+utils.isString = lodash_1.default.isString;
+/**
+ * 判断指定的参数，是否是function
+ * @static
+ * @param value 被检查的对象
+ * @return 如果是，则返回true,否则返回false
+ */
+utils.isFunction = lodash_1.default.isFunction;
+/**
+ * 检查指定的参数，是否是整数
+ * @static
+ * @param number 被检查的对象
+ * @return 如果是，则返回true,否则返回false
+ */
+utils.isInteger = Number.isInteger;
+/**
+ * 检查指定的参数，是否是整数
+ * @static
+ * @param number 被检查的对象
+ * @return 如果是，则返回true,否则返回false
+ */
+utils.isSafeInteger = Number.isSafeInteger;
+/**
+ * 检查指定的参数，是否是数组
+ * @static
+ * @param  arg 被检查的对象
+ * @return 如果是，则返回true,否则返回false
+ */
+utils.isArray = Array.isArray;
+/**
+ * 检查指定的参数，是否是number
+ * @static
+ * @param value 被检查的对象
+ * @return 如果是，则返回true,否则返回false
+ */
+utils.isNumber = lodash_1.default.isNumber;
+/**
+ * 判断指定的参数，是否是Object
+ * @static
+ * @param value 被检查的对象
+ * @return 如果是，则返回true,否则返回false
+ */
+utils.isObject = lodash_1.default.isObject;
+utils.isDate = lodash_1.default.isDate;
+utils.isRegExp = lodash_1.default.isRegExp;
+utils.isError = lodash_1.default.isError;
+utils.isNaN = Number.isNaN;
+utils.isFinite = Number.isFinite;
+utils.isBoolean = lodash_1.default.isBoolean;
+utils.isSymbol = lodash_1.default.isSymbol;
+utils.isMap = lodash_1.default.isMap;
+utils.isSet = lodash_1.default.isSet;
+utils.isBuffer = Buffer.isBuffer;
 exports.default = utils;

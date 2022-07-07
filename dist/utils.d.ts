@@ -52,14 +52,12 @@ export declare class utils {
     /**
      * 取调用堆栈
      * @static
-     * @memberOf utils
      * @return 调用堆栈列表
      */
     static GetStack(): NodeJS.CallSite[];
     /**
      * 取当前调用所在的文件名
      * @static
-     * @memberOf utils
      * @param paramStack 调用堆栈列表
      * @return 返回的文件名
      */
@@ -67,7 +65,6 @@ export declare class utils {
     /**
      * 取当前调用所在的行号
      * @static
-     * @memberOf utils
      * @param paramStack 调用堆栈列表
      * @return 返回的行号
      */
@@ -75,7 +72,6 @@ export declare class utils {
     /**
      * 取当前调用所在的列
      * @static
-     * @memberOf utils
      * @param paramStack 调用堆栈列表
      * @return 返回的列
      */
@@ -83,7 +79,6 @@ export declare class utils {
     /**
      * 取当前调用堆栈信息
      * @static
-     * @memberOf utils
      * @return 当前的栈信息
      */
     static GetStackInfo(): NodeJS.CallSite | null;
@@ -97,7 +92,6 @@ export declare class utils {
      * 检查对象的属性，是否符号要求
      * extra表示是多余的属性，lack表示是缺少的数据
      * @static
-     * @memberOf utils
      * @param paramDestObject 被检查的属性
      * @param paramSimpleObject 参考属性
      * @return 返回结果
@@ -110,15 +104,13 @@ export declare class utils {
     /**
      * 判断指定的参数，是否是字符串类型
      * @static
-     * @memberOf utils
-     * @param paramV 被检查的对象
+     * @param value 被检查的对象
      * @return 是字符串对象，则返回true,否则返回false
      */
-    static isString(paramV: unknown): boolean;
+    static isString: (value?: any) => value is string;
     /**
      * 判断指定的参数，是否是null或undefined
      * @static
-     * @memberOf utils
      * @param paramV 被检查的对象
      * @return 如果是，则返回true,否则返回false
      */
@@ -126,51 +118,48 @@ export declare class utils {
     /**
      * 判断指定的参数，是否是function
      * @static
-     * @memberOf utils
-     * @param paramV 被检查的对象
+     * @param value 被检查的对象
      * @return 如果是，则返回true,否则返回false
      */
-    static isFunction(paramV: unknown): boolean;
+    static isFunction: (value: any) => value is (...args: any[]) => any;
     /**
      * 检查指定的参数，是否是整数
      * @static
-     * @param paramV 被检查的对象
+     * @param number 被检查的对象
      * @return 如果是，则返回true,否则返回false
      */
-    static isInteger(paramV: unknown): boolean;
+    static isInteger: (number: unknown) => boolean;
     /**
      * 检查指定的参数，是否是整数
      * @static
-     * @param paramV 被检查的对象
+     * @param number 被检查的对象
      * @return 如果是，则返回true,否则返回false
      */
-    static isSafeInteger(paramV: unknown): boolean;
+    static isSafeInteger: (number: unknown) => boolean;
     /**
      * 检查指定的参数，是否是数组
      * @static
-     * @param  paramV 被检查的对象
+     * @param  arg 被检查的对象
      * @return 如果是，则返回true,否则返回false
      */
-    static isArray(paramV: unknown): boolean;
+    static isArray: (arg: any) => arg is any[];
     /**
      * 检查指定的参数，是否是number
      * @static
-     * @param paramV 被检查的对象
+     * @param value 被检查的对象
      * @return 如果是，则返回true,否则返回false
      */
-    static isNumber(paramV: unknown): boolean;
+    static isNumber: (value?: any) => value is number;
     /**
      * 判断指定的参数，是否是Object
      * @static
-     * @memberOf utils
-     * @param paramV 被检查的对象
+     * @param value 被检查的对象
      * @return 如果是，则返回true,否则返回false
      */
-    static isObject(paramV: unknown): boolean;
+    static isObject: (value?: any) => value is object;
     /**
      * 判断指定的参数，是否不是 null或undefined
      * @static
-     * @memberOf utils
      * @param paramV 被检查的对象
      * @return 如果是，则返回true,否则返回false
      */
@@ -182,6 +171,31 @@ export declare class utils {
      * @return 检查结果 true表示是,false表示不是
      */
     static isNotNullOrEmptyString(paramV: unknown): boolean;
+    static isDate: (value?: any) => value is Date;
+    static isRegExp: (value?: any) => value is RegExp;
+    static isError: (value: any) => value is Error;
+    static isNaN: (number: unknown) => boolean;
+    static isFinite: (number: unknown) => boolean;
+    static isBoolean: (value?: any) => value is boolean;
+    static isSymbol: (value: any) => value is symbol;
+    static isMap: (value?: any) => value is Map<any, any>;
+    static isSet: (value?: any) => value is Set<any>;
+    static isBuffer: (obj: any) => obj is Buffer;
+    /**
+     * 检查对象是不是真的空
+     * undefined null '' NaN 以及无效的数字 时返回true
+     * @from thinkjs 从thinkjs借鉴过来的函数
+     * @param paramV
+     */
+    static isTrueEmpty(paramV: unknown): boolean;
+    /**
+     * 检查对象是不是真的空
+     * - null, undefined, '', {}, false, 无效日期, 0, [], NaN 这些都是空对象
+     * - 这个与thinkjs的isEmpty判断结果一样
+     * @from thinkjs 从thinkjs借鉴过来的函数
+     * @param paramV
+     */
+    static isEmpty(paramV: any): boolean;
     /**
      * 异步调用函数,注意：要求第一个参数回调函数
      * - 传入的函数要求是这样的  function (callback, arg1, arg2, ...), 第一个入参是回调函数;
@@ -190,47 +204,43 @@ export declare class utils {
      * @param args 要调用的参数
      * @return 返回回调函数的处理结果列表
      */
-    static WaitFunction(paramFunc: Function, ...args: unknown[]): Promise<unknown[]>;
+    static WaitFunction<T = unknown[]>(paramFunc: Function, ...args: unknown[]): Promise<T>;
     /**
      * 异步调用函数,注意：
      * - 传入的函数要求是这样的  function (arg1, arg2, ..., callback), 最后一个入参是回调函数;
      * - 这个函数和WaitFunction主要的区别是：传入函数的回调，是放到最后面的，而WaitFunction则要求是第一个参数
      *
      * @static
-     * @memberOf utils
      * @param paramFunc 要调用的函数
      * @param args 要传给函数的参数数组
      * @return 返回回调函数的处理结果列表
      */
-    static WaitFunctionEx(paramFunc: Function, ...args: unknown[]): Promise<unknown[]>;
+    static WaitFunctionEx<T = unknown[]>(paramFunc: Function, ...args: unknown[]): Promise<T>;
     /**
      *  异步调用类成员函数,注意：要求第一个参数回调函数,
      *  - @see WaitFunction
      *  -  传入的函数要求是这样的  paramObject.function(callback, arg1, arg2, ...), 第一个入参是回调函数;
      * @static
-     * @memberOf utils
      * @param paramObject 要调用函数的对象实例
      * @param paramFunctionName 要调用的函数名称
      * @param args 要调用的参数
      * @return 返回回调函数的传入参数列表
      */
-    static WaitClassFunction(paramObject: unknown, paramFunctionName: string, ...args: unknown[]): Promise<unknown[]>;
+    static WaitClassFunction<T = unknown[]>(paramObject: unknown, paramFunctionName: string, ...args: unknown[]): Promise<T>;
     /**
      *  异步调用类成员函数,注意：要求最后一个参数回调函数
      * - @see WaitFunctionEx
      * - 传入的函数要求是这样的  paramObject.function(arg1, arg2, ..., callback), 最后一个入参是回调函数;
      * @static
-     * @memberOf utils
      * @param paramObject 要调用函数的对象实例
      * @param paramFunctionName 要调用的函数名称
      * @param args 要调用的参数
      * @return 返回回调函数的传入参数列表
      */
-    static WaitClassFunctionEx(paramObject: unknown, paramFunctionName: string, ...args: unknown[]): Promise<unknown[]>;
+    static WaitClassFunctionEx<T = unknown[]>(paramObject: unknown, paramFunctionName: string, ...args: unknown[]): Promise<T>;
     /**
      * 设置DateTimeOffset值
      * @static
-     * @memberOf utils
      * @param datetime_offset 要偏移的时间，单位毫秒数
      * @return 返回
      * - true 表示设置成功，
@@ -287,7 +297,6 @@ export declare class utils {
      * formatNumber(12345.999,'#,##0.##');
      * formatNumber(123,'000000');
      * @static
-     * @memberOf utils
      * @param paramNumber 要格化的数字
      * @param paramPattern 模式
      * @return 格式化后的字符串
@@ -313,7 +322,7 @@ export declare class utils {
      * @param paramJsonString Json格式的字符串
      * @return 转换后的对象
      */
-    static JsonParse(paramJsonString: string): object | undefined;
+    static JsonParse<T = object>(paramJsonString: string): T | undefined;
     /**
      * 原路径移动到新路径
      * - 注：在windows下面，C盘或非同盘符的文件是改不了名的

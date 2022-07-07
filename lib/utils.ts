@@ -586,7 +586,7 @@ export class utils {
         fmt = fmtArr.length > 1 ? fmtArr[1] : '';
         i = 0;
         for (let f = 0; f < fmt.length; f++) {
-            switch (fmt.substring(f, f+1)) {
+            switch (fmt.substring(f, f + 1)) {
             case '#':
                 if (i < str.length) {
                     retString += str.substring(i, i + 1);
@@ -637,7 +637,7 @@ export class utils {
      * @param paramJsonString Json格式的字符串
      * @return 转换后的对象
      */
-    public static JsonParse<T = object>(paramJsonString: string): T | undefined{
+    public static JsonParse<T = object>(paramJsonString: string): T | undefined {
         try {
             return JSON.parse(paramJsonString);
         } catch (e) {
@@ -972,9 +972,9 @@ export class utils {
      * @param paramMaxLength 最大字符数
      * @param paramDefault 缺省字符串
      */
-    public static limitString(paramString: string, paramMaxLength?: number, paramDefault = '' ): string {
-        const defaultString = utils.isNull(paramDefault)? '' : paramDefault;
-        let v = utils.isNull(paramString)? defaultString: paramString;
+    public static limitString(paramString: string, paramMaxLength?: number, paramDefault = ''): string {
+        const defaultString = utils.isNull(paramDefault) ? '' : paramDefault;
+        let v = utils.isNull(paramString) ? defaultString : paramString;
         if (utils.isInteger(paramMaxLength) && (paramMaxLength as number) >= 0) {
             if (paramMaxLength === 0) {
                 v = '';

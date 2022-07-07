@@ -14,6 +14,7 @@ export interface ILog {
     info(...paramLog: unknown[]): void;
     error(...paramLog: unknown[]): void;
     warn(...paramLog: unknown[]): void;
+    msg(...paramLog: unknown[]): void;
 }
 /**
  * 控制台日志类
@@ -35,6 +36,7 @@ export declare class LogConsole implements ILog {
     warn(...paramLog: unknown[]): void;
     error(...paramLog: unknown[]): void;
     fatal(...paramLog: unknown[]): void;
+    msg(...paramLog: unknown[]): void;
 }
 /**
  * 日志管理器

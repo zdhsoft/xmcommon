@@ -155,10 +155,7 @@ export class datetimeUtils {
      * @param paramDaySplit 日期分隔符
      * @returns String 生成的日期字符串
      */
-    public static getDateString(
-        paramDate: Date,
-        paramDaySplit = '-',
-    ): string {
+    public static getDateString(paramDate: Date, paramDaySplit = '-'): string {
         return [paramDate.getFullYear(), pad2(paramDate.getMonth() + 1), pad2(paramDate.getDate())].join(paramDaySplit);
     }
     /**
@@ -169,12 +166,7 @@ export class datetimeUtils {
      * @param paramMillisSplit 时间与毫秒的分隔符,默认为.
      * @return string 时间相关的字符串
      */
-    public static getTimeString(
-        paramDate: Date,
-        paramTimeSplit = ':',
-        paramMillisFlag = true,
-        paramMillisSplit = '.',
-    ): string {
+    public static getTimeString(paramDate: Date, paramTimeSplit = ':', paramMillisFlag = true, paramMillisSplit = '.'): string {
         const timeString = [pad2(paramDate.getHours()), pad2(paramDate.getMinutes()), pad2(paramDate.getSeconds())].join(paramTimeSplit);
         if (paramMillisFlag) {
             return [timeString, paramMillisSplit, pad3(paramDate.getMilliseconds())].join('');

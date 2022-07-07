@@ -103,6 +103,10 @@ class LogConsole {
         // tslint:disable-next-line: no-console
         console.log(this.buildLog(this.name, 'FATEL', ...paramLog));
     }
+    msg(...paramLog) {
+        // tslint:disable-next-line: no-console
+        console.log(this.buildLog(this.name, '  MSG', ...paramLog));
+    }
 }
 exports.LogConsole = LogConsole;
 let defaultLog = new LogConsole('default');
