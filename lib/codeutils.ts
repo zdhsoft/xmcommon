@@ -82,6 +82,41 @@ export class codeUtils {
     }
 
     /**
+     * 生成字符串数组的MD5
+     * @param paramStringList 要生成md5的字符串数组
+     * @param paramEncode 生成md5后的编码 hex表示是小写16进制字符串 base64表示的base64编码的字符串
+     * @return 生成的md5
+     */
+    public static MD5FromStringList(paramStringList: [string], paramEncode: HexBase64Encoding = EncodingHex) {
+        const hash = crypto.createHash(EnumCryptoAlgorithm.md5);
+        for (const s of paramStringList) {
+            hash.update(s, EncodingUTF8);
+        }
+        return hash.digest(paramEncode);
+    }
+    /**
+     * 生成数据数组的MD5
+     * @param paramDataList 要生成md5的字符串数组
+     * @param paramEncode 生成md5后的编码 hex表示是小写16进制字符串 base64表示的base64编码的字符串
+     * @return 生成的md5
+     */
+    public static MD5FromBufferList(paramDataList: [Buffer], paramEncode: HexBase64Encoding = EncodingHex) {
+        const hash = crypto.createHash(EnumCryptoAlgorithm.md5);
+        for (const s of paramDataList) {
+            hash.update(s);
+        }
+        return hash.digest(paramEncode);
+    }
+    /**
+     * 生成数据的MD5
+     * @param paramData 要生成md5的数据
+     * @param paramEncode 生成md5后的编码 hex表示是小写16进制字符串 base64表示的base64编码的字符串
+     * @return 生成的md5
+     */
+    public static MD5FromBuffer(paramData: Buffer, paramEncode: HexBase64Encoding = EncodingHex) {
+        return crypto.createHash(EnumCryptoAlgorithm.md5).update(paramData).digest(paramEncode);
+    }
+    /**
      * 根据变参，将变参数连接起来后，生成md5
      * @param  paramOptions encode表示编码方式，可以是是hex或base64，默认为hex,
      * capital:表示是否是大小，默认是小写, split表示参数连接成符串时间隔字符串

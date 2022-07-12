@@ -31,6 +31,11 @@ npm install xmcommon
 - list_sturct 包含了队列和堆栈的简单实现。
 
 # 版本变更说明
+## 1.0.7 2022-07-12
+- 增加enum YesOrNo枚举
+- 增加TOptions<T>类型
+## 1.0.6 2022-07-11
+- 增加MD5FromStringList,MD5FromBufferList,MD5FromBuffer三个方法
 ## 1.0.5 2022-07-08
 - 增加isEmpty和isTrueEmpty的方法，这个方法和thinkjs中对应的方法的作用是一样的
 - 将一些isXXX的函数，引用lodash或js自带的，不再封装一次，直接引用了

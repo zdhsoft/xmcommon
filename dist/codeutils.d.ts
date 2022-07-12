@@ -1,3 +1,4 @@
+/// <reference types="node" />
 /** 编码类型 */
 declare type HexBase64Encoding = 'hex' | 'base64';
 /** 函数MD5FromArgs中 md5 生成选项 */
@@ -47,6 +48,27 @@ export declare class codeUtils {
      * @return 生成的md5
      */
     static MD5FromString(paramString: string, paramEncode?: HexBase64Encoding): string;
+    /**
+     * 生成字符串数组的MD5
+     * @param paramStringList 要生成md5的字符串数组
+     * @param paramEncode 生成md5后的编码 hex表示是小写16进制字符串 base64表示的base64编码的字符串
+     * @return 生成的md5
+     */
+    static MD5FromStringList(paramStringList: [string], paramEncode?: HexBase64Encoding): string;
+    /**
+     * 生成数据数组的MD5
+     * @param paramDataList 要生成md5的字符串数组
+     * @param paramEncode 生成md5后的编码 hex表示是小写16进制字符串 base64表示的base64编码的字符串
+     * @return 生成的md5
+     */
+    static MD5FromBufferList(paramDataList: [Buffer], paramEncode?: HexBase64Encoding): string;
+    /**
+     * 生成数据的MD5
+     * @param paramData 要生成md5的数据
+     * @param paramEncode 生成md5后的编码 hex表示是小写16进制字符串 base64表示的base64编码的字符串
+     * @return 生成的md5
+     */
+    static MD5FromBuffer(paramData: Buffer, paramEncode?: HexBase64Encoding): string;
     /**
      * 根据变参，将变参数连接起来后，生成md5
      * @param  paramOptions encode表示编码方式，可以是是hex或base64，默认为hex,

@@ -43,3 +43,17 @@ export enum DatetimeConstant {
     /** 每秒的毫秒数 */
     MILLIS_PRE_SECOND = 1000,
 }
+
+/** 是或否 */
+export enum YesOrNo {
+    yes = 1,
+    no  = 0
+}
+
+/**
+ * 选项类型
+ */
+export declare type TOptions<T> = {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [P in keyof T]?: NonNullable<any>;
+};

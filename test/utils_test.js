@@ -26,7 +26,7 @@ describe('utils', () => {
             assert.equal(utils.isNull(-1), false);
         });
         it ('string:""', ()=>{
-            assert.equal(utils.isNull(""), false);
+            assert.equal(utils.isNull(''), false);
         });
         it ('array:[]', ()=>{
             assert.equal(utils.isNull([]), false);
@@ -37,7 +37,7 @@ describe('utils', () => {
             assert.equal(utils.isFunction(0), false);
         });
         it('string:"test string"', ()=>{
-            assert.equal(utils.isFunction("test string"), false);
+            assert.equal(utils.isFunction('test string'), false);
         });
         let f1 = ()=> {};
 
@@ -73,7 +73,7 @@ describe('utils', () => {
             assert.equal(utils.isString([]), false);
         });
         it('string: "string" ', () => {
-            assert.equal(utils.isString("string"), true);
+            assert.equal(utils.isString('string'), true);
         });
     });
 
@@ -91,10 +91,10 @@ describe('utils', () => {
             assert.equal(utils.isNull(1), false);
         });
         it('string: ""', ()=> {
-            assert.equal(utils.isNull(""), false);
+            assert.equal(utils.isNull(''), false);
         });
         it('string: "I am string!"', ()=> {
-            assert.equal(utils.isNull("I am string"), false);
+            assert.equal(utils.isNull('I am string'), false);
         });
         it('boolean: true', ()=> {
             assert.equal(utils.isNull(true), false);
@@ -106,7 +106,7 @@ describe('utils', () => {
             assert.equal(utils.isNull({}), false);
         });
         it('array: {a:"test"}', ()=> {
-            assert.equal(utils.isNull({a:"test"}), false);
+            assert.equal(utils.isNull({a:'test'}), false);
         });
         it('array: []', ()=> {
             assert.equal(utils.isNull([]), false);
@@ -127,10 +127,10 @@ describe('utils', () => {
             assert.equal(utils.isNotNull(1), true);
         });
         it('string: ""', ()=> {
-            assert.equal(utils.isNotNull(""), true);
+            assert.equal(utils.isNotNull(''), true);
         });
         it('string: "I am string!"', ()=> {
-            assert.equal(utils.isNotNull("I am string"), true);
+            assert.equal(utils.isNotNull('I am string'), true);
         });
         it('boolean: true', ()=> {
             assert.equal(utils.isNotNull(true), true);
@@ -142,7 +142,7 @@ describe('utils', () => {
             assert.equal(utils.isNotNull({}), true);
         });
         it('array: {a:"test"}', ()=> {
-            assert.equal(utils.isNotNull({a:"test"}), true);
+            assert.equal(utils.isNotNull({a:'test'}), true);
         });
         it('array: []', ()=> {
             assert.equal(utils.isNotNull([]), true);
@@ -157,10 +157,10 @@ describe('utils', () => {
             assert.equal(utils.isNotNullOrEmptyString(undefined), false);
         });
         it('string: ""', ()=> {
-            assert.equal(utils.isNotNullOrEmptyString(""), false);
+            assert.equal(utils.isNotNullOrEmptyString(''), false);
         });
         it('string: "I am string!"', ()=> {
-            assert.equal(utils.isNotNullOrEmptyString("I am string!"), true);
+            assert.equal(utils.isNotNullOrEmptyString('I am string!'), true);
         });
 
     });
@@ -179,29 +179,29 @@ describe('utils', () => {
         });
 
 
-        it(`number:0`, ()=> {
+        it('number:0', ()=> {
             assert.equal(utils.isInteger(0), true);
         });
 
 
-        it(`number: -1`, ()=> {
+        it('number: -1', ()=> {
             assert.equal(utils.isInteger(-1), true);
         });
-        it(`number: 1`, ()=> {
+        it('number: 1', ()=> {
             assert.equal(utils.isInteger(1), true);
         });
-        it(`string: "00001"`, ()=> {
-            assert.equal(utils.isInteger("00001"), false);
+        it('string: "00001"', ()=> {
+            assert.equal(utils.isInteger('00001'), false);
         });
 
-        it(`string: "this is string!"`, ()=> {
-            assert.equal(utils.isInteger("00001"), false);
+        it('string: "this is string!"', ()=> {
+            assert.equal(utils.isInteger('00001'), false);
         });
 
-        it(`boolean: true`, ()=> {
+        it('boolean: true', ()=> {
             assert.equal(utils.isInteger(true), false);
         });
-        it(`boolean: false`, ()=> {
+        it('boolean: false', ()=> {
             assert.equal(utils.isInteger(false), false);
         });
     });
@@ -264,18 +264,17 @@ describe('utils', () => {
     });
     describe('utils.DateTimeOffset', ()=>{
         let  dt = 20000;
-        it (`GetDateTimeOffset by init:  === 0`, ()=>{
+        it ('GetDateTimeOffset by init:  === 0', ()=>{
             assert.equal(utils.GetDateTimeOffset(), 0);
         });
 
-
-        it (`SetDateTimeOffset by string: "input string"`, ()=>{
-            assert.equal(utils.SetDateTimeOffset("input string"), false);
+        it ('SetDateTimeOffset by string: "input string"', ()=>{
+            assert.equal(utils.SetDateTimeOffset('input string'), false);
         });
-        it (`SetDateTimeOffset by boolean: true`, ()=>{
+        it ('SetDateTimeOffset by boolean: true', ()=>{
             assert.equal(utils.SetDateTimeOffset(true), false);
         });
-        it (`SetDateTimeOffset by float: 1.1`, ()=>{
+        it ('SetDateTimeOffset by float: 1.1', ()=>{
             assert.equal(utils.SetDateTimeOffset(1.1), false);
         });
         it (`SetDateTimeOffset by int: ${dt}`, ()=>{
@@ -285,13 +284,13 @@ describe('utils', () => {
             assert.equal(utils.GetDateTimeOffset(), dt);
         });
 
-        it (`GetCurrNow by Curr DateTime`, ()=> {
+        it ('GetCurrNow by Curr DateTime', ()=> {
             let currNow = utils.GetCurrNow();
             let stNow = Date.now();
             assert.equal(currNow, stNow);
         });
 
-        it (`GetDateTimeNow by offset DateTime`, ()=> {
+        it ('GetDateTimeNow by offset DateTime', ()=> {
             let currNow = utils.GetDateTimeNow();
             let stNow = Date.now() + dt;
             assert.equal(currNow, stNow);

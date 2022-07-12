@@ -39,3 +39,14 @@ export declare enum DatetimeConstant {
     /** 每秒的毫秒数 */
     MILLIS_PRE_SECOND = 1000
 }
+/** 是或否 */
+export declare enum YesOrNo {
+    yes = 1,
+    no = 0
+}
+/**
+ * 选项类型
+ */
+export declare type TOptions<T> = {
+    [P in keyof T]?: NonNullable<any>;
+};

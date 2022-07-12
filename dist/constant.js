@@ -1,7 +1,7 @@
 "use strict";
 // 这里定义一些必要的常量
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DatetimeConstant = exports.error_common = exports.MemorySize = void 0;
+exports.YesOrNo = exports.DatetimeConstant = exports.error_common = exports.MemorySize = void 0;
 /** 内存的容量常量定义 */
 var MemorySize;
 (function (MemorySize) {
@@ -46,3 +46,9 @@ var DatetimeConstant;
     /** 每秒的毫秒数 */
     DatetimeConstant[DatetimeConstant["MILLIS_PRE_SECOND"] = 1000] = "MILLIS_PRE_SECOND";
 })(DatetimeConstant = exports.DatetimeConstant || (exports.DatetimeConstant = {}));
+/** 是或否 */
+var YesOrNo;
+(function (YesOrNo) {
+    YesOrNo[YesOrNo["yes"] = 1] = "yes";
+    YesOrNo[YesOrNo["no"] = 0] = "no";
+})(YesOrNo = exports.YesOrNo || (exports.YesOrNo = {}));
