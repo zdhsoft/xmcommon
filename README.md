@@ -31,6 +31,9 @@ npm install xmcommon
 - list_sturct 包含了队列和堆栈的简单实现。
 
 # 版本变更说明
+## 1.0.8 2022-07-20
+- 优化工程项目
+- 修复vscode下，无代码提示的bug.
 ## 1.0.7 2022-07-12
 - 增加enum YesOrNo枚举
 - 增加TOptions<T>类型
