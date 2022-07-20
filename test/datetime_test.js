@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-var-requires */
 let { datetimeUtils } = require('../dist/index');
 let assert = require('assert').strict;
 describe('datetimeUtils', () => {

@@ -1,5 +1,8 @@
-import { utils } from '../dist/index';
-let assert = require('assert').strict;
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-var-requires */
+
+const { utils } = require('../dist/index');
+const assert = require('assert').strict;
 describe('utils', () => {
     describe('utils.GetFileNameByStack', ()=> {
         it(`filename=${__filename}`, () => {
@@ -39,9 +42,12 @@ describe('utils', () => {
         it('string:"test string"', ()=>{
             assert.equal(utils.isFunction('test string'), false);
         });
-        let f1 = ()=> {};
+        let f1 = ()=> {
+            //
+        };
 
         function f2() {
+            //
         }
         it('function:f1', ()=>{
             assert.equal(utils.isFunction(f1), true);
@@ -223,7 +229,7 @@ describe('utils', () => {
             {value: 9999999999999, result: '9.09TB'},
             {value: 99999999999999, result: '90.95TB'},
             {value: 999999999999999, result: '909.49TB'},
-            {value: 9999999999999999, result: '8.88PB'},
+            // {value: 9999999999999999n, result: '8.88PB'},
         ];
         for(let item of s) {
             it (`utils.formatMemory(${item.value}) === ${item.result}`, ()=>{

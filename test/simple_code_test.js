@@ -1,5 +1,7 @@
-let { SimpleCode } = require('../dist/index');
-let assert = require('assert').strict;
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-var-requires */
+const { SimpleCode } = require('../dist/index');
+const assert = require('assert').strict;
 describe('SimpleCode', () => {
 
     describe('SimpleCode.Encode && Decode', ()=>{
