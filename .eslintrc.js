@@ -1,26 +1,27 @@
 const { off } = require("process");
 
 module.exports = {
-    'env': {
-        'browser': true,
-        'es2021': true,
-        'commonjs': true,
-        'node': true
+    env: {
+        browser: true,
+        es2021: true,
+        commonjs: true,
+        node: true
     },
-    'extends': [
+    ignorePatterns: ['.eslintrc.js', '*.config.js', '*.test.ts'],
+    extends: [
         'eslint:recommended',
         'plugin:@typescript-eslint/recommended'
     ],
-    'parser': '@typescript-eslint/parser',
-    'parserOptions': {
-        'ecmaVersion': 2018,
-        'sourceType': 'module'
+    parser: '@typescript-eslint/parser',
+    parserOptions: {
+        ecmaVersion: 2018,
+        sourceType: 'module'
     },
-    'plugins': [
+    plugins: [
         '@typescript-eslint'
     ],
-    'rules': {
-        'indent': [
+    rules: {
+        indent: [
             'error',
             4
         ],
@@ -31,7 +32,7 @@ module.exports = {
         'no-constant-condition': [
             'error', { 'checkLoops': false }
         ],
-        'quotes': [
+        quotes: [
             'error',
             'single'
         ],
@@ -41,7 +42,7 @@ module.exports = {
         'max-len': ['error', {
             'code': 160,
         }],
-        'semi': [
+        semi: [
             'error',
             'always'
         ]

@@ -1,7 +1,7 @@
 {
     "name": "xmcommon",
-    "version": "1.0.7",
-    "description": "一个基于javascript的常用功能扩展库! 使用TypeScript重构!",
+    "version": "1.0.8",
+    "description": "一个基于javascript的常用功能扩展库!",
     "main": "./dist/index.js",
     "scripts": {
         "format": "prettier --write \"lib/**/*.ts\"",
@@ -14,6 +14,9 @@
         "type": "git",
         "url": "git+https://github.com/zdhsoft/xmcommon.git"
     },
+    "files": [
+        "dist"
+    ],
     "keywords": [
         "common",
         "lib"
@@ -38,6 +41,7 @@
     "homepage": "https://github.com/zdhsoft/xmcommon#readme",
     "devDependencies": {
         "@types/lodash": "^4.14.182",
+        "@types/mocha": "^9.1.1",
         "@types/node": "^8.10.66",
         "@typescript-eslint/eslint-plugin": "^5.30.5",
         "@typescript-eslint/parser": "^5.30.5",
