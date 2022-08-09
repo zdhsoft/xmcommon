@@ -1,8 +1,11 @@
-import { common_ret } from './common_ret';
+import { common_ret as XCommonRet } from './common_ret';
 import { utils } from './utils';
 import { error_common } from './constant';
 
-/** BufferWapper的错误码 */
+/**
+ * BufferWapper的错误码
+ * @deprecated
+ */
 export enum EnumBufferWapperError {
     OK = error_common.ERR_OK,
     FAIL = error_common.ERR_FAIL,
@@ -16,6 +19,7 @@ export enum EnumBufferWapperError {
 
 /**
  * 读取对应的数据类型，对应的字节数
+ * @deprecated
  */
 export enum EnumBufferSize {
     /** 8位整数的字节数 */
@@ -48,6 +52,9 @@ export class BufferWapper {
      * @param paramData 被操作的buffer对象
      * @param paramOffset 初始的偏移量
      */
+    public constructor();
+    public constructor(paramData: Buffer);
+    public constructor(paramData: Buffer, paramOffset: number);
     public constructor(paramData?: Buffer, paramOffset?: number) {
         this.bindBuffer(paramData, paramOffset);
     }
@@ -60,8 +67,8 @@ export class BufferWapper {
         return this.m_offset;
     }
     /** 设置offset */
-    public setOffset(paramOffset = 0): common_ret {
-        const ret = new common_ret();
+    public setOffset(paramOffset = 0): XCommonRet {
+        const ret = new XCommonRet();
         if (this.checkOffset(paramOffset, this.size, ret)) {
             this.m_offset = paramOffset;
         }
@@ -117,7 +124,7 @@ export class BufferWapper {
         }
     }
 
-    private checkOffset(paramOffset: number, paramSize: number, paramRet: common_ret): boolean {
+    private checkOffset(paramOffset: number, paramSize: number, paramRet: XCommonRet): boolean {
         const size = paramSize;
         if (paramOffset < 0 || paramOffset > size) {
             paramRet.setError(EnumBufferWapperError.OUT_OF_RANGE, `paramOffset超出有效范围：[0,${size}]`);
@@ -252,7 +259,8 @@ export class BufferWapper {
         (this.m_buffer as Buffer).writeDoubleBE(paramValue, this.m_offset);
         this.m_offset += EnumBufferSize.double;
     }
-
+    public writeBuffer(paramBuffer: Buffer): void;
+    public writeBuffer(paramBuffer: Buffer, paramBytes: number): void;
     public writeBuffer(paramBuffer: Buffer, paramBytes?: number): void {
         const bytes = Number.isSafeInteger(paramBytes) ? (paramBytes as number) : paramBuffer.byteLength;
         paramBuffer.copy(this.m_buffer as Buffer, this.m_offset, 0, bytes);
@@ -274,8 +282,12 @@ export class BufferWapper {
      * @param paramOffset 初始偏移位置
      * @returns
      */
-    public bindBuffer(paramBuffer?: Buffer, paramOffset?: number): common_ret {
-        const ret = new common_ret();
+    public bindBuffer(): XCommonRet;
+    public bindBuffer(paramBuffer: Buffer): XCommonRet;
+    public bindBuffer(paramBuffer: Buffer, paramOffset: number): XCommonRet;
+    public bindBuffer(paramBuffer: Buffer | undefined, paramOffset: number | undefined): XCommonRet;
+    public bindBuffer(paramBuffer?: Buffer | undefined, paramOffset?: number | undefined): XCommonRet {
+        const ret = new XCommonRet();
         do {
             if (utils.isNull(paramBuffer)) {
                 ret.setError(EnumBufferWapperError.DATA_IS_NULL, `paramBuffer=${paramBuffer}:这个参数为null`);
