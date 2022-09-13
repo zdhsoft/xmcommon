@@ -35,6 +35,7 @@ npm install xmcommon
 - 升级单元测试的mocha的版本
 - 优化货币类，增加读取带千分位的金额
 - 增加typesript的重载函数
+- utils增加getMapkeys,getMapValues,getMapKeyValues,getSetKeys等函数
 
 ## 1.0.8 2022-07-20
 - 优化工程项目

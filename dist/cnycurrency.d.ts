@@ -48,7 +48,7 @@ export declare class CNYCurrency {
     private m_errMsg;
     /**
      * 构造函数
-     * @param {number | string | CNYCurrency} paramValue 初始值
+     * @param paramValue 初始值
      */
     constructor(paramValue?: number | string | CNYCurrency);
     /** 判断指定的对象，是不是指定的CNYCurrency对象 */
@@ -57,10 +57,10 @@ export declare class CNYCurrency {
     get value(): number;
     /**
      * 赋值
-     * @param {number | string | CNYCurrency} paramValue 新值
-     * @return {CNYCurrency} 返回当前对象
+     * @param paramValue 新值
+     * @return 返回当前对象
      */
-    assign(paramValue?: number | string | CNYCurrency): this;
+    assign(paramValue?: number | string | CNYCurrency): CNYCurrency;
     /** 货币整数值，精确到分 */
     get intValue(): number;
     /** 是否有错 */
@@ -71,59 +71,59 @@ export declare class CNYCurrency {
     Reset(): void;
     /**
      * 加一个值
-     * @param {number | string | CNYCurrency} paramNumber 值
-     * @return {CNYCurrency} 返回计算后的Currency对象
+     * @param paramNumber 值
+     * @return 返回计算后的Currency对象
      */
     add(paramNumber: number | string | CNYCurrency): CNYCurrency;
     /**
      * 自加一个值
-     * @param {number | string | CNYCurrency} paramNumber 值
-     * @return {CNYCurrency} 返回自己
+     * @param paramNumber 值
+     * @return 返回自己
      */
     selfAdd(paramNumber: number | string | CNYCurrency): this;
     /**
      * 减一个值
-     * @param {number | string | CNYCurrency} paramNumber 值
-     * @return {CNYCurrency} 返回计算后的Currency对象
+     * @param paramNumber 值
+     * @return 返回计算后的Currency对象
      */
     sub(paramNumber: number | string | CNYCurrency): CNYCurrency;
     /**
      * 自减一个值
-     * @param {number | string | CNYCurrency} paramNumber 值
-     * @return {CNYCurrency} 返回计算后的Currency对象
+     * @param paramNumber 值
+     * @return 返回计算后的Currency对象
      */
     selfSub(paramNumber: number | string | CNYCurrency): this;
     /**
      * 乘一个值
-     * @param {number | string} paramNumber 值
-     * @return {CNYCurrency} 返回计算后的Currency对象
+     * @param paramNumber 值
+     * @return 返回计算后的Currency对象
      */
     mul(paramNumber: number | string): CNYCurrency;
     /**
      * 自乘一个值
-     * @param {number | string} paramNumber 值
-     * @return {boolean} 计算结果
+     * @param paramNumber 值
+     * @return 计算结果
      *  - true 表示计算成功
      *  - false 表示计算失败
      */
     selfMul(paramNumber: number | string): boolean;
     /**
      * 除以一个值
-     * @param {number | string} paramNumber 值
-     * @return {CNYCurrency} 返回计算后的Currency对象
+     * @param paramNumber 值
+     * @return 返回计算后的Currency对象
      */
     div(paramNumber: number | string): CNYCurrency;
     /**
      * 自除以一个值
-     * @param {number | string} paramNumber 值
-     * @return {boolean} 计算结果
+     * @param paramNumber 值
+     * @return 计算结果
      *  - true 表示计算成功
      *  - false 表示计算失败
      */
     selfDiv(paramNumber: number | string): boolean;
     /**
      * 货币的整数部分
-     * @return {number} 返回整数
+     * @return 返回整数
      */
     get yuan(): number;
     /**
@@ -141,16 +141,16 @@ export declare class CNYCurrency {
      * - 选项prefix:表示自定义人民币前缀，没有默认为“人民币”
      * - 选项negative:表示自定义负数前缀，没有默认为“负”
      * - 选项zheng：表示自定义整后缀，没有默认为“整”，有些情况可能需要“正”, 使用的时候请注意选项
-     * @param {{prefix?: string, negative?:string, zheng?: string}} paramOpts 如果是负数时，前面的前缀
-     * @return {string} 中文大写结果
+     * @param paramOpts 如果是负数时，前面的前缀
+     * @return 中文大写结果
      */
     Chinese(paramOpts?: IChineseFormatOptions): string;
     /**
      * 格式化输出
-     * @param {boolean} paramUseSymbol 是否带有"￥"符号
-     * @param {boolean} paramCNYsplit 是否以中文四数字一组
-     * @param {boolean} paramHasSplit 是否存在千分位分隔符
-     * @return {string} 生成后的字符串
+     * @param paramUseSymbol 是否带有"￥"符号
+     * @param paramCNYsplit 是否以中文四数字一组
+     * @param paramHasSplit 是否存在千分位分隔符
+     * @return 生成后的字符串
      */
     format(paramUseSymbol?: boolean, paramCNYsplit?: boolean, paramHasSplit?: boolean): string;
     toJSON(): number;

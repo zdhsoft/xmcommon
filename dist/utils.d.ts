@@ -510,5 +510,32 @@ export declare class utils {
      * @param paramPageSize 每页的记录数
      */
     static calcMaxPage(paramCount: number, paramPageSize: number): XCommonRet<number>;
+    /**
+     * 取Set对象的key数组
+     * @param paramSet 集合
+     * @returns
+     */
+    static getSetKeys<T>(paramSet: Set<T>): T[];
+    /**
+     * 取Map对象的key数组
+     * @param paramMap Map
+     * @returns
+     */
+    static getMapKeys<K, V>(paramMap: Map<K, V>): K[];
+    /**
+     * 取Map对象的value数组
+     * @param paramMap Map
+     * @returns
+     */
+    static getMapValues<K, V>(paramMap: Map<K, V>): V[];
+    /**
+     * 取Map对象的key和value数组
+     * @param paramMap Map
+     * @returns
+     */
+    static getMapKeyValues<K, V>(paramMap: Map<K, V>): {
+        key: K[];
+        value: V[];
+    };
 }
 export default utils;

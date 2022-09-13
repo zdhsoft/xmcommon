@@ -262,6 +262,7 @@ class utils {
      * @param args 要调用的参数
      * @return 返回回调函数的处理结果列表
      */
+    // tslint:disable-next-line: ban-types
     static async WaitFunction(paramFunc, ...args) {
         return new Promise(resolve => {
             paramFunc((...result) => {
@@ -429,10 +430,6 @@ class utils {
             keys: Object.keys(paramObject),
             values: Object.values(paramObject),
         };
-        // for (let k in paramObject) {
-        //     r.keys.push(k);
-        //     r.values.push(paramObject[k]);
-        // }
         return r;
     }
     /**
@@ -972,6 +969,55 @@ class utils {
             }
             r.setOK(pageCnt);
         } while (false);
+        return r;
+    }
+    /**
+     * 取Set对象的key数组
+     * @param paramSet 集合
+     * @returns
+     */
+    static getSetKeys(paramSet) {
+        const r = [];
+        for (const k of paramSet) {
+            r.push(k);
+        }
+        return r;
+    }
+    /**
+     * 取Map对象的key数组
+     * @param paramMap Map
+     * @returns
+     */
+    static getMapKeys(paramMap) {
+        const r = [];
+        for (const [k] of paramMap) {
+            r.push(k);
+        }
+        return r;
+    }
+    /**
+     * 取Map对象的value数组
+     * @param paramMap Map
+     * @returns
+     */
+    static getMapValues(paramMap) {
+        const r = [];
+        for (const [, v] of paramMap) {
+            r.push(v);
+        }
+        return r;
+    }
+    /**
+     * 取Map对象的key和value数组
+     * @param paramMap Map
+     * @returns
+     */
+    static getMapKeyValues(paramMap) {
+        const r = { key: [], value: [] };
+        for (const [k, v] of paramMap) {
+            r.key.push(k);
+            r.value.push(v);
+        }
         return r;
     }
 }

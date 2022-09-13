@@ -517,11 +517,6 @@ export class utils {
             keys: Object.keys(paramObject as any),
             values: Object.values(paramObject as any),
         };
-        // for (let k in paramObject) {
-
-        //     r.keys.push(k);
-        //     r.values.push(paramObject[k]);
-        // }
         return r;
     }
 
@@ -1068,6 +1063,57 @@ export class utils {
             }
             r.setOK(pageCnt);
         } while (false);
+        return r;
+    }
+    /**
+     * 取Set对象的key数组
+     * @param paramSet 集合
+     * @returns
+     */
+    public static getSetKeys<T>(paramSet: Set<T>): T[] {
+        const r: T[] = [];
+        for (const k of paramSet) {
+            r.push(k);
+        }
+        return r;
+    }
+    /**
+     * 取Map对象的key数组
+     * @param paramMap Map
+     * @returns
+     */
+    public static getMapKeys<K,V>(paramMap: Map<K,V>): K[] {
+        const r: K[] = [];
+        for (const [k] of paramMap) {
+            r.push(k);
+        }
+        return r;
+    }
+
+    /**
+     * 取Map对象的value数组
+     * @param paramMap Map
+     * @returns
+     */
+    public static getMapValues<K,V>(paramMap: Map<K,V>): V[] {
+        const r: V[] = [];
+        for (const [, v] of paramMap) {
+            r.push(v);
+        }
+        return r;
+    }
+
+    /**
+     * 取Map对象的key和value数组
+     * @param paramMap Map
+     * @returns
+     */
+    public static getMapKeyValues<K,V>(paramMap: Map<K,V>): {key: K[], value: V[]} {
+        const r: {key: K[], value: V[]} = {key: [], value: []};
+        for (const [k, v] of paramMap) {
+            r.key.push(k);
+            r.value.push(v);
+        }
         return r;
     }
 }

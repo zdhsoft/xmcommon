@@ -53,7 +53,7 @@ function __toNumber(paramValue) {
  */
 function Parse(paramValue) {
     const r = { value: 0, errFlag: false, errMsg: '' };
-    if (typeof paramValue === 'number') {
+    if (utils_1.utils.isNumber(paramValue)) {
         if (paramValue > MAX_VALUE || paramValue < MIN_VALUE) {
             r.errFlag = true;
             r.errMsg = `${paramValue}超出有效范围[${MIN_VALUE},${MAX_VALUE}]`;
@@ -61,8 +61,9 @@ function Parse(paramValue) {
         }
         r.value = Math.round(paramValue * Precision);
     }
-    else if (typeof paramValue === 'string') {
-        r.value = Number.parseFloat(paramValue);
+    else if (utils_1.utils.isString(paramValue)) {
+        const p = paramValue.replace(/,/g, '');
+        r.value = Number.parseFloat(p);
         if (Number.isNaN(r.value)) {
             r.errFlag = true;
             r.errMsg = `${paramValue}不是有效的数字！`;
@@ -75,7 +76,7 @@ function Parse(paramValue) {
         }
         r.value = Math.round(r.value * Precision);
     }
-    else if (paramValue === undefined || paramValue === null) {
+    else if (utils_1.utils.isNull(paramValue)) {
         r.value = 0;
     }
     else {
@@ -123,28 +124,13 @@ function Parse(paramValue) {
 class CNYCurrency {
     /**
      * 构造函数
-     * @param {number | string | CNYCurrency} paramValue 初始值
+     * @param paramValue 初始值
      */
     constructor(paramValue = 0) {
-        if (CNYCurrency.isCurrency(paramValue)) {
-            const curr = paramValue;
-            this.m_intValue = curr.m_intValue;
-            this.m_errFlag = curr.m_errFlag;
-            this.m_errMsg = curr.m_errMsg;
-        }
-        else {
-            const v = Parse(paramValue);
-            if (v.errFlag) {
-                this.m_intValue = 0;
-                this.m_errFlag = true;
-                this.m_errMsg = v.errMsg;
-            }
-            else {
-                this.m_intValue = v.value;
-                this.m_errFlag = v.errFlag;
-                this.m_errMsg = '';
-            }
-        }
+        this.m_intValue = 0;
+        this.m_errFlag = false;
+        this.m_errMsg = '';
+        this.assign(paramValue);
     }
     /** 判断指定的对象，是不是指定的CNYCurrency对象 */
     static isCurrency(paramV) {
@@ -156,8 +142,8 @@ class CNYCurrency {
     }
     /**
      * 赋值
-     * @param {number | string | CNYCurrency} paramValue 新值
-     * @return {CNYCurrency} 返回当前对象
+     * @param paramValue 新值
+     * @return 返回当前对象
      */
     assign(paramValue = 0) {
         if (CNYCurrency.isCurrency(paramValue)) {
@@ -204,8 +190,8 @@ class CNYCurrency {
     }
     /**
      * 加一个值
-     * @param {number | string | CNYCurrency} paramNumber 值
-     * @return {CNYCurrency} 返回计算后的Currency对象
+     * @param paramNumber 值
+     * @return 返回计算后的Currency对象
      */
     add(paramNumber) {
         const r = new CNYCurrency(paramNumber);
@@ -216,8 +202,8 @@ class CNYCurrency {
     }
     /**
      * 自加一个值
-     * @param {number | string | CNYCurrency} paramNumber 值
-     * @return {CNYCurrency} 返回自己
+     * @param paramNumber 值
+     * @return 返回自己
      */
     selfAdd(paramNumber) {
         const r = new CNYCurrency(paramNumber);
@@ -228,8 +214,8 @@ class CNYCurrency {
     }
     /**
      * 减一个值
-     * @param {number | string | CNYCurrency} paramNumber 值
-     * @return {CNYCurrency} 返回计算后的Currency对象
+     * @param paramNumber 值
+     * @return 返回计算后的Currency对象
      */
     sub(paramNumber) {
         const r = new CNYCurrency(paramNumber);
@@ -240,8 +226,8 @@ class CNYCurrency {
     }
     /**
      * 自减一个值
-     * @param {number | string | CNYCurrency} paramNumber 值
-     * @return {CNYCurrency} 返回计算后的Currency对象
+     * @param paramNumber 值
+     * @return 返回计算后的Currency对象
      */
     selfSub(paramNumber) {
         const r = new CNYCurrency(paramNumber);
@@ -252,8 +238,8 @@ class CNYCurrency {
     }
     /**
      * 乘一个值
-     * @param {number | string} paramNumber 值
-     * @return {CNYCurrency} 返回计算后的Currency对象
+     * @param paramNumber 值
+     * @return 返回计算后的Currency对象
      */
     mul(paramNumber) {
         const r = new CNYCurrency();
@@ -269,8 +255,8 @@ class CNYCurrency {
     }
     /**
      * 自乘一个值
-     * @param {number | string} paramNumber 值
-     * @return {boolean} 计算结果
+     * @param paramNumber 值
+     * @return 计算结果
      *  - true 表示计算成功
      *  - false 表示计算失败
      */
@@ -290,8 +276,8 @@ class CNYCurrency {
     }
     /**
      * 除以一个值
-     * @param {number | string} paramNumber 值
-     * @return {CNYCurrency} 返回计算后的Currency对象
+     * @param paramNumber 值
+     * @return 返回计算后的Currency对象
      */
     div(paramNumber) {
         const r = new CNYCurrency();
@@ -313,8 +299,8 @@ class CNYCurrency {
     }
     /**
      * 自除以一个值
-     * @param {number | string} paramNumber 值
-     * @return {boolean} 计算结果
+     * @param paramNumber 值
+     * @return 计算结果
      *  - true 表示计算成功
      *  - false 表示计算失败
      */
@@ -337,7 +323,7 @@ class CNYCurrency {
     }
     /**
      * 货币的整数部分
-     * @return {number} 返回整数
+     * @return 返回整数
      */
     get yuan() {
         // return ~~this.value;
@@ -366,8 +352,8 @@ class CNYCurrency {
      * - 选项prefix:表示自定义人民币前缀，没有默认为“人民币”
      * - 选项negative:表示自定义负数前缀，没有默认为“负”
      * - 选项zheng：表示自定义整后缀，没有默认为“整”，有些情况可能需要“正”, 使用的时候请注意选项
-     * @param {{prefix?: string, negative?:string, zheng?: string}} paramOpts 如果是负数时，前面的前缀
-     * @return {string} 中文大写结果
+     * @param paramOpts 如果是负数时，前面的前缀
+     * @return 中文大写结果
      */
     Chinese(paramOpts = {}) {
         let stPrefix = '人民币';
@@ -423,7 +409,7 @@ class CNYCurrency {
             let zeroCount = 0;
             const IntLen = integerNum.length;
             for (let i = 0; i < IntLen; i++) {
-                const n = integerNum.substr(i, 1);
+                const n = integerNum.substring(i, i + 1);
                 const p = IntLen - i - 1;
                 const q = p / 4;
                 const m = p % 4;
@@ -451,7 +437,7 @@ class CNYCurrency {
         if (cent > 0) {
             const decLen = decimalNum.length;
             for (let i = 0; i < decLen; i++) {
-                const n = decimalNum.substr(i, 1);
+                const n = decimalNum.substring(i, i + 1);
                 if (n !== '0') {
                     chineseStr += cnNums[Number(n)] + cnDecUnits[i];
                 }
@@ -470,10 +456,10 @@ class CNYCurrency {
     }
     /**
      * 格式化输出
-     * @param {boolean} paramUseSymbol 是否带有"￥"符号
-     * @param {boolean} paramCNYsplit 是否以中文四数字一组
-     * @param {boolean} paramHasSplit 是否存在千分位分隔符
-     * @return {string} 生成后的字符串
+     * @param paramUseSymbol 是否带有"￥"符号
+     * @param paramCNYsplit 是否以中文四数字一组
+     * @param paramHasSplit 是否存在千分位分隔符
+     * @return 生成后的字符串
      */
     format(paramUseSymbol = false, paramCNYsplit = false, paramHasSplit = true) {
         const value = Math.abs(this.value);

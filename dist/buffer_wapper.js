@@ -3,7 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BufferWapper = exports.EnumBufferSize = exports.EnumBufferWapperError = void 0;
 const common_ret_1 = require("./common_ret");
 const utils_1 = require("./utils");
-/** BufferWapper的错误码 */
+/**
+ * BufferWapper的错误码
+ * @deprecated
+ */
 var EnumBufferWapperError;
 (function (EnumBufferWapperError) {
     EnumBufferWapperError[EnumBufferWapperError["OK"] = 0] = "OK";
@@ -17,6 +20,7 @@ var EnumBufferWapperError;
 })(EnumBufferWapperError = exports.EnumBufferWapperError || (exports.EnumBufferWapperError = {}));
 /**
  * 读取对应的数据类型，对应的字节数
+ * @deprecated
  */
 var EnumBufferSize;
 (function (EnumBufferSize) {
@@ -40,11 +44,6 @@ var EnumBufferSize;
  * @deprecated
  */
 class BufferWapper {
-    /**
-     * 构造函数
-     * @param paramData 被操作的buffer对象
-     * @param paramOffset 初始的偏移量
-     */
     constructor(paramData, paramOffset) {
         /** 当前操作的buffer的对象 */
         this.m_buffer = null;
@@ -251,12 +250,6 @@ class BufferWapper {
     writeString(paramString, paramEncoding = 'utf8') {
         this.writePackBuffer(Buffer.from(paramString, paramEncoding));
     }
-    /**
-     * 绑定buffer对象
-     * @param paramBuffer
-     * @param paramOffset 初始偏移位置
-     * @returns
-     */
     bindBuffer(paramBuffer, paramOffset) {
         const ret = new common_ret_1.common_ret();
         do {
