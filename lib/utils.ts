@@ -348,6 +348,7 @@ export class utils {
      * @param args 要调用的参数
      * @return 返回回调函数的处理结果列表
      */
+    // tslint:disable-next-line: ban-types
     public static async WaitFunction<T = unknown[]>(paramFunc: Function, ...args: unknown[]): Promise<T> {
         return new Promise(resolve => {
             paramFunc((...result: unknown[]) => {
