@@ -1,5 +1,3 @@
-// 这里提供一些编解码的功能函数
-
 import crypto from 'crypto';
 import _ from 'lodash';
 /** crypto的算法枚举 */

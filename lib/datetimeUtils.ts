@@ -321,7 +321,7 @@ export class datetimeUtils {
      * 判断是不是同一天
      * @param paramUTC1
      * @param paramUTC2
-     * @return {boolean}
+     * @return
      */
     public static isSameDay(paramUTC1: number, paramUTC2: number) {
         const t1 = this.getTodayZeroTime(paramUTC1);
@@ -355,7 +355,7 @@ export class datetimeUtils {
     }
 
     /**
-     * 计算，元年到指定时间戳的本地天数
+     * 计算，1970到指定时间戳的本地天数
      * @param paramUTC 指定日期的时间戳
      * @return 计算出来的本地天数
      */
@@ -363,13 +363,31 @@ export class datetimeUtils {
         const localTime = this.ToLocalTime(paramUTC);
         return (localTime - (localTime % DatetimeConstant.MILLIS_PRE_DAY)) / DatetimeConstant.MILLIS_PRE_DAY;
     }
+    /**
+     * 计算，公元元年到指定时间戳的本地天数
+     * - 与Mysql的to_days计算结果相同
+     * @param paramUTC 指定日期的时间戳
+     * @return 计算出来的本地天数
+     */
+    public static CalcLocalDaysByUTCAtFirst(paramUTC: number): number {
+        return this.CalcLocalDaysByUTC(paramUTC) + DatetimeConstant.DAYS_1970;
+    }
 
     /**
-     * 计算，元年到指定时间的本地天数
+     * 计算，1970到指定时间的本地天数
      * @param paramDate 指定的日期
      * @return 计算出来的本地天数
      */
     public static CalcLocalDaysByDate(paramDate: Date): number {
         return this.CalcLocalDaysByUTC(paramDate.getTime());
+    }
+    /**
+     * 计算，公元元年到指定时间的本地天数
+     * - 与Mysql的to_days计算结果相同
+     * @param paramDate 指定的日期
+     * @return 计算出来的本地天数
+     */
+    public static CalcLocalDaysByDateAtFirst(paramDate: Date): number {
+        return this.CalcLocalDaysByUTCAtFirst(paramDate.getTime());
     }
 }

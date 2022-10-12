@@ -31,11 +31,13 @@ npm install xmcommon
 - list_sturct 包含了队列和堆栈的简单实现。
 
 # 版本变更说明
+# 1.1.0
+- \+ 增加从公元元年到当前时间的天数的函数
 ## 1.0.9
-- 升级单元测试的mocha的版本
-- 优化货币类，增加读取带千分位的金额
-- 增加typesript的重载函数
-- utils增加getMapkeys,getMapValues,getMapKeyValues,getSetKeys等函数
+- \* 升级单元测试的mocha的版本
+- \* 优化货币类，增加读取带千分位的金额
+- \* 增加typesript的重载函数
+- \+ utils增加getMapkeys,getMapValues,getMapKeyValues,getSetKeys等函数
 
 ## 1.0.8 2022-07-20
 - 优化工程项目

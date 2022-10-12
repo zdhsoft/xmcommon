@@ -28,9 +28,11 @@ export interface ICommonMsgHead {
 // 通用的数据返回
 /**
  * 这个类主要是增加了错误判断的属性,可以做为一个通用的返回类
+ * - 下一个版本，将放弃这个
  * - 但是这里的数据类型都unknown类型的，不建议使用，所以这里新增加带模板的XCommonRet<T>类，两个功能接口完全一样
  * - 要返回的数据可以通过data属性返回
  * 有isOK,isNotOK,isFail三个属性来简化返回结果.
+ * @deprecated 请改用XCommonRet
  */
 // tslint:disable-next-line: class-name
 export class common_ret implements ICommonRetData<unknown> {

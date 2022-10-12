@@ -42,6 +42,8 @@ export enum DatetimeConstant {
     SECOND_PRE_MINUTE = 60,
     /** 每秒的毫秒数 */
     MILLIS_PRE_SECOND = 1000,
+    /** 公元元年到1970-01-01的天数 */
+    DAYS_1970 = 719528,
 }
 
 /** 是或否 */

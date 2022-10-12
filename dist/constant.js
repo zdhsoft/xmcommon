@@ -45,6 +45,8 @@ var DatetimeConstant;
     DatetimeConstant[DatetimeConstant["SECOND_PRE_MINUTE"] = 60] = "SECOND_PRE_MINUTE";
     /** 每秒的毫秒数 */
     DatetimeConstant[DatetimeConstant["MILLIS_PRE_SECOND"] = 1000] = "MILLIS_PRE_SECOND";
+    /** 公元元年到1970-01-01的天数 */
+    DatetimeConstant[DatetimeConstant["DAYS_1970"] = 719528] = "DAYS_1970";
 })(DatetimeConstant = exports.DatetimeConstant || (exports.DatetimeConstant = {}));
 /** 是或否 */
 var YesOrNo;

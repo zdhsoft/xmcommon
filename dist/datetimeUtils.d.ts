@@ -176,7 +176,7 @@ export declare class datetimeUtils {
      * 判断是不是同一天
      * @param paramUTC1
      * @param paramUTC2
-     * @return {boolean}
+     * @return
      */
     static isSameDay(paramUTC1: number, paramUTC2: number): boolean;
     /**
@@ -195,15 +195,29 @@ export declare class datetimeUtils {
      */
     static diffLocalDaysByDate(paramDate1: Date, paramDate2: Date): number;
     /**
-     * 计算，元年到指定时间戳的本地天数
+     * 计算，1970到指定时间戳的本地天数
      * @param paramUTC 指定日期的时间戳
      * @return 计算出来的本地天数
      */
     static CalcLocalDaysByUTC(paramUTC: number): number;
     /**
-     * 计算，元年到指定时间的本地天数
+     * 计算，公元元年到指定时间戳的本地天数
+     * - 与Mysql的to_days计算结果相同
+     * @param paramUTC 指定日期的时间戳
+     * @return 计算出来的本地天数
+     */
+    static CalcLocalDaysByUTCAtFirst(paramUTC: number): number;
+    /**
+     * 计算，1970到指定时间的本地天数
      * @param paramDate 指定的日期
      * @return 计算出来的本地天数
      */
     static CalcLocalDaysByDate(paramDate: Date): number;
+    /**
+     * 计算，公元元年到指定时间的本地天数
+     * - 与Mysql的to_days计算结果相同
+     * @param paramDate 指定的日期
+     * @return 计算出来的本地天数
+     */
+    static CalcLocalDaysByDateAtFirst(paramDate: Date): number;
 }

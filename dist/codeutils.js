@@ -1,5 +1,4 @@
 "use strict";
-// 这里提供一些编解码的功能函数
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
