@@ -1,4 +1,4 @@
-import { common_ret as XCommonRet } from './common_ret';
+import { XCommonRet } from './common_ret';
 import { utils } from './utils';
 import { error_common } from './constant';
 
@@ -52,9 +52,6 @@ export class BufferWapper {
      * @param paramData 被操作的buffer对象
      * @param paramOffset 初始的偏移量
      */
-    public constructor();
-    public constructor(paramData: Buffer);
-    public constructor(paramData: Buffer, paramOffset: number);
     public constructor(paramData?: Buffer, paramOffset?: number) {
         this.bindBuffer(paramData, paramOffset);
     }
@@ -259,8 +256,6 @@ export class BufferWapper {
         (this.m_buffer as Buffer).writeDoubleBE(paramValue, this.m_offset);
         this.m_offset += EnumBufferSize.double;
     }
-    public writeBuffer(paramBuffer: Buffer): void;
-    public writeBuffer(paramBuffer: Buffer, paramBytes: number): void;
     public writeBuffer(paramBuffer: Buffer, paramBytes?: number): void {
         const bytes = Number.isSafeInteger(paramBytes) ? (paramBytes as number) : paramBuffer.byteLength;
         paramBuffer.copy(this.m_buffer as Buffer, this.m_offset, 0, bytes);
@@ -282,10 +277,6 @@ export class BufferWapper {
      * @param paramOffset 初始偏移位置
      * @returns
      */
-    public bindBuffer(): XCommonRet;
-    public bindBuffer(paramBuffer: Buffer): XCommonRet;
-    public bindBuffer(paramBuffer: Buffer, paramOffset: number): XCommonRet;
-    public bindBuffer(paramBuffer: Buffer | undefined, paramOffset: number | undefined): XCommonRet;
     public bindBuffer(paramBuffer?: Buffer | undefined, paramOffset?: number | undefined): XCommonRet {
         const ret = new XCommonRet();
         do {
