@@ -5,7 +5,8 @@ module.exports = {
         browser: true,
         es2021: true,
         commonjs: true,
-        node: true
+        node: true,
+        jest: true
     },
     ignorePatterns: ['.eslintrc.js', '*.config.js', '*.test.ts'],
     extends: [
