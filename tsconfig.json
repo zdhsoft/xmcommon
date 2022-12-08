@@ -14,7 +14,7 @@
         ],
         "typeRoots": ["@types"],
         "types": [
-            "node", "mocha", "jest"
+            "node", "jest", "mocha"
         ],
         /* Basic Options */
         // "incremental": true,                         /* Enable incremental compilation */
