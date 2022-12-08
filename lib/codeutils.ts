@@ -43,7 +43,7 @@ export class codeUtils {
      * @param encoding 字符串编码，主要有utf-8等
      * @return 返回解码后的字符串
      */
-    public static StringBase64Decode(paramBase64Value: string, encoding?: string): string {
+    public static StringBase64Decode(paramBase64Value: string, encoding?: BufferEncoding): string {
         return Buffer.from(paramBase64Value, EncodingBase64).toString(encoding);
     }
     /**
