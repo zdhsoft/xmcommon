@@ -1,5 +1,5 @@
 // 这里将提供日期相关的工具函数
-import { DatetimeConstant } from './constant';
+import { CommonReg, DatetimeConstant } from './constant';
 
 const PadRadix = 10;
 /**
@@ -389,5 +389,49 @@ export class datetimeUtils {
      */
     public static CalcLocalDaysByDateAtFirst(paramDate: Date): number {
         return this.CalcLocalDaysByUTCAtFirst(paramDate.getTime());
+    }
+    /**
+     * 使用正则表达式simpleDate检查日期格式
+     * @param paramValue YYYYMMDD格式的字符串
+     * @returns
+     *  - null 无效的格式
+     *  - { year: string, month: string, day: string } 有效的则返加日期结构
+     */
+    public static isSampleDate(paramValue: string) {
+        const r = CommonReg.simpleDate.exec(paramValue);
+        if (!r) {
+            return r;
+        }
+        return {
+            year: r[1],
+            month: r[2],
+            day: r[3],
+        };
+    }
+    /**
+     * 使用正则表达式baseDate检查日期格式
+     * @param paramValue YYYY-MM-DD YYYY/MM/DD YYYY\MM\DD YYYY.MM.DD YYYY MM DD等日期格式的字符串
+     * @returns
+     *  - null 无效的格式
+     *  - { year: string, month: string, day: string } 有效的则返加日期结构
+     */
+    public static isBaseDate(paramValue: string) {
+        const r = CommonReg.baseDate.exec(paramValue);
+        if (!r) {
+            return r;
+        }
+        if (r[2] !== r[4]) {
+            return null;
+        }
+
+        let year = +r[1];
+        if (year < 100) {
+            year += year >= 50 ? 1900 : 2000;
+        }
+        return {
+            year: String(year),
+            month: r[3].padStart(2, '0'),
+            day: r[5].padStart(2, '0'),
+        };
     }
 }

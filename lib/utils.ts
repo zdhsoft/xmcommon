@@ -205,7 +205,8 @@ export class utils {
      */
     public static isString = _.isString;
     /**
-     * 判断指定的参数，是否是null或undefined
+     * 判断指定的参数
+     * - 当参数为null或undefined时，返回true
      * @static
      * @param paramV 被检查的对象
      * @return 如果是，则返回true,否则返回false
@@ -260,7 +261,16 @@ export class utils {
      */
     public static isObject = _.isObject;
     /**
-     * 判断指定的参数，是否不是 null或undefined
+     * 是否是不为null的Object对象
+     * - 检查 `paramV` 是否类似于对象。 如果一个值不是“null”并且具有“object”的“typeof”结果，则它是类对象的。
+     * @from lodash
+     * @param paramV 被检查的对象
+     * @returns 如果是，则返回true,否则返回false
+     */
+    public static isObjectLike = _.isObjectLike;
+    /**
+     * 判断指定的参数，
+     * - 当参数不为null且不为undefined时，返回true isNull的反函数
      * @static
      * @param paramV 被检查的对象
      * @return 如果是，则返回true,否则返回false
@@ -1116,6 +1126,15 @@ export class utils {
         }
         return r;
     }
+    /**
+     * 去除字符串中所有空白字符
+     * @param paramV 指定的字符串
+     * @returns 去除后的结果
+     */
+    public static trimAll(paramV: string): string {
+        return paramV.replace(/[\s\uFEFF\xA0]/g, '');
+    }
+
 }
 
 export default utils;
