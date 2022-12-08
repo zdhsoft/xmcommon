@@ -4,3 +4,5 @@ tsconfig.json
 .prettierrc
 .eslintrc.json
 tslint.json
+dist/**/*.test.js
+src

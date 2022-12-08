@@ -1,0 +1,5 @@
+test/**/*.js
+test/**/*.ts
+lib/**/*.test.ts
+dist/**/*.js
+dist/**/*.ts
