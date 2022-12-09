@@ -314,8 +314,7 @@ export class utils {
      */
     public static isTrueEmpty(paramV: unknown): boolean {
         if (paramV === undefined || paramV === null || paramV === '') return true;
-        if (this.isNumber(paramV) && Number.isNaN(paramV)) return true;
-        return false;
+        return Number.isNaN(paramV);
     }
     /**
      * 检查对象是不是真的空
@@ -341,11 +340,8 @@ export class utils {
             return paramV === false;
         } else if (this.isError(paramV)) {
             return false;
-        } else if (this.isObject(paramV)) {
-            for (const key in paramV) {
-                return false && key;
-            }
-            return true;
+        } else if (this.isObjectLike(paramV)) {
+            return Object.keys(paramV).length === 0;
         } else if (this.isNaN(paramV)) {
             return true;
         }
@@ -525,11 +521,10 @@ export class utils {
      * @return 返回的结果
      */
     public static keyValues(paramObject: unknown): { keys: string[]; values: unknown[] } {
-        const r = {
+        return {
             keys: Object.keys(paramObject as any),
             values: Object.values(paramObject as any),
         };
-        return r;
     }
 
     /**
@@ -543,6 +538,7 @@ export class utils {
      * @param paramNumber 要格化的数字
      * @param paramPattern 模式
      * @return 格式化后的字符串
+     * @see https://blog.csdn.net/chelen_jak/article/details/87935993
      */
     public static formatNumber(paramNumber: number, paramPattern: string): string {
         const strArr = paramNumber ? paramNumber.toString().split('.') : ['0'];
@@ -557,16 +553,16 @@ export class utils {
         let comma = false;
 
         for (let f = fmt.length - 1; f >= 0; f--) {
-            switch (fmt.substring(f, f + 1)) {
+            switch (fmt.substr(f, f + 1)) {
             case '#':
                 if (i >= 0) {
-                    retString = str.substring(i, i + 1) + retString;
+                    retString = str.substr(i, i + 1) + retString;
                     i--;
                 }
                 break;
             case '0':
                 if (i >= 0) {
-                    retString = str.substring(i, 1 + 1) + retString;
+                    retString = str.substr(i, 1 + 1) + retString;
                     i--;
                 } else retString = '0' + retString;
                 break;
@@ -582,10 +578,10 @@ export class utils {
             if (comma) {
                 const l = str.length;
                 for (; i >= 0; i--) {
-                    retString = str.substring(i, i + 1) + retString;
+                    retString = str.substr(i, i + 1) + retString;
                     if (i > 0 && (l - i) % 3 === 0) retString = ',' + retString;
                 }
-            } else retString = str.substr(0, i + 1) + retString;
+            } else retString = str.substr(0, i + 1) + retString; // retString = str.substring(0, i + 1) + retString;
         }
 
         retString = retString + '.';

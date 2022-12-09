@@ -29,8 +29,21 @@ describe('utils 测试', ()=> {
         expect(utils.isEmpty(0.1)).toBe(false);
         expect(utils.isEmpty(-0.1)).toBe(false);
         expect(utils.isEmpty({})).toBe(true);
+        expect(utils.isEmpty({ a: 100 })).toBe(false);
         expect(utils.isEmpty([])).toBe(true);
         expect(utils.isEmpty(new Date())).toBe(false);
+        expect(utils.isEmpty(false)).toBe(true);
+        expect(utils.isEmpty(true)).toBe(false);
+        expect(utils.isEmpty(new Date('9999010101010'))).toBe(true);
+        // null, undefined, '', {}, false, 无效日期, 0, [], NaN 这些都是空对象
+
+    });
+    it('测试formatNumber', ()=> {
+        // expect(utils.formatNumber(12345.999,'#,##0.00')).toBe('12,345.99');
+        // expect(utils.formatNumber(12345.999,'#,##0.##')).toBe('12,345.99');
+        // formatNumber(12345.999,'#,##0.00');
+        // formatNumber(12345.999,'#,##0.##');
+        // formatNumber(123,'000000');
     });
 
 });
