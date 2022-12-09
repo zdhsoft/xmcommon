@@ -2,7 +2,10 @@ import { it, describe, expect, test, beforeAll } from '@jest/globals';
 import utils from "./utils";
 
 describe('utils 测试', ()=> {
-    it('测试isTrueEmpty', ()=>{
+    beforeAll(()=>{
+        //
+    });
+    test('测试isTrueEmpty', ()=>{
         expect(utils.isTrueEmpty(0)).toBe(false);
         expect(utils.isTrueEmpty(null)).toBe(true);
         expect(utils.isTrueEmpty(undefined)).toBe(true);
