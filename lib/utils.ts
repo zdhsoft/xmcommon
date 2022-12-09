@@ -303,6 +303,8 @@ export class utils {
     public static isMap = _.isMap;
     public static isSet = _.isSet;
     public static isBuffer = Buffer.isBuffer;
+    public static isEqual = _.isEqual;
+
 
     /**
      * 检查对象是不是真的空
@@ -343,10 +345,10 @@ export class utils {
             for (const key in paramV) {
                 return false && key;
             }
+            return true;
         } else if (this.isNaN(paramV)) {
             return true;
         }
-
         return false;
     }
 
