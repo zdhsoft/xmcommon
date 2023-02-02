@@ -1,9 +1,12 @@
+/**
+ * 因为md5，sha1,base64的方法用的比较多，所以这里将这些实现直接实现工具函数，简化使用
+ */
 import crypto from 'crypto';
-import _ from 'lodash';
+import { utils } from './utils';
 /** crypto的算法枚举 */
 enum EnumCryptoAlgorithm {
     sha256 = 'sha256',
-    md5 = 'md5',
+    md5    = 'md5',
 }
 
 /** 编码类型 */
@@ -85,7 +88,7 @@ export class codeUtils {
      * @param paramEncode 生成md5后的编码 hex表示是小写16进制字符串 base64表示的base64编码的字符串
      * @return 生成的md5
      */
-    public static MD5FromStringList(paramStringList: [string], paramEncode: HexBase64Encoding = EncodingHex) {
+    public static MD5FromStringList(paramStringList: string [], paramEncode: HexBase64Encoding = EncodingHex) {
         const hash = crypto.createHash(EnumCryptoAlgorithm.md5);
         for (const s of paramStringList) {
             hash.update(s, EncodingUTF8);
@@ -98,7 +101,7 @@ export class codeUtils {
      * @param paramEncode 生成md5后的编码 hex表示是小写16进制字符串 base64表示的base64编码的字符串
      * @return 生成的md5
      */
-    public static MD5FromBufferList(paramDataList: [Buffer], paramEncode: HexBase64Encoding = EncodingHex) {
+    public static MD5FromBufferList(paramDataList: Buffer[], paramEncode: HexBase64Encoding = EncodingHex) {
         const hash = crypto.createHash(EnumCryptoAlgorithm.md5);
         for (const s of paramDataList) {
             hash.update(s);
@@ -118,7 +121,7 @@ export class codeUtils {
      * 根据变参，将变参数连接起来后，生成md5
      * @param  paramOptions encode表示编码方式，可以是是hex或base64，默认为hex,
      * capital:表示是否是大小，默认是小写, split表示参数连接成符串时间隔字符串
-     * @param  args 可变参数
+     * @param  paramArgs 可变参数
      * @example
      * let options = {
      *  encode:'hex',  //不存在，则默认为hex
@@ -127,12 +130,12 @@ export class codeUtils {
      * };
      * console.log(codeUtils.MD5FromArgs(options, 1,2,3,4,"test"));
      */
-    public static MD5FromArgs(paramOptions: IMD5Options, ...args: unknown[]) {
+    public static MD5FromArgs(paramOptions: IMD5Options, ...paramArgs: unknown[]) {
         let encode = EncodingHex;
         let capital = false;
         let split = '';
         // 分析参数
-        if (_.isObjectLike(paramOptions)) {
+        if (utils.isObjectLike(paramOptions)) {
             if (paramOptions.encode === EncodingHex || paramOptions.encode === EncodingBase64) {
                 encode = paramOptions.encode;
             }
@@ -142,12 +145,12 @@ export class codeUtils {
             if (encode === EncodingBase64) {
                 capital = false;
             }
-            if (_.isString(paramOptions.split)) {
+            if (utils.isString(paramOptions.split)) {
                 split = paramOptions.split;
             }
         }
 
-        const s = args.join(split);
+        const s = paramArgs.join(split);
         // 生成md5字符串
         let md5string = crypto.createHash(EnumCryptoAlgorithm.md5).update(s, EncodingUTF8).digest(encode);
 
