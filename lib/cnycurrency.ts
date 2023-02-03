@@ -95,8 +95,8 @@ export interface IChineseFormatOptions {
 /**
  * 货币类
  * 一个专门用于中文货币运算的的类，解决货币运算过程中问题
- * @maxvalue 90071992547409.91
- * @minvalue -90071992547409.91
+ * @maxvalue 90,0719,9254,7409.91
+ * @minvalue -90,0719,9254,7409.91
  * @example
  * let m = [];
  * let c = new CNYCurrency(-12345);
