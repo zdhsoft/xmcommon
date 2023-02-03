@@ -182,7 +182,7 @@ export function GetLogManager() {
  * @param paramTag 取指定tag的log
  * @return 返回log
  */
-let __getLogger: TGetLoggerFun = (paramTag: string): ILog => {
+let __getLogger = (paramTag: string): ILog => {
     const [prefix] = logPrefix(paramTag);
     return logManager.getLogger(prefix as string);
 };

@@ -9,5 +9,4 @@ export * from './cnycurrency';
 export * from './constant';
 export * from './watchrequire';
 export * from './log';
-export * from './buffer_wapper';
 export * from './list_struct';

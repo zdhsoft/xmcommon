@@ -39,6 +39,7 @@ npm install xmcommon
 - \+ 更新依赖库
 - \+ 开始增加jest库，用于编写测试用例
 - \+ 删除buffer相关的未完善的实现  可以使用xmbuffer这个库:https://www.npmjs.com/package/xmbuffer
+- \+ 对货币类和codeutils, list结构进行单元测试
 ## 1.0.9
 - \* 升级单元测试的mocha的版本
 - \* 优化货币类，增加读取带千分位的金额
