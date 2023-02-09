@@ -20,7 +20,7 @@ describe('utils 测试', ()=> {
         expect(utils.isTrueEmpty([])).toBe(false);
         expect(utils.isTrueEmpty(new Date())).toBe(false);
     });
-    it('测试isEmpty', ()=>{
+    test('测试isEmpty', ()=>{
         expect(utils.isEmpty(0)).toBe(true);
         expect(utils.isEmpty(null)).toBe(true);
         expect(utils.isEmpty(undefined)).toBe(true);
@@ -41,7 +41,7 @@ describe('utils 测试', ()=> {
         // null, undefined, '', {}, false, 无效日期, 0, [], NaN 这些都是空对象
 
     });
-    it('测试formatNumber', ()=> {
+    test('测试formatNumber', ()=> {
         // expect(utils.formatNumber(12345.999,'#,##0.00')).toBe('12,345.99');
         // expect(utils.formatNumber(12345.999,'#,##0.##')).toBe('12,345.99');
         // formatNumber(12345.999,'#,##0.00');
