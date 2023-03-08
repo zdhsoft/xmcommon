@@ -10,3 +10,4 @@ export * from './constant';
 export * from './watchrequire';
 export * from './log';
 export * from './list_struct';
+export * from './enumUtils';

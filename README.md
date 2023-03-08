@@ -31,7 +31,7 @@ npm install xmcommon
 - list_sturct 包含了队列和堆栈的简单实现。
 
 # 版本变更说明
-# 1.1.0
+## 1.1.0
 - \+ 增加从公元元年到当前时间的天数的函数
 - \+ 增加isSampleDate与isBaseDate两个函数
 - \+ 增加一组常用正则表达式定义
@@ -40,6 +40,9 @@ npm install xmcommon
 - \+ 开始增加jest库，用于编写测试用例
 - \+ 删除buffer相关的未完善的实现  可以使用xmbuffer这个库:https://www.npmjs.com/package/xmbuffer
 - \+ 对货币类和codeutils, list结构进行单元测试
+- \* 优化baseDate正则表达式
+- \+ 增加枚举工具类
+- \+ 增加excel表中，日期整数转日期的功能 isExcelDate
 ## 1.0.9
 - \* 升级单元测试的mocha的版本
 - \* 优化货币类，增加读取带千分位的金额

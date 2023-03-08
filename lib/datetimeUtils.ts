@@ -410,6 +410,12 @@ export class datetimeUtils {
     }
     /**
      * 使用正则表达式baseDate检查日期格式
+     * - YYYY-MM-DD
+     * - YYYY/MM/DD
+     * - YYYY\MM\DD
+     * - YYYY.MM.DD
+     * - YYYY MM DD
+     * - YYYY年MM月DD日
      * @param paramValue YYYY-MM-DD YYYY/MM/DD YYYY\MM\DD YYYY.MM.DD YYYY MM DD等日期格式的字符串
      * @returns
      *  - null 无效的格式
@@ -432,6 +438,31 @@ export class datetimeUtils {
             year: String(year),
             month: r[3].padStart(2, '0'),
             day: r[5].padStart(2, '0'),
+        };
+    }
+    /**
+     * 将excel中提取日期类型获得的日期整数，转换为指定的日期
+     * @param paramValue excel中日期类型
+     * @returns
+     *  - null 无效的格式
+     *  - { year: string, month: string, day: string } 有效的则返加日期结构
+     */
+    public static isExcelDate(paramExcelDate: number) {
+        const intValue = Math.floor(paramExcelDate);
+        const maxExcelDays = 182623; // 2399-12-31
+        const minExcelDays = 25569; // 1970-01-01
+        if (intValue < minExcelDays || intValue > maxExcelDays) {
+            // 如果超出指定范围
+            return null;
+        }
+        const timeStamp = Math.round(
+            (intValue - minExcelDays) * DatetimeConstant.MILLIS_PRE_DAY + datetimeUtils.getTimeZoneMillis(),
+        );
+        const d = new Date(timeStamp);
+        return {
+            year: String(d.getFullYear()),
+            month: String(d.getMonth() + 1).padStart(2, '0'),
+            day: String(d.getDate()).padStart(2, '0'),
         };
     }
 }
