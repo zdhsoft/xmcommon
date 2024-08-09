@@ -42,16 +42,17 @@
     },
     "homepage": "https://github.com/zdhsoft/xmcommon#readme",
     "devDependencies": {
-        "@types/lodash": "^4.14.182",
-        "@types/mocha": "^9.1.1",
-        "@types/node": "^8.10.66",
-        "@typescript-eslint/eslint-plugin": "^5.30.5",
-        "@typescript-eslint/parser": "^5.30.5",
+        "@types/eslint": "^8.56.11",
+        "@types/lodash": "^4.17.7",
+        "@types/mocha": "^10.0.7",
+        "@types/node": "^20.14.14",
+        "@typescript-eslint/eslint-plugin": "^8.0.1",
+        "@typescript-eslint/parser": "^8.0.1",
         "eslint": "^8.19.0",
         "eslint-config-google": "^0.14.0",
-        "mocha": "^10.0.0",
-        "prettier": "^2.7.1",
-        "prettier-eslint": "^15.0.1"
+        "mocha": "^10.7.0",
+        "prettier": "^3.3.3",
+        "prettier-eslint": "^16.3.0"
     },
     "engines": {
         "node": ">=8.0.0",

@@ -15,7 +15,7 @@ var MemorySize;
     MemorySize[MemorySize["T"] = 1099511627776] = "T";
     /** 1P字节数 */
     MemorySize[MemorySize["P"] = 1125899906842624] = "P";
-})(MemorySize = exports.MemorySize || (exports.MemorySize = {}));
+})(MemorySize || (exports.MemorySize = MemorySize = {}));
 /** 默认的错误码 */
 var error_common;
 (function (error_common) {
@@ -27,7 +27,7 @@ var error_common;
     error_common[error_common["ERR_TRUE"] = -2] = "ERR_TRUE";
     /** 表示返回false */
     error_common[error_common["ERR_FALSE"] = -3] = "ERR_FALSE";
-})(error_common = exports.error_common || (exports.error_common = {}));
+})(error_common || (exports.error_common = error_common = {}));
 /**
  * 日期时间的常量
  */
@@ -47,10 +47,10 @@ var DatetimeConstant;
     DatetimeConstant[DatetimeConstant["MILLIS_PRE_SECOND"] = 1000] = "MILLIS_PRE_SECOND";
     /** 公元元年到1970-01-01的天数 */
     DatetimeConstant[DatetimeConstant["DAYS_1970"] = 719528] = "DAYS_1970";
-})(DatetimeConstant = exports.DatetimeConstant || (exports.DatetimeConstant = {}));
+})(DatetimeConstant || (exports.DatetimeConstant = DatetimeConstant = {}));
 /** 是或否 */
 var YesOrNo;
 (function (YesOrNo) {
     YesOrNo[YesOrNo["yes"] = 1] = "yes";
     YesOrNo[YesOrNo["no"] = 0] = "no";
-})(YesOrNo = exports.YesOrNo || (exports.YesOrNo = {}));
+})(YesOrNo || (exports.YesOrNo = YesOrNo = {}));

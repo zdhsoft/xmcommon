@@ -1,4 +1,3 @@
-/// <reference types="node" />
 /** 编码类的错误码 */
 export declare enum EnumSimpleCodeError {
     /** 表示检查通过 */
