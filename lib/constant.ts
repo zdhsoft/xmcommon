@@ -49,7 +49,7 @@ export enum DatetimeConstant {
 /** 是或否 */
 export enum YesOrNo {
     yes = 1,
-    no  = 0
+    no = 0,
 }
 
 /**

@@ -27,7 +27,7 @@ export function watchRequire(paramCallback: (paramData: unknown) => void, paramP
             const len = cbList.length - 1;
 
             for (let i = len; 0 <= i; i--) {
-                // eslint-disable-next-line @typescript-eslint/no-var-requires
+                // eslint-disable-next-line @typescript-eslint/no-require-imports
                 cbList[i](require(realPath));
             }
         });
@@ -35,7 +35,7 @@ export function watchRequire(paramCallback: (paramData: unknown) => void, paramP
 
     callbackmap[realPath].push(paramCallback);
     if (!paramChangeCallback) {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         paramCallback(require(realPath)); // 只有变化
     }
 }

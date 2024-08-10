@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.watchRequire = void 0;
+exports.watchRequire = watchRequire;
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
@@ -27,15 +27,14 @@ function watchRequire(paramCallback, paramPath, paramFile, paramChangeCallback =
             delete require.cache[realPath];
             const len = cbList.length - 1;
             for (let i = len; 0 <= i; i--) {
-                // eslint-disable-next-line @typescript-eslint/no-var-requires
+                // eslint-disable-next-line @typescript-eslint/no-require-imports
                 cbList[i](require(realPath));
             }
         });
     }
     callbackmap[realPath].push(paramCallback);
     if (!paramChangeCallback) {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         paramCallback(require(realPath)); // 只有变化
     }
 }
-exports.watchRequire = watchRequire;

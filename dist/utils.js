@@ -25,7 +25,7 @@ var EnumCheckObjectCode;
     EnumCheckObjectCode[EnumCheckObjectCode["SampleIsNotObject"] = -2] = "SampleIsNotObject";
     /** code = 1 表示缺少必要的属性 */
     EnumCheckObjectCode[EnumCheckObjectCode["MissAttrib"] = 1] = "MissAttrib";
-})(EnumCheckObjectCode = exports.EnumCheckObjectCode || (exports.EnumCheckObjectCode = {}));
+})(EnumCheckObjectCode || (exports.EnumCheckObjectCode = EnumCheckObjectCode = {}));
 /**
  * 常用工具类
  * - 这里会提供一组类静态成员的方法
@@ -246,7 +246,7 @@ class utils {
         }
         else if (this.isObject(paramV)) {
             for (const key in paramV) {
-                return false && key;
+                return false;
             }
         }
         else if (this.isNaN(paramV)) {
@@ -262,7 +262,6 @@ class utils {
      * @param args 要调用的参数
      * @return 返回回调函数的处理结果列表
      */
-    // tslint:disable-next-line: ban-types
     static async WaitFunction(paramFunc, ...args) {
         return new Promise(resolve => {
             paramFunc((...result) => {
@@ -280,8 +279,8 @@ class utils {
      * @param args 要传给函数的参数数组
      * @return 返回回调函数的处理结果列表
      */
-    // tslint:disable-next-line: ban-types
-    static async WaitFunctionEx(paramFunc, ...args) {
+    static async WaitFunctionEx(paramFunc, // 明确函数的参数类型
+    ...args) {
         return new Promise(resolve => {
             paramFunc(...args, (...result) => {
                 resolve(result);
@@ -416,7 +415,9 @@ class utils {
      * @return 无返回值
      */
     static async sleep(paramT) {
-        await this.WaitFunction(setTimeout, paramT);
+        await new Promise(resolve => {
+            setTimeout(resolve, paramT);
+        });
     }
     /**
      * 将paramObject的key和values分别变成两个数组
@@ -550,6 +551,7 @@ class utils {
     static JsonParse(paramJsonString) {
         try {
             return JSON.parse(paramJsonString);
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
         }
         catch (e) {
             //
@@ -621,8 +623,7 @@ class utils {
      *  - false 表示不是
      */
     static isDirSync(paramFullPath) {
-        var _a;
-        return ((_a = fs_1.default.statSync(paramFullPath)) === null || _a === void 0 ? void 0 : _a.isDirectory()) || false;
+        return fs_1.default.statSync(paramFullPath)?.isDirectory() || false;
     }
     /**
      * 判断指定路径是不是文件
@@ -632,8 +633,7 @@ class utils {
      *  - false 表示不是
      */
     static isFileSync(paramFullPath) {
-        var _a;
-        return ((_a = fs_1.default.statSync(paramFullPath)) === null || _a === void 0 ? void 0 : _a.isFile()) || false;
+        return fs_1.default.statSync(paramFullPath)?.isFile() || false;
     }
     /**
      * 创建目录
@@ -762,8 +762,8 @@ class utils {
             args = [args];
         }
         const argPre = {
-            is: false,
-            argName: '',
+            is: false, // 是否存在前缀
+            argName: '', // 前缀的名称
             argOri: '', // 原始参数
         };
         // tslint:disable-next-line: prefer-for-of
@@ -968,6 +968,7 @@ class utils {
                 pageCnt++;
             }
             r.setOK(pageCnt);
+            // eslint-disable-next-line no-constant-condition
         } while (false);
         return r;
     }

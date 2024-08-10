@@ -17,7 +17,7 @@ var EnumBufferWapperError;
     EnumBufferWapperError[EnumBufferWapperError["DATA_IS_NOT_BUFFER"] = 2] = "DATA_IS_NOT_BUFFER";
     /** 超出范围 */
     EnumBufferWapperError[EnumBufferWapperError["OUT_OF_RANGE"] = 3] = "OUT_OF_RANGE";
-})(EnumBufferWapperError = exports.EnumBufferWapperError || (exports.EnumBufferWapperError = {}));
+})(EnumBufferWapperError || (exports.EnumBufferWapperError = EnumBufferWapperError = {}));
 /**
  * 读取对应的数据类型，对应的字节数
  * @deprecated
@@ -33,10 +33,12 @@ var EnumBufferSize;
     /** 64位整数的字节数 */
     EnumBufferSize[EnumBufferSize["int64"] = 8] = "int64";
     /** 单精度浮点数字节数 */
+    // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
     EnumBufferSize[EnumBufferSize["float"] = 4] = "float";
     /** 双精度浮点数字节数 */
+    // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
     EnumBufferSize[EnumBufferSize["double"] = 8] = "double";
-})(EnumBufferSize = exports.EnumBufferSize || (exports.EnumBufferSize = {}));
+})(EnumBufferSize || (exports.EnumBufferSize = EnumBufferSize = {}));
 /**
  * 一个针对buffer专门封装的类
  * - 这里使用的方法，都是基于BE的方式，如果使用LE的方式，需要重新改一下
@@ -44,6 +46,11 @@ var EnumBufferSize;
  * @deprecated
  */
 class BufferWapper {
+    /**
+     * 构造函数
+     * @param paramData 被操作的buffer对象
+     * @param paramOffset 初始的偏移量
+     */
     constructor(paramData, paramOffset) {
         /** 当前操作的buffer的对象 */
         this.m_buffer = null;
@@ -61,7 +68,7 @@ class BufferWapper {
     }
     /** 设置offset */
     setOffset(paramOffset = 0) {
-        const ret = new common_ret_1.common_ret();
+        const ret = new common_ret_1.XCommonRet();
         if (this.checkOffset(paramOffset, this.size, ret)) {
             this.m_offset = paramOffset;
         }
@@ -250,8 +257,14 @@ class BufferWapper {
     writeString(paramString, paramEncoding = 'utf8') {
         this.writePackBuffer(Buffer.from(paramString, paramEncoding));
     }
+    /**
+     * 绑定buffer对象
+     * @param paramBuffer
+     * @param paramOffset 初始偏移位置
+     * @returns
+     */
     bindBuffer(paramBuffer, paramOffset) {
-        const ret = new common_ret_1.common_ret();
+        const ret = new common_ret_1.XCommonRet();
         do {
             if (utils_1.utils.isNull(paramBuffer)) {
                 ret.setError(EnumBufferWapperError.DATA_IS_NULL, `paramBuffer=${paramBuffer}:这个参数为null`);
@@ -268,6 +281,7 @@ class BufferWapper {
             }
             this.m_buffer = paramBuffer;
             this.m_offset = offset;
+            // eslint-disable-next-line no-constant-condition
         } while (false);
         return ret;
     }

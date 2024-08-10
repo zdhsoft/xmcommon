@@ -31,8 +31,10 @@ export enum EnumBufferSize {
     /** 64位整数的字节数 */
     int64 = 8,
     /** 单精度浮点数字节数 */
+    // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
     float = 4,
     /** 双精度浮点数字节数 */
+    // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values
     double = 8,
 }
 
@@ -295,6 +297,7 @@ export class BufferWapper {
             }
             this.m_buffer = paramBuffer as unknown as Buffer;
             this.m_offset = offset;
+            // eslint-disable-next-line no-constant-condition
         } while (false);
         return ret;
     }
