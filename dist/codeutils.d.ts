@@ -1,5 +1,6 @@
+/// <reference types="node" />
 /** 编码类型 */
-type HexBase64Encoding = 'hex' | 'base64';
+declare type HexBase64Encoding = 'hex' | 'base64';
 /** 函数MD5FromArgs中 md5 生成选项 */
 export interface IMD5Options {
     /** 生成后的编码，默认是hex */
@@ -39,35 +40,35 @@ export declare class codeUtils {
      * @param paramEncode 指定输出的编码类型 hex or base64
      * @return 小写十六进制或BASE64的sha256字符串，如果指定的编码无效，则返回null
      */
-    static SHA256FromString(paramText: string, paramEncode?: HexBase64Encoding): any;
+    static SHA256FromString(paramText: string, paramEncode?: HexBase64Encoding): string;
     /**
      * 生成字符串的MD5
      * @param paramString 要生成md5的字符串
      * @param paramEncode 生成md5后的编码 hex表示是小写16进制字符串 base64表示的base64编码的字符串
      * @return 生成的md5
      */
-    static MD5FromString(paramString: string, paramEncode?: HexBase64Encoding): any;
+    static MD5FromString(paramString: string, paramEncode?: HexBase64Encoding): string;
     /**
      * 生成字符串数组的MD5
      * @param paramStringList 要生成md5的字符串数组
      * @param paramEncode 生成md5后的编码 hex表示是小写16进制字符串 base64表示的base64编码的字符串
      * @return 生成的md5
      */
-    static MD5FromStringList(paramStringList: [string], paramEncode?: HexBase64Encoding): any;
+    static MD5FromStringList(paramStringList: [string], paramEncode?: HexBase64Encoding): string;
     /**
      * 生成数据数组的MD5
      * @param paramDataList 要生成md5的字符串数组
      * @param paramEncode 生成md5后的编码 hex表示是小写16进制字符串 base64表示的base64编码的字符串
      * @return 生成的md5
      */
-    static MD5FromBufferList(paramDataList: [Buffer], paramEncode?: HexBase64Encoding): any;
+    static MD5FromBufferList(paramDataList: [Buffer], paramEncode?: HexBase64Encoding): string;
     /**
      * 生成数据的MD5
      * @param paramData 要生成md5的数据
      * @param paramEncode 生成md5后的编码 hex表示是小写16进制字符串 base64表示的base64编码的字符串
      * @return 生成的md5
      */
-    static MD5FromBuffer(paramData: Buffer, paramEncode?: HexBase64Encoding): any;
+    static MD5FromBuffer(paramData: Buffer, paramEncode?: HexBase64Encoding): string;
     /**
      * 根据变参，将变参数连接起来后，生成md5
      * @param  paramOptions encode表示编码方式，可以是是hex或base64，默认为hex,
@@ -81,6 +82,6 @@ export declare class codeUtils {
      * };
      * console.log(codeUtils.MD5FromArgs(options, 1,2,3,4,"test"));
      */
-    static MD5FromArgs(paramOptions: IMD5Options, ...args: unknown[]): any;
+    static MD5FromArgs(paramOptions: IMD5Options, ...args: unknown[]): string;
 }
 export {};

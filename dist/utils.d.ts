@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { XCommonRet } from './common_ret';
 /**
  * 检查对象属性结果，枚举
@@ -106,7 +107,7 @@ export declare class utils {
      * @param value 被检查的对象
      * @return 是字符串对象，则返回true,否则返回false
      */
-    static isString: any;
+    static isString: (value?: any) => value is string;
     /**
      * 判断指定的参数，是否是null或undefined
      * @static
@@ -120,7 +121,7 @@ export declare class utils {
      * @param value 被检查的对象
      * @return 如果是，则返回true,否则返回false
      */
-    static isFunction: any;
+    static isFunction: (value: any) => value is (...args: any[]) => any;
     /**
      * 检查指定的参数，是否是整数
      * @static
@@ -148,14 +149,14 @@ export declare class utils {
      * @param value 被检查的对象
      * @return 如果是，则返回true,否则返回false
      */
-    static isNumber: any;
+    static isNumber: (value?: any) => value is number;
     /**
      * 判断指定的参数，是否是Object
      * @static
      * @param value 被检查的对象
      * @return 如果是，则返回true,否则返回false
      */
-    static isObject: any;
+    static isObject: (value?: any) => value is object;
     /**
      * 判断指定的参数，是否不是 null或undefined
      * @static
@@ -170,16 +171,16 @@ export declare class utils {
      * @return 检查结果 true表示是,false表示不是
      */
     static isNotNullOrEmptyString(paramV: unknown): boolean;
-    static isDate: any;
-    static isRegExp: any;
-    static isError: any;
+    static isDate: (value?: any) => value is Date;
+    static isRegExp: (value?: any) => value is RegExp;
+    static isError: (value: any) => value is Error;
     static isNaN: (number: unknown) => boolean;
     static isFinite: (number: unknown) => boolean;
-    static isBoolean: any;
-    static isSymbol: any;
-    static isMap: any;
-    static isSet: any;
-    static isBuffer: any;
+    static isBoolean: (value?: any) => value is boolean;
+    static isSymbol: (value: any) => value is symbol;
+    static isMap: (value?: any) => value is Map<any, any>;
+    static isSet: (value?: any) => value is Set<any>;
+    static isBuffer: (obj: any) => obj is Buffer;
     /**
      * 检查对象是不是真的空
      * undefined null '' NaN 以及无效的数字 时返回true

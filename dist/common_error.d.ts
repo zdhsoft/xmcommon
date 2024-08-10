@@ -1,4 +1,3 @@
-import { error_common } from './constant';
 /**
  * 错误码判断的工具类
  *
@@ -22,14 +21,14 @@ export declare class error_utils {
      * @param paramErr: number 要判断的错误码
      * @return 判断结果 err===ERR_TRUE表示是true, 否则表示是false
      */
-    static isTrue(paramErr: number): paramErr is error_common.ERR_TRUE;
+    static isTrue(paramErr: number): boolean;
     /**
      * 是否为false
      *
      * @static
      * @param paramErr 要判断的错误码
      */
-    static isFalse(paramErr: number): paramErr is error_common.ERR_FALSE;
+    static isFalse(paramErr: number): boolean;
     /**
      * 是否不是OK
      *
@@ -45,5 +44,5 @@ export declare class error_utils {
      * @param paramErr 要判断的错误码
      * @return 判断结果 true表示是error_code.ERR_FAIL, false表示不是error_code.ERR_FAIL
      */
-    static isFail(paramErr: number): paramErr is error_common.ERR_FAIL;
+    static isFail(paramErr: number): boolean;
 }

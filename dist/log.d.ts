@@ -59,7 +59,7 @@ declare class LogManager {
 /**
  * @deprecated 不建议使用，可以直接使用logManager的setCreateLog方法，设置创建函数
  */
-export type TGetLoggerFun = (paramTag: string) => ILog;
+export declare type TGetLoggerFun = (paramTag: string) => ILog;
 /**
  * 取日志管理实例
  * @returns

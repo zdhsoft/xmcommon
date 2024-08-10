@@ -1,4 +1,5 @@
-import { XCommonRet } from './common_ret';
+/// <reference types="node" />
+import { common_ret as XCommonRet } from './common_ret';
 /**
  * BufferWapper的错误码
  * @deprecated
@@ -47,7 +48,9 @@ export declare class BufferWapper {
      * @param paramData 被操作的buffer对象
      * @param paramOffset 初始的偏移量
      */
-    constructor(paramData?: Buffer, paramOffset?: number);
+    constructor();
+    constructor(paramData: Buffer);
+    constructor(paramData: Buffer, paramOffset: number);
     /** 取当前的buffer对象 */
     get buffer(): Buffer | null;
     /** 取当前的offset */
@@ -98,7 +101,8 @@ export declare class BufferWapper {
     writeInt64(paramValue: number): void;
     writeFloat(paramValue: number): void;
     writeDouble(paramValue: number): void;
-    writeBuffer(paramBuffer: Buffer, paramBytes?: number): void;
+    writeBuffer(paramBuffer: Buffer): void;
+    writeBuffer(paramBuffer: Buffer, paramBytes: number): void;
     writePackBuffer(paramBuffer: Buffer): void;
     writeString(paramString: string, paramEncoding?: BufferEncoding): void;
     /**
@@ -107,5 +111,8 @@ export declare class BufferWapper {
      * @param paramOffset 初始偏移位置
      * @returns
      */
-    bindBuffer(paramBuffer?: Buffer | undefined, paramOffset?: number | undefined): XCommonRet;
+    bindBuffer(): XCommonRet;
+    bindBuffer(paramBuffer: Buffer): XCommonRet;
+    bindBuffer(paramBuffer: Buffer, paramOffset: number): XCommonRet;
+    bindBuffer(paramBuffer: Buffer | undefined, paramOffset: number | undefined): XCommonRet;
 }

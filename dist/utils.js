@@ -25,7 +25,7 @@ var EnumCheckObjectCode;
     EnumCheckObjectCode[EnumCheckObjectCode["SampleIsNotObject"] = -2] = "SampleIsNotObject";
     /** code = 1 表示缺少必要的属性 */
     EnumCheckObjectCode[EnumCheckObjectCode["MissAttrib"] = 1] = "MissAttrib";
-})(EnumCheckObjectCode || (exports.EnumCheckObjectCode = EnumCheckObjectCode = {}));
+})(EnumCheckObjectCode = exports.EnumCheckObjectCode || (exports.EnumCheckObjectCode = {}));
 /**
  * 常用工具类
  * - 这里会提供一组类静态成员的方法
@@ -762,8 +762,8 @@ class utils {
             args = [args];
         }
         const argPre = {
-            is: false, // 是否存在前缀
-            argName: '', // 前缀的名称
+            is: false,
+            argName: '',
             argOri: '', // 原始参数
         };
         // tslint:disable-next-line: prefer-for-of

@@ -3,12 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LogConsole = void 0;
-exports.logPrefix = logPrefix;
-exports.GetLogManager = GetLogManager;
-exports.getLocalLogger = getLocalLogger;
-exports.setGetLogger = setGetLogger;
-exports.getLogger = getLogger;
+exports.getLogger = exports.setGetLogger = exports.getLocalLogger = exports.GetLogManager = exports.LogConsole = exports.logPrefix = void 0;
 const path_1 = __importDefault(require("path"));
 const util_1 = __importDefault(require("util"));
 const utils_1 = require("./utils");
@@ -58,6 +53,7 @@ function logPrefix(paramFilename, ...args) {
         return [shortpath(paramFilename), ...args];
     }
 }
+exports.logPrefix = logPrefix;
 /**
  * 控制台日志类
  */
@@ -161,6 +157,7 @@ const logManager = new LogManager();
 function GetLogManager() {
     return logManager;
 }
+exports.GetLogManager = GetLogManager;
 /**
  * 取指定tag的log
  * 如果没有这个tag的日志，则创建一个
@@ -180,6 +177,7 @@ let __getLogger = (paramTag) => {
 function getLocalLogger(paramTag) {
     return logManager.getLogger(paramTag);
 }
+exports.getLocalLogger = getLocalLogger;
 /**
  * 重新设置getLogger
  * - 返回true表示设置成功
@@ -195,6 +193,8 @@ function setGetLogger(paramGetLogger) {
     }
     return false;
 }
+exports.setGetLogger = setGetLogger;
 function getLogger(paramTag) {
     return __getLogger(paramTag);
 }
+exports.getLogger = getLogger;

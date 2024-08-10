@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.watchRequire = watchRequire;
+exports.watchRequire = void 0;
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
@@ -38,3 +38,4 @@ function watchRequire(paramCallback, paramPath, paramFile, paramChangeCallback =
         paramCallback(require(realPath)); // 只有变化
     }
 }
+exports.watchRequire = watchRequire;
