@@ -85,7 +85,7 @@ export class utils {
      * @param paramStack 调用堆栈列表
      * @return 返回的文件名
      */
-    public static GetFileNameByStack(paramStack: NodeJS.CallSite[]): string | null {
+    public static GetFileNameByStack(paramStack: NodeJS.CallSite[]): string | null | undefined {
         if (Array.isArray(paramStack) && paramStack.length > 1) {
             return paramStack[1].getFileName();
         } else {
@@ -331,7 +331,7 @@ export class utils {
             return false;
         } else if (this.isObject(paramV)) {
             for (const key in paramV) {
-                return false && key;
+                return false;
             }
         } else if (this.isNaN(paramV)) {
             return true;
@@ -348,12 +348,17 @@ export class utils {
      * @param args 要调用的参数
      * @return 返回回调函数的处理结果列表
      */
-    // tslint:disable-next-line: ban-types
-    public static async WaitFunction<T = unknown[]>(paramFunc: Function, ...args: unknown[]): Promise<T> {
+    public static async WaitFunction<T = unknown[]>(
+        paramFunc: (callback: (...result: unknown[]) => void, ...args: unknown[]) => void,
+        ...args: unknown[]
+    ): Promise<T> {
         return new Promise(resolve => {
-            paramFunc((...result: unknown[]) => {
-                resolve(result as any as T);
-            }, ...args);
+            paramFunc(
+                (...result: unknown[]) => {
+                    resolve(result as any as T);
+                },
+                ...args,
+            );
         });
     }
 
@@ -367,8 +372,10 @@ export class utils {
      * @param args 要传给函数的参数数组
      * @return 返回回调函数的处理结果列表
      */
-    // tslint:disable-next-line: ban-types
-    public static async WaitFunctionEx<T = unknown[]>(paramFunc: Function, ...args: unknown[]): Promise<T> {
+    public static async WaitFunctionEx<T = unknown[]>(
+        paramFunc: (...args: unknown[]) => void, // 明确函数的参数类型
+        ...args: unknown[]
+    ): Promise<T> {
         return new Promise(resolve => {
             paramFunc(...args, (...result: unknown[]) => {
                 resolve(result as any as T);
@@ -388,9 +395,12 @@ export class utils {
      */
     public static async WaitClassFunction<T = unknown[]>(paramObject: unknown, paramFunctionName: string, ...args: unknown[]): Promise<T> {
         return new Promise(resolve => {
-            (paramObject as any)[paramFunctionName]((...result: unknown[]) => {
-                resolve(result as any as T);
-            }, ...args);
+            (paramObject as any)[paramFunctionName](
+                (...result: unknown[]) => {
+                    resolve(result as any as T);
+                },
+                ...args,
+            );
         });
     }
 
@@ -502,7 +512,9 @@ export class utils {
      * @return 无返回值
      */
     public static async sleep(paramT: number): Promise<void> {
-        await this.WaitFunction(setTimeout, paramT);
+        await new Promise<void>(resolve => {
+            setTimeout(resolve, paramT);
+        });
     }
 
     /**
@@ -546,24 +558,24 @@ export class utils {
 
         for (let f = fmt.length - 1; f >= 0; f--) {
             switch (fmt.substring(f, f + 1)) {
-            case '#':
-                if (i >= 0) {
-                    retString = str.substring(i, i + 1) + retString;
-                    i--;
-                }
-                break;
-            case '0':
-                if (i >= 0) {
-                    retString = str.substring(i, 1 + 1) + retString;
-                    i--;
-                } else retString = '0' + retString;
-                break;
-            case ',':
-                comma = true;
-                retString = ',' + retString;
-                break;
-            default:
-                break;
+                case '#':
+                    if (i >= 0) {
+                        retString = str.substring(i, i + 1) + retString;
+                        i--;
+                    }
+                    break;
+                case '0':
+                    if (i >= 0) {
+                        retString = str.substring(i, 1 + 1) + retString;
+                        i--;
+                    } else retString = '0' + retString;
+                    break;
+                case ',':
+                    comma = true;
+                    retString = ',' + retString;
+                    break;
+                default:
+                    break;
             }
         }
         if (i >= 0) {
@@ -583,20 +595,20 @@ export class utils {
         i = 0;
         for (let f = 0; f < fmt.length; f++) {
             switch (fmt.substring(f, f + 1)) {
-            case '#':
-                if (i < str.length) {
-                    retString += str.substring(i, i + 1);
-                    i++;
-                }
-                break;
-            case '0':
-                if (i < str.length) {
-                    retString += str.substring(i, i + 1);
-                    i++;
-                } else retString += '0';
-                break;
-            default:
-                break;
+                case '#':
+                    if (i < str.length) {
+                        retString += str.substring(i, i + 1);
+                        i++;
+                    }
+                    break;
+                case '0':
+                    if (i < str.length) {
+                        retString += str.substring(i, i + 1);
+                        i++;
+                    } else retString += '0';
+                    break;
+                default:
+                    break;
             }
         }
         return retString.replace(/^,+/, '').replace(/\.$/, '');
@@ -636,6 +648,7 @@ export class utils {
     public static JsonParse<T = object>(paramJsonString: string): T | undefined {
         try {
             return JSON.parse(paramJsonString);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (e) {
             //
         }
@@ -1062,6 +1075,7 @@ export class utils {
                 pageCnt++;
             }
             r.setOK(pageCnt);
+        // eslint-disable-next-line no-constant-condition
         } while (false);
         return r;
     }
@@ -1082,7 +1096,7 @@ export class utils {
      * @param paramMap Map
      * @returns
      */
-    public static getMapKeys<K,V>(paramMap: Map<K,V>): K[] {
+    public static getMapKeys<K, V>(paramMap: Map<K, V>): K[] {
         const r: K[] = [];
         for (const [k] of paramMap) {
             r.push(k);
@@ -1095,7 +1109,7 @@ export class utils {
      * @param paramMap Map
      * @returns
      */
-    public static getMapValues<K,V>(paramMap: Map<K,V>): V[] {
+    public static getMapValues<K, V>(paramMap: Map<K, V>): V[] {
         const r: V[] = [];
         for (const [, v] of paramMap) {
             r.push(v);
@@ -1108,8 +1122,8 @@ export class utils {
      * @param paramMap Map
      * @returns
      */
-    public static getMapKeyValues<K,V>(paramMap: Map<K,V>): {key: K[], value: V[]} {
-        const r: {key: K[], value: V[]} = {key: [], value: []};
+    public static getMapKeyValues<K, V>(paramMap: Map<K, V>): { key: K[]; value: V[] } {
+        const r: { key: K[]; value: V[] } = { key: [], value: [] };
         for (const [k, v] of paramMap) {
             r.key.push(k);
             r.value.push(v);

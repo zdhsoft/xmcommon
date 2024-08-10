@@ -14,7 +14,7 @@ var EnumSimpleCodeError;
     EnumSimpleCodeError[EnumSimpleCodeError["DATA_NOT_BUFFER"] = 2] = "DATA_NOT_BUFFER";
     /** Data的长度，小于指定的长度 */
     EnumSimpleCodeError[EnumSimpleCodeError["DATA_SIZE_TO_LOW"] = 3] = "DATA_SIZE_TO_LOW";
-})(EnumSimpleCodeError = exports.EnumSimpleCodeError || (exports.EnumSimpleCodeError = {}));
+})(EnumSimpleCodeError || (exports.EnumSimpleCodeError = EnumSimpleCodeError = {}));
 /**
  * 一个简单编码的类
  * 通过位移算法对数据进行编码

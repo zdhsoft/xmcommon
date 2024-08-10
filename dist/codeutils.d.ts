@@ -1,6 +1,5 @@
-/// <reference types="node" />
 /** 编码类型 */
-declare type HexBase64Encoding = 'hex' | 'base64';
+type HexBase64Encoding = 'hex' | 'base64';
 /** 函数MD5FromArgs中 md5 生成选项 */
 export interface IMD5Options {
     /** 生成后的编码，默认是hex */
@@ -26,7 +25,7 @@ export declare class codeUtils {
      * @param encoding 字符串编码，主要有utf-8等
      * @return 返回解码后的字符串
      */
-    static StringBase64Decode(paramBase64Value: string, encoding?: string): string;
+    static StringBase64Decode(paramBase64Value: string, encoding?: BufferEncoding): string;
     /**
      * 生成字符串的sha256编码
      * @param paramText 要生成sha256的字符串

@@ -52,7 +52,7 @@ function __toNumber(paramValue: number | string) {
  */
 function Parse(paramValue: number | string) {
     const r = { value: 0, errFlag: false, errMsg: '' };
-    if  (utils.isNumber(paramValue)){
+    if (utils.isNumber(paramValue)) {
         if (paramValue > MAX_VALUE || paramValue < MIN_VALUE) {
             r.errFlag = true;
             r.errMsg = `${paramValue}超出有效范围[${MIN_VALUE},${MAX_VALUE}]`;

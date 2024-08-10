@@ -10,7 +10,7 @@ var EnumBitConst;
     EnumBitConst[EnumBitConst["MIN_BIT_SITE"] = 0] = "MIN_BIT_SITE";
     /** 最大bit的位数 */
     EnumBitConst[EnumBitConst["MAX_BIT_COUNT"] = 31] = "MAX_BIT_COUNT";
-})(EnumBitConst = exports.EnumBitConst || (exports.EnumBitConst = {}));
+})(EnumBitConst || (exports.EnumBitConst = EnumBitConst = {}));
 /**
  * 0-30位的整数
  */

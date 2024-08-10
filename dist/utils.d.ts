@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { XCommonRet } from './common_ret';
 /**
  * 检查对象属性结果，枚举
@@ -61,7 +60,7 @@ export declare class utils {
      * @param paramStack 调用堆栈列表
      * @return 返回的文件名
      */
-    static GetFileNameByStack(paramStack: NodeJS.CallSite[]): string | null;
+    static GetFileNameByStack(paramStack: NodeJS.CallSite[]): string | null | undefined;
     /**
      * 取当前调用所在的行号
      * @static
@@ -204,7 +203,7 @@ export declare class utils {
      * @param args 要调用的参数
      * @return 返回回调函数的处理结果列表
      */
-    static WaitFunction<T = unknown[]>(paramFunc: Function, ...args: unknown[]): Promise<T>;
+    static WaitFunction<T = unknown[]>(paramFunc: (callback: (...result: unknown[]) => void, ...args: unknown[]) => void, ...args: unknown[]): Promise<T>;
     /**
      * 异步调用函数,注意：
      * - 传入的函数要求是这样的  function (arg1, arg2, ..., callback), 最后一个入参是回调函数;
@@ -215,7 +214,8 @@ export declare class utils {
      * @param args 要传给函数的参数数组
      * @return 返回回调函数的处理结果列表
      */
-    static WaitFunctionEx<T = unknown[]>(paramFunc: Function, ...args: unknown[]): Promise<T>;
+    static WaitFunctionEx<T = unknown[]>(paramFunc: (...args: unknown[]) => void, // 明确函数的参数类型
+    ...args: unknown[]): Promise<T>;
     /**
      *  异步调用类成员函数,注意：要求第一个参数回调函数,
      *  - @see WaitFunction
