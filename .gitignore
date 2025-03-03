@@ -3,3 +3,5 @@
 package-lock.json
 .idea
 .history
+dist/tsconfig.tsbuildinfo
+.DS_Store
