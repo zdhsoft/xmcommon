@@ -196,48 +196,35 @@ export declare class utils {
      */
     static isEmpty(paramV: any): boolean;
     /**
-     * 异步调用函数,注意：要求第一个参数回调函数
-     * - 传入的函数要求是这样的  function (callback, arg1, arg2, ...), 第一个入参是回调函数;
-     * @static
-     * @param paramFunc 要调用的函数
-     * @param args 要调用的参数
-     * @return 返回回调函数的处理结果列表
+     * 将回调风格的异步函数转换为 Promise
+     * @param paramFunc 要转换的函数，其第一个参数必须是回调函数
+     * @param args 要传给函数的其他参数
+     * @returns Promise 包装的结果
      */
-    static WaitFunction<T = unknown[]>(paramFunc: (callback: (...result: unknown[]) => void, ...args: unknown[]) => void, ...args: unknown[]): Promise<T>;
+    static WaitFunction<T = unknown[]>(paramFunc: (callback: (error: Error | null, ...results: unknown[]) => void, ...args: unknown[]) => void, ...args: unknown[]): Promise<T>;
     /**
-     * 异步调用函数,注意：
-     * - 传入的函数要求是这样的  function (arg1, arg2, ..., callback), 最后一个入参是回调函数;
-     * - 这个函数和WaitFunction主要的区别是：传入函数的回调，是放到最后面的，而WaitFunction则要求是第一个参数
-     *
-     * @static
-     * @param paramFunc 要调用的函数
-     * @param args 要传给函数的参数数组
-     * @return 返回回调函数的处理结果列表
+     * 将回调风格的异步函数转换为 Promise
+     * @param paramFunc 要转换的函数，其最后一个参数必须是回调函数
+     * @param args 要传给函数的其他参数
+     * @returns Promise 包装的结果
      */
-    static WaitFunctionEx<T = unknown[]>(paramFunc: (...args: unknown[]) => void, // 明确函数的参数类型
-    ...args: unknown[]): Promise<T>;
+    static WaitFunctionEx<T = unknown[]>(paramFunc: (...args: [...unknown[], (error: Error | null, ...results: unknown[]) => void]) => void, ...args: unknown[]): Promise<T>;
     /**
-     *  异步调用类成员函数,注意：要求第一个参数回调函数,
-     *  - @see WaitFunction
-     *  -  传入的函数要求是这样的  paramObject.function(callback, arg1, arg2, ...), 第一个入参是回调函数;
-     * @static
-     * @param paramObject 要调用函数的对象实例
-     * @param paramFunctionName 要调用的函数名称
-     * @param args 要调用的参数
-     * @return 返回回调函数的传入参数列表
+     * 将对象方法的回调风格异步调用转换为 Promise
+     * @param paramObject 包含要调用方法的对象
+     * @param paramFunctionName 要调用的方法名
+     * @param args 要传给方法的其他参数
+     * @returns Promise 包装的结果
      */
-    static WaitClassFunction<T = unknown[]>(paramObject: unknown, paramFunctionName: string, ...args: unknown[]): Promise<T>;
+    static WaitClassFunction<T = unknown[]>(paramObject: object, paramFunctionName: string, ...args: unknown[]): Promise<T>;
     /**
-     *  异步调用类成员函数,注意：要求最后一个参数回调函数
-     * - @see WaitFunctionEx
-     * - 传入的函数要求是这样的  paramObject.function(arg1, arg2, ..., callback), 最后一个入参是回调函数;
-     * @static
-     * @param paramObject 要调用函数的对象实例
-     * @param paramFunctionName 要调用的函数名称
-     * @param args 要调用的参数
-     * @return 返回回调函数的传入参数列表
+     * 将对象方法的回调风格异步调用转换为 Promise
+     * @param paramObject 包含要调用方法的对象
+     * @param paramFunctionName 要调用的方法名
+     * @param args 要传给方法的其他参数
+     * @returns Promise 包装的结果
      */
-    static WaitClassFunctionEx<T = unknown[]>(paramObject: unknown, paramFunctionName: string, ...args: unknown[]): Promise<T>;
+    static WaitClassFunctionEx<T = unknown[]>(paramObject: object, paramFunctionName: string, ...args: unknown[]): Promise<T>;
     /**
      * 设置DateTimeOffset值
      * @static

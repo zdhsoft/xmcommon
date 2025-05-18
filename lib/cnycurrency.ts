@@ -1,15 +1,15 @@
 // const _ = require("lodash");
 import { utils } from './utils';
 /** 货币精度 */
-const Precision = 100;
+const PRECISION = 100;
 /** 三数一组 正则 */
 const groupReg = /(\d)(?=(\d{3})+\b)/g;
 /** 四数一组 正则 */
 const groupCNYReg = /(\d)(?=(\d{4})+\b)/g;
 /** 最大值 */
-const MAX_VALUE = Number.MAX_SAFE_INTEGER / Precision;
+const MAX_VALUE = Number.MAX_SAFE_INTEGER / PRECISION;
 /** 最小值 */
-const MIN_VALUE = Number.MIN_SAFE_INTEGER / Precision;
+const MIN_VALUE = Number.MIN_SAFE_INTEGER / PRECISION;
 
 // 汉字的数字
 const cnNums = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
@@ -21,6 +21,50 @@ const cnIntUnits = ['', '万', '亿', '兆'];
 const cnDecUnits = ['角', '分', '毫', '厘'];
 // 整型完以后的单位
 const cnIntLast = '元';
+
+/** 预编译的正则表达式 */
+const REGEX = {
+    GROUP: /(\d)(?=(\d{3})+\b)/g,
+    GROUP_CNY: /(\d)(?=(\d{4})+\b)/g,
+} as const;
+
+/** 中文数字常量 */
+const CN_NUMS = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'] as const;
+const CN_INT_RADICE = ['', '拾', '佰', '仟'] as const;
+const CN_INT_UNITS = ['', '万', '亿', '兆'] as const;
+const CN_DEC_UNITS = ['角', '分', '毫', '厘'] as const;
+const CN_INT_LAST = '元' as const;
+
+/** 货币错误类型 */
+export enum CNYCurrencyError {
+    INVALID_INPUT = 'INVALID_INPUT',
+    OVERFLOW = 'OVERFLOW',
+    DIVISION_BY_ZERO = 'DIVISION_BY_ZERO',
+    INVALID_OPERATION = 'INVALID_OPERATION',
+}
+
+/** 货币错误信息 */
+export interface CNYCurrencyErrorInfo {
+    type: CNYCurrencyError;
+    message: string;
+    value?: number | string;
+}
+
+/** 货币格式化选项 */
+export interface IChineseFormatOptions {
+    /** 指定输出大写的前缀，默认为：人民币 */
+    prefix?: string;
+    /** 是否负数字符：如负 */
+    negative?: string;
+    /** 关于"整"的定义 */
+    zheng?: string;
+}
+
+/** 货币解析结果 */
+interface ParseResult {
+    value: number;
+    error?: CNYCurrencyErrorInfo;
+}
 
 /**
  * 将值转换为数字，
@@ -58,7 +102,7 @@ function Parse(paramValue: number | string) {
             r.errMsg = `${paramValue}超出有效范围[${MIN_VALUE},${MAX_VALUE}]`;
             return r;
         }
-        r.value = Math.round(paramValue * Precision);
+        r.value = Math.round(paramValue * PRECISION);
     } else if (utils.isString(paramValue)) {
         const p = paramValue.replace(/,/g, '');
         r.value = Number.parseFloat(p);
@@ -71,7 +115,7 @@ function Parse(paramValue: number | string) {
             r.errMsg = `${paramValue}超出有效范围[${MIN_VALUE},${MAX_VALUE}]`;
             return r;
         }
-        r.value = Math.round(r.value * Precision);
+        r.value = Math.round(r.value * PRECISION);
     } else if (utils.isNull(paramValue)) {
         r.value = 0;
     } else {
@@ -82,418 +126,428 @@ function Parse(paramValue: number | string) {
     return r;
 }
 
-/** 大写的Chinese函数参数选项 */
-export interface IChineseFormatOptions {
-    /** 指定输出大写的前缀，默认为：人民币 */
-    prefix?: string;
-    /** 是否负数字符：如负 */
-    negative?: string;
-    /** 关于“整”的定义 */
-    zheng?: string;
-}
-
 /**
- * 货币类
- * 一个专门用于中文货币运算的的类，解决货币运算过程中问题
- * @maxvalue 90071992547409.91
- * @minvalue -90071992547409.91
- * @example
- * let m = [];
- * let c = new CNYCurrency(-12345);
- * m.push(c);
- * m.push(c.add(109999));
- * m.push(c.sub(10));
- * m.push(c.div(0.01));
- * m.push(c.mul(10));
- * m.push(c.mul(0.01));
- *
- * let tt = new CNYCurrency(0);
- * tt.selfAdd(2805307.04);
- * tt.selfAdd(4323515.28);
- * tt.selfAdd(2805307.04);
- * tt.selfAdd(3281107.13);
- * m.push(tt);
- *
- * for(let mm of m) {
- *      console.log(mm.value, mm.intValue, mm.toString(), mm.format(true, true), mm.Chinese());
- * }
- *
- * //输出结果
- * //-12345 -1234500 -12345.00 ￥-1,2345.00 负壹万贰仟叁佰肆拾伍元整
- * //97654 9765400 97654.00 ￥9,7654.00 玖万柒仟陆佰伍拾肆元整
- * //-12355 -1235500 -12355.00 ￥-1,2355.00 负壹万贰仟叁佰伍拾伍元整
- * //-1234500 -123450000 -1234500.00 ￥-123,4500.00 负壹佰贰拾叁万肆仟伍佰元整
- * //-123450 -12345000 -123450.00 ￥-12,3450.00 负拾贰万叁仟肆佰伍拾元整
- * //-123.45 -12345 -123.45 ￥-123.45 负壹佰贰拾叁元肆角伍分
- * //13215236.49 1321523649 13215236.49 ￥1321,5236.49 壹仟叁佰贰拾壹万伍仟贰佰叁拾陆元肆角玖分
+ * 人民币货币类
+ * - 支持精确到分的货币计算
+ * - 支持中文大写转换
+ * - 支持格式化输出
  */
 export class CNYCurrency {
-    private m_intValue: number = 0;
-    private m_errFlag: boolean = false;
-    private m_errMsg: string = '';
+    private static readonly PRECISION = PRECISION;
+    private static readonly MAX_VALUE = MAX_VALUE;
+    private static readonly MIN_VALUE = MIN_VALUE;
+
+    private _intValue: number = 0;
+    private error?: CNYCurrencyErrorInfo;
+
     /**
      * 构造函数
-     * @param paramValue 初始值
+     * @param value 初始值
      */
-    public constructor(paramValue: number | string | CNYCurrency = 0) {
-        this.assign(paramValue);
-    }
-    /** 判断指定的对象，是不是指定的CNYCurrency对象 */
-    public static isCurrency(paramV: unknown): boolean {
-        return paramV instanceof CNYCurrency;
+    public constructor(value: number | string | CNYCurrency = 0) {
+        this.assign(value);
     }
 
-    /** 货币值 */
-    public get value(): number {
-        return this.m_intValue / Precision;
+    /**
+     * 判断是否为 CNYCurrency 实例
+     */
+    public static isCurrency(value: unknown): value is CNYCurrency {
+        return value instanceof CNYCurrency;
     }
+
+    /**
+     * 将值转换为数字
+     * @param value 输入值
+     */
+    private static toNumber(value: number | string): ParseResult {
+        let num: number;
+
+        if (typeof value === 'number') {
+            num = value;
+        } else {
+            num = Number.parseFloat(value);
+            if (Number.isNaN(num)) {
+                return {
+                    value: 0,
+                    error: {
+                        type: CNYCurrencyError.INVALID_INPUT,
+                        message: 'Invalid number format',
+                        value,
+                    },
+                };
+            }
+        }
+
+        if (num > CNYCurrency.MAX_VALUE || num < CNYCurrency.MIN_VALUE) {
+            return {
+                value: 0,
+                error: {
+                    type: CNYCurrencyError.OVERFLOW,
+                    message: 'Value out of range',
+                    value: num,
+                },
+            };
+        }
+
+        return { value: num };
+    }
+
+    /**
+     * 解析货币值
+     * @param value 输入值
+     */
+    private static parse(value: number | string): ParseResult {
+        const result = CNYCurrency.toNumber(value);
+        if (result.error) {
+            return result;
+        }
+
+        const intValue = Math.round(result.value * CNYCurrency.PRECISION);
+        return { value: intValue };
+    }
+
+    /**
+     * 获取货币值
+     */
+    public get value(): number {
+        return this._intValue / CNYCurrency.PRECISION;
+    }
+
     /**
      * 赋值
-     * @param paramValue 新值
-     * @return 返回当前对象
+     * @param value 新值
      */
-    public assign(paramValue: number | string | CNYCurrency = 0): CNYCurrency {
-        if (CNYCurrency.isCurrency(paramValue)) {
-            const curr = paramValue as unknown as CNYCurrency;
-            this.m_intValue = curr.m_intValue;
-            this.m_errFlag = curr.m_errFlag;
-            this.m_errMsg = curr.m_errMsg;
+    public assign(value: number | string | CNYCurrency): CNYCurrency {
+        if (CNYCurrency.isCurrency(value)) {
+            this._intValue = value._intValue;
+            this.error = value.error;
         } else {
-            const v = Parse(paramValue as string | number);
-            if (v.errFlag) {
-                this.m_intValue = 0;
-                this.m_errFlag = true;
-                this.m_errMsg = v.errMsg;
-            } else {
-                this.m_intValue = v.value;
-                this.m_errFlag = v.errFlag;
-                this.m_errMsg = '';
-            }
+            const result = CNYCurrency.parse(value);
+            this._intValue = result.value;
+            this.error = result.error;
         }
         return this;
     }
-    /** 货币整数值，精确到分 */
+
+    /**
+     * 获取整数值（分）
+     */
     public get intValue(): number {
-        return this.m_intValue;
+        return this._intValue;
     }
 
-    // set intValue(paramValue) {
-    //     this.m_IntValue = paramValue;
-    // }
-    /** 是否有错 */
-    public get isErr(): boolean {
-        return this.m_errFlag;
-    }
-    /** 错误信息 */
-    public get errMsg() {
-        return this.m_errMsg;
-    }
-    /** 重置为0 */
-    public Reset(): void {
-        this.m_errFlag = false;
-        this.m_errMsg = '';
-        this.m_intValue = 0;
-    }
     /**
-     * 加一个值
-     * @param paramNumber 值
-     * @return 返回计算后的Currency对象
+     * 是否有错误
      */
-    public add(paramNumber: number | string | CNYCurrency) {
-        const r = new CNYCurrency(paramNumber);
-        if (!r.isErr && !this.isErr) {
-            r.m_intValue = this.m_intValue + r.m_intValue;
-        }
-        return r;
+    public get hasError(): boolean {
+        return this.error !== undefined;
     }
+
     /**
-     * 自加一个值
-     * @param paramNumber 值
-     * @return 返回自己
+     * 获取错误信息
      */
-    public selfAdd(paramNumber: number | string | CNYCurrency) {
-        const r = new CNYCurrency(paramNumber);
-        if (!r.isErr && !this.isErr) {
-            this.m_intValue = this.m_intValue + r.m_intValue;
+    public get errorInfo(): CNYCurrencyErrorInfo | undefined {
+        return this.error;
+    }
+
+    /**
+     * 重置为0
+     */
+    public reset(): void {
+        this._intValue = 0;
+        this.error = undefined;
+    }
+
+    /**
+     * 加法
+     * @param value 加数
+     */
+    public add(value: number | string | CNYCurrency): CNYCurrency {
+        if (this.hasError) {
+            return this;
         }
+
+        const other = CNYCurrency.isCurrency(value) ? value : new CNYCurrency(value);
+        if (other.hasError) {
+            this.error = other.error;
+            return this;
+        }
+
+        const result = this._intValue + other._intValue;
+        if (result > Number.MAX_SAFE_INTEGER || result < Number.MIN_SAFE_INTEGER) {
+            this.error = {
+                type: CNYCurrencyError.OVERFLOW,
+                message: 'Addition result out of range',
+            };
+            return this;
+        }
+
+        this._intValue = result;
         return this;
     }
+
     /**
-     * 减一个值
-     * @param paramNumber 值
-     * @return 返回计算后的Currency对象
+     * 自增
+     * @param value 加数
      */
-    public sub(paramNumber: number | string | CNYCurrency) {
-        const r = new CNYCurrency(paramNumber);
-        if (!r.isErr && !this.isErr) {
-            r.m_intValue = this.m_intValue - r.m_intValue;
-        }
-        return r;
+    public selfAdd(value: number | string | CNYCurrency): CNYCurrency {
+        return this.add(value);
     }
+
     /**
-     * 自减一个值
-     * @param paramNumber 值
-     * @return 返回计算后的Currency对象
+     * 减法
+     * @param value 减数
      */
-    public selfSub(paramNumber: number | string | CNYCurrency) {
-        const r = new CNYCurrency(paramNumber);
-        if (!r.isErr && !this.isErr) {
-            this.m_intValue = this.m_intValue - r.m_intValue;
+    public sub(value: number | string | CNYCurrency): CNYCurrency {
+        if (this.hasError) {
+            return this;
         }
+
+        const other = CNYCurrency.isCurrency(value) ? value : new CNYCurrency(value);
+        if (other.hasError) {
+            this.error = other.error;
+            return this;
+        }
+
+        const result = this._intValue - other._intValue;
+        if (result > Number.MAX_SAFE_INTEGER || result < Number.MIN_SAFE_INTEGER) {
+            this.error = {
+                type: CNYCurrencyError.OVERFLOW,
+                message: 'Subtraction result out of range',
+            };
+            return this;
+        }
+
+        this._intValue = result;
         return this;
     }
-    /**
-     * 乘一个值
-     * @param paramNumber 值
-     * @return 返回计算后的Currency对象
-     */
-    public mul(paramNumber: number | string) {
-        const r = new CNYCurrency();
-        const v = __toNumber(paramNumber);
-        if (v.result) {
-            r.assign(this.value * v.value);
-        } else {
-            r.m_errMsg = `${paramNumber} is invalid number`;
-            r.m_errFlag = true;
-        }
-        return r;
-    }
-    /**
-     * 自乘一个值
-     * @param paramNumber 值
-     * @return 计算结果
-     *  - true 表示计算成功
-     *  - false 表示计算失败
-     */
-    public selfMul(paramNumber: number | string) {
-        const v = __toNumber(paramNumber);
-        if (!v.result) {
-            return false;
-        }
-        const r = new CNYCurrency(v.value * this.value);
-        if (r.isErr) {
-            return false;
-        } else {
-            this.assign(r);
-            return true;
-        }
-    }
-    /**
-     * 除以一个值
-     * @param paramNumber 值
-     * @return 返回计算后的Currency对象
-     */
-    public div(paramNumber: number | string) {
-        const r = new CNYCurrency();
-        const v = __toNumber(paramNumber);
 
-        if (v.result) {
-            if (v.value === 0) {
-                r.m_errMsg = `${paramNumber} is zero!;`;
-                r.m_errFlag = true;
-            } else {
-                r.assign(this.value / v.value);
-            }
-        } else {
-            r.m_errMsg = `${paramNumber} is invalid number.`;
-            r.m_errFlag = true;
-        }
-        return r;
-    }
     /**
-     * 自除以一个值
-     * @param paramNumber 值
-     * @return 计算结果
-     *  - true 表示计算成功
-     *  - false 表示计算失败
+     * 自减
+     * @param value 减数
      */
-    public selfDiv(paramNumber: number | string) {
-        const v = __toNumber(paramNumber);
-        if (!v.result) {
-            return false;
-        }
-        if (v.value === 0) {
-            return false;
-        }
-        const r = new CNYCurrency(this.value / v.value);
-        if (r.isErr) {
-            return false;
-        } else {
-            this.assign(r);
-            return true;
-        }
-    }
-    /**
-     * 货币的整数部分
-     * @return 返回整数
-     */
-    public get yuan() {
-        // return ~~this.value;
-        const n = this.m_intValue;
-        return (n - (n % Precision)) / Precision;
-    }
-    /**
-     * 货币的小数部分，单位为分
-     */
-    public get cent() {
-        let c = this.m_intValue % Precision;
-        if (c < 0) c = -c;
-        return c;
-    }
-    /**
-     * 生成字符串
-     */
-    public toString() {
-        return this.value.toFixed(2);
+    public selfSub(value: number | string | CNYCurrency): CNYCurrency {
+        return this.sub(value);
     }
 
     /**
-     * 生成中文大写数字
-     * - 引用来源：https://www.jb51.net/article/89661.htm
-     * - 增加在元后，角为0的情况增加0，如0.01为零元零角
-     * - 选项prefix:表示自定义人民币前缀，没有默认为“人民币”
-     * - 选项negative:表示自定义负数前缀，没有默认为“负”
-     * - 选项zheng：表示自定义整后缀，没有默认为“整”，有些情况可能需要“正”, 使用的时候请注意选项
-     * @param paramOpts 如果是负数时，前面的前缀
-     * @return 中文大写结果
+     * 乘法
+     * @param value 乘数
      */
-    public Chinese(paramOpts: IChineseFormatOptions = {}) {
-        let stPrefix = '人民币';
-        let stNegative = '负';
-        let stZheng = '整';
-
-        if (utils.isObject(paramOpts)) {
-            // 人民币前缀
-            if (utils.isString(paramOpts.prefix)) {
-                stPrefix = paramOpts.prefix as string;
-            }
-            // 负数前缀
-            if (utils.isString(paramOpts.negative)) {
-                stNegative = paramOpts.negative as string;
-            }
-            // 整或正字
-            if (utils.isString(paramOpts.zheng)) {
-                stZheng = paramOpts.zheng as string;
-            }
-        }
-        // paramPrefix = '人民币', paramNegative = '负') {
-
-        // 输出的中文金额字符串
-        let chineseStr = '';
-        // 负数时前缀
-        let negative = '';
-        const intValue = this.intValue;
-        if (intValue < 0) {
-            negative = stNegative; // '负';
+    public mul(value: number | string): CNYCurrency {
+        if (this.hasError) {
+            return this;
         }
 
-        let yuan = this.yuan; // 元
-        if (yuan < 0) yuan = -yuan;
-        const cent = this.cent; // 分
-
-        // 金额整数部分
-        const integerNum = yuan.toString();
-        // 金额小数部分
-        const decimalNum = cent.toString().padStart(2, '0');
-        // if(cent === 0) {
-        //     decimalNum = '';
-        // }
-
-        if (this.intValue === 0) {
-            // 如果金额为0
-            chineseStr = [stPrefix, cnNums[0], cnIntLast, stZheng].join('');
-            return chineseStr;
+        const result = CNYCurrency.toNumber(value);
+        if (result.error) {
+            this.error = result.error;
+            return this;
         }
 
-        if (yuan === 0 && cent < 10) {
-            // 如果只存在分的情况 就是零元零角几分
-            // chineseStr = [paramPrefix, negative, cnNums[0], cnIntLast, cnNums[0], cnDecUnits[0],cnNums[cent],cnDecUnits[1]].join('');
-            chineseStr = [stPrefix, negative, cnNums[cent], cnDecUnits[1]].join('');
-            return chineseStr;
+        const product = this._intValue * result.value;
+        if (product > Number.MAX_SAFE_INTEGER || product < Number.MIN_SAFE_INTEGER) {
+            this.error = {
+                type: CNYCurrencyError.OVERFLOW,
+                message: 'Multiplication result out of range',
+            };
+            return this;
         }
-        // 获取整型部分转换
-        if (yuan > 0) {
+
+        this._intValue = Math.round(product / CNYCurrency.PRECISION);
+        return this;
+    }
+
+    /**
+     * 自乘
+     * @param value 乘数
+     */
+    public selfMul(value: number | string): CNYCurrency {
+        return this.mul(value);
+    }
+
+    /**
+     * 除法
+     * @param value 除数
+     */
+    public div(value: number | string): CNYCurrency {
+        if (this.hasError) {
+            return this;
+        }
+
+        const result = CNYCurrency.toNumber(value);
+        if (result.error) {
+            this.error = result.error;
+            return this;
+        }
+
+        if (result.value === 0) {
+            this.error = {
+                type: CNYCurrencyError.DIVISION_BY_ZERO,
+                message: 'Division by zero',
+            };
+            return this;
+        }
+
+        const quotient = (this._intValue * CNYCurrency.PRECISION) / result.value;
+        if (quotient > Number.MAX_SAFE_INTEGER || quotient < Number.MIN_SAFE_INTEGER) {
+            this.error = {
+                type: CNYCurrencyError.OVERFLOW,
+                message: 'Division result out of range',
+            };
+            return this;
+        }
+
+        this._intValue = Math.round(quotient);
+        return this;
+    }
+
+    /**
+     * 自除
+     * @param value 除数
+     */
+    public selfDiv(value: number | string): CNYCurrency {
+        return this.div(value);
+    }
+
+    /**
+     * 获取元部分
+     */
+    public get yuan(): number {
+        return Math.floor(this._intValue / CNYCurrency.PRECISION);
+    }
+
+    /**
+     * 获取分部分
+     */
+    public get cent(): number {
+        return this._intValue % CNYCurrency.PRECISION;
+    }
+
+    /**
+     * 转换为字符串
+     */
+    public toString(): string {
+        return this.format();
+    }
+
+    /**
+     * 转换为中文大写
+     * @param options 格式化选项
+     */
+    public toChinese(options: IChineseFormatOptions = {}): string {
+        if (this.hasError) {
+            return '';
+        }
+
+        const {
+            prefix = '人民币',
+            negative = '负',
+            zheng = '整',
+        } = options;
+
+        let result = '';
+        const value = Math.abs(this.value);
+        const integer = Math.floor(value);
+        const decimal = Math.round((value - integer) * CNYCurrency.PRECISION);
+
+        // 处理整数部分
+        if (integer > 0) {
+            let integerStr = integer.toString();
+            let unitIndex = 0;
             let zeroCount = 0;
-            const IntLen = integerNum.length;
-            for (let i = 0; i < IntLen; i++) {
-                const n = integerNum.substring(i, i + 1);
-                const p = IntLen - i - 1;
-                const q = p / 4;
-                const m = p % 4;
-                if (n === '0') {
+
+            for (let i = integerStr.length - 1; i >= 0; i--) {
+                const digit = parseInt(integerStr[i], 10);
+                const position = (integerStr.length - 1 - i) % 4;
+
+                if (digit === 0) {
                     zeroCount++;
                 } else {
                     if (zeroCount > 0) {
-                        chineseStr += cnNums[0];
+                        result = CN_NUMS[0] + result;
+                        zeroCount = 0;
                     }
-                    // 归零
-                    zeroCount = 0;
-                    chineseStr += cnNums[parseInt(n)] + cnIntRadice[m];
+                    result = CN_NUMS[digit] + CN_INT_RADICE[position] + result;
                 }
-                if (m === 0 && zeroCount < 4) {
-                    chineseStr += cnIntUnits[q];
+
+                if (position === 0 && i > 0) {
+                    result = CN_INT_UNITS[unitIndex] + result;
+                    unitIndex++;
                 }
             }
-            chineseStr += cnIntLast;
-        } else if (yuan === 0 && cent > 0) {
-            // chineseStr = cnNums[0] + cnIntLast;
+            result += CN_INT_LAST;
         }
 
-        // 小数部分
-        if (cent > 0) {
-            const decLen = decimalNum.length;
-            for (let i = 0; i < decLen; i++) {
-                const n = decimalNum.substring(i, i + 1);
-                if (n !== '0') {
-                    chineseStr += cnNums[Number(n)] + cnDecUnits[i];
-                } else {
-                    if (i === 0) {
-                        chineseStr += cnNums[0];
-                    }
+        // 处理小数部分
+        if (decimal > 0) {
+            let decimalStr = decimal.toString().padStart(2, '0');
+            for (let i = 0; i < decimalStr.length; i++) {
+                const digit = parseInt(decimalStr[i], 10);
+                if (digit > 0) {
+                    result += CN_NUMS[digit] + CN_DEC_UNITS[i];
                 }
             }
+        } else if (integer > 0) {
+            result += zheng;
         }
-        if (cent % 10 === 0) {
-            // 当分为0的时候，有整
-            chineseStr += stZheng;
+
+        // 添加前缀和负号
+        if (this.value < 0) {
+            result = negative + result;
         }
-        return stPrefix + negative + chineseStr;
+        if (prefix) {
+            result = prefix + result;
+        }
+
+        return result;
     }
+
     /**
      * 格式化输出
-     * @param paramUseSymbol 是否带有"￥"符号
-     * @param paramCNYsplit 是否以中文四数字一组
-     * @param paramHasSplit 是否存在千分位分隔符
-     * @return 生成后的字符串
+     * @param useSymbol 是否使用货币符号
+     * @param cnySplit 是否使用中文分隔
+     * @param hasSplit 是否使用千位分隔符
      */
-    public format(paramUseSymbol = false, paramCNYsplit = false, paramHasSplit = true) {
-        const value = Math.abs(this.value);
-        const values = value.toFixed(2).split('.');
-
-        let yuan = values[0];
-        const cent = values[1];
-        if (paramHasSplit) {
-            if (paramCNYsplit) {
-                yuan = yuan.replace(groupCNYReg, '$1,');
-            } else {
-                yuan = yuan.replace(groupReg, '$1,');
-            }
+    public format(useSymbol = false, cnySplit = false, hasSplit = true): string {
+        if (this.hasError) {
+            return '';
         }
 
-        let negative = '';
-        if (this.m_intValue < 0) {
-            negative = '-';
+        const value = this.value;
+        const isNegative = value < 0;
+        const absValue = Math.abs(value);
+        const integer = Math.floor(absValue);
+        const decimal = Math.round((absValue - integer) * CNYCurrency.PRECISION);
+
+        let result = '';
+        if (useSymbol) {
+            result += '¥';
         }
-        let strSymbol = '';
-        if (paramUseSymbol) {
-            strSymbol = '￥';
+
+        if (isNegative) {
+            result += '-';
         }
-        return [strSymbol, negative, yuan, '.', cent].join(''); // `${strSymbol}${negative}${yuan}.${cent}`;
+
+        let integerStr = integer.toString();
+        if (hasSplit) {
+            integerStr = integerStr.replace(cnySplit ? REGEX.GROUP_CNY : REGEX.GROUP, '$1,');
+        }
+        result += integerStr;
+
+        if (decimal > 0) {
+            result += `.${decimal.toString().padStart(2, '0')}`;
+        }
+
+        return result;
     }
 
-    public toJSON() {
+    /**
+     * 转换为JSON
+     */
+    public toJSON(): number {
         return this.value;
     }
 }
 
-exports.CNYCurrency = CNYCurrency;
+export default CNYCurrency;
