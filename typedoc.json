@@ -1,0 +1,27 @@
+{
+  "entryPoints": ["./lib/index.ts"],
+  "out": "docs",
+  "exclude": ["**/*.test.ts", "**/__tests__/**"],
+  "theme": "default",
+  "name": "xmcommon Documentation",
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "excludeExternals": true,
+  "includeVersion": true,
+  "hideGenerator": true,
+  "categorizeByGroup": true,
+  "categoryOrder": [
+    "Utils",
+    "Error Handling",
+    "Data Structures",
+    "Cryptography",
+    "Date and Time",
+    "*"
+  ],
+  "readme": "README.md",
+  "plugin": ["typedoc-plugin-markdown"],
+  "validation": {
+    "invalidLink": true,
+    "notExported": true
+  }
+}

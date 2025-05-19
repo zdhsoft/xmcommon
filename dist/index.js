@@ -25,5 +25,4 @@ __exportStar(require("./cnycurrency"), exports);
 __exportStar(require("./constant"), exports);
 __exportStar(require("./watchrequire"), exports);
 __exportStar(require("./log"), exports);
-__exportStar(require("./buffer_wapper"), exports);
 __exportStar(require("./list_struct"), exports);
